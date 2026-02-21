@@ -301,7 +301,7 @@ export default function Sidebar() {
               Legal
             </Typography>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25, px: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.25 }}>
             <IconButton
               component="a"
               href="https://github.com/perspectiveanalytics/filemagic-backend"
