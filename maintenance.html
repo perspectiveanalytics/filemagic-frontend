@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileMagic — Maintenance</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F172A'/%3E%3Crect x='4' y='3' width='14' height='17' rx='2' fill='%231E3A8A'/%3E%3Cpath d='M15,11H23L27,15V26Q27,28,25,28H15Q13,28,13,26V13Q13,11,15,11Z' fill='%232563EB'/%3E%3Cpath d='M23,11V15H27Z' fill='%231D4ED8'/%3E%3Cpath d='M25,4.2L25.5,5.5L26.8,6L25.5,6.5L25,7.8L24.5,6.5L23.2,6L24.5,5.5Z' fill='%2360A5FA'/%3E%3C/svg%3E">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-body: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-level1: #F1F5F9;
+      --text-primary: #1E293B;
+      --text-secondary: #475569;
+      --text-tertiary: #64748B;
+      --divider: #E2E8F0;
+      --primary-500: #3B82F6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-body: #0B1120;
+        --bg-surface: #131C2E;
+        --bg-level1: #1A2540;
+        --text-primary: #F1F5F9;
+        --text-secondary: #94A3B8;
+        --text-tertiary: #64748B;
+        --divider: #1E293B;
+        --primary-500: #3B82F6;
+      }
+    }
+
+    html, body {
+      height: 100%;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo span {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-level1);
+      border: 1px solid var(--divider);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .icon-wrap svg {
+      width: 22px;
+      height: 22px;
+      color: var(--text-tertiary);
+      stroke: var(--text-tertiary);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    p {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: var(--divider);
+      margin: 32px auto;
+    }
+
+    .footer {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--primary-500);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+        <rect width="32" height="32" rx="7" fill="#0F172A"/>
+        <rect x="4" y="3" width="14" height="17" rx="2" fill="#1E3A8A"/>
+        <path d="M15,11H23L27,15V26Q27,28,25,28H15Q13,28,13,26V13Q13,11,15,11Z" fill="#2563EB"/>
+        <path d="M23,11V15H27Z" fill="#1D4ED8"/>
+        <path d="M25,4.2L25.5,5.5L26.8,6L25.5,6.5L25,7.8L24.5,6.5L23.2,6L24.5,5.5Z" fill="#60A5FA"/>
+      </svg>
+      <span>FileMagic</span>
+    </div>
+
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+
+    <h1>We're currently undergoing maintenance</h1>
+    <p>We'll be back shortly. Thanks for your patience.</p>
+
+    <div class="divider"></div>
+
+    <p class="footer"><a href="https://filemagic.app">filemagic.app</a></p>
+  </div>
+</body>
+</html>

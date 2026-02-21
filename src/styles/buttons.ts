@@ -1,0 +1,17 @@
+export const actionBtnBase = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: 1,
+  px: 3,
+  py: 1.25,
+  borderRadius: '10px',
+  fontSize: '0.875rem',
+  fontWeight: 600,
+  letterSpacing: '0.01em',
+  cursor: 'pointer',
+  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+  border: 'none',
+  outline: 'none',
+  userSelect: 'none' as const,
+} as const;

@@ -1,0 +1,6 @@
+# Add allowed IPs for the /api/ proxy (one per line).
+# Uncomment and adjust as needed. This file is committed to the repo.
+# Copy to allowed_ips.conf (gitignored) and customize for your environment.
+#
+# allow 10.0.0.1;
+# allow 192.168.1.0/24;
