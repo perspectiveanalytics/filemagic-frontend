@@ -123,7 +123,7 @@ export default function OcrPage() {
         size="sm"
         variant="soft"
         color="warning"
-        sx={{ mb: 3, fontWeight: 500, fontSize: '0.7rem', whiteSpace: 'normal', textAlign: 'left', height: 'auto' }}
+        sx={{ mb: 3, fontWeight: 500, fontSize: '0.65rem', whiteSpace: 'normal', textAlign: 'left', height: 'auto', py: 0.5, px: 1.5 }}
       >
         Beta — detection accuracy may vary depending on image quality and language
       </Chip>
