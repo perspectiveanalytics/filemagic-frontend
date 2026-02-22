@@ -453,7 +453,7 @@ export default function PdfEditorPage() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {!selectedFile && conversion.status === 'idle' && (
-        <FileDropZone onFileSelect={handleFileSelect} accept=".pdf,application/pdf" maxSize={350 * 1024 * 1024} />
+        <FileDropZone onFileSelect={handleFileSelect} accept=".pdf,application/pdf" maxSize={100 * 1024 * 1024} />
       )}
 
       {loading && (
@@ -847,7 +847,7 @@ export default function PdfEditorPage() {
         howTo={{
           title: 'How to edit a PDF online',
           steps: [
-            'Upload your PDF file (up to 350 MB).',
+            'Upload your PDF file (up to 100 MB).',
             'Use the Pages tab to rotate, reorder, delete, or extract pages.',
             'Add a watermark, page numbers, or redact sensitive content using the other tabs.',
             'Click "Apply & Download" to save the edited PDF.',
@@ -862,7 +862,7 @@ export default function PdfEditorPage() {
           { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
         ]}
         faq={[
-          { question: 'What is the maximum file size?', answer: 'You can upload PDF files up to 350 MB. The editor renders page thumbnails locally in your browser for fast interaction.' },
+          { question: 'What is the maximum file size?', answer: 'You can upload PDF files up to 100 MB. The editor renders page thumbnails locally in your browser for fast interaction.' },
           { question: 'Can I undo changes?', answer: 'Yes. Use the Reset button on the Pages tab to restore the original page order and rotations. You can also start over at any time.' },
           { question: 'Is redacted content truly removed?', answer: 'Yes. Redacted areas are permanently removed from the PDF at the server level. The content cannot be recovered or revealed.' },
           { question: 'Can I add both watermarks and page numbers?', answer: 'Yes. All editing features can be combined in a single operation — rotate, reorder, watermark, page numbers, and redactions are applied together.' },

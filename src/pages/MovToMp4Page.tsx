@@ -53,7 +53,7 @@ export default function MovToMp4Page() {
         <FileDropZone
           onFileSelect={handleFileSelect}
           accept=".mov,video/quicktime"
-          maxSize={200 * 1024 * 1024}
+          maxSize={100 * 1024 * 1024}
         />
       ) : (
         <Box>
@@ -79,7 +79,7 @@ export default function MovToMp4Page() {
         howTo={{
           title: 'How to convert MOV to MP4 online',
           steps: [
-            'Upload your MOV file (up to 200 MB).',
+            'Upload your MOV file (up to 100 MB).',
             'The conversion to MP4 starts automatically.',
             'Wait a moment while the video is re-encoded.',
             'Download the MP4 file instantly.',
@@ -90,13 +90,13 @@ export default function MovToMp4Page() {
           { icon: <DevicesOutlinedIcon />, title: 'Universal Compatibility', description: 'MP4 is supported on virtually every device, browser, and platform.' },
           { icon: <HighQualityOutlinedIcon />, title: 'Quality Preserved', description: 'Video is re-encoded with H.264 at high quality to minimize visual loss.' },
           { icon: <MovieOutlinedIcon />, title: 'Audio Included', description: 'Both video and audio tracks are converted — nothing is stripped out.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Most MOV files convert in seconds, even files up to 200 MB.' },
+          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Most MOV files convert in seconds, even files up to 100 MB.' },
           { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
         ]}
         faq={[
           { question: 'Why convert MOV to MP4?', answer: 'MOV is an Apple QuickTime format that may not play on all devices. MP4 is the most widely supported video format and works everywhere — Windows, Android, web browsers, and social media platforms.' },
           { question: 'Will converting lose quality?', answer: 'There is minimal quality loss. The video is re-encoded with H.264 at high quality settings to preserve as much detail as possible.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 200 MB. This tool is currently in beta and works best with files under 50 MB.' },
+          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 100 MB. This tool is currently in beta and works best with files under 50 MB.' },
           { question: 'Can I convert other video formats to MP4?', answer: 'This tool is specifically for MOV to MP4. For other formats, use the Video Compress tool which accepts MP4, MKV, AVI, MOV, and WebM.' },
         ]}
         relatedTools={[

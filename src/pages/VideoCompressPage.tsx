@@ -220,7 +220,7 @@ export default function VideoCompressPage() {
         <FileDropZone
           onFileSelect={handleFileSelect}
           accept=".mp4,.mkv,.avi,.mov,.webm,video/*"
-          maxSize={200 * 1024 * 1024}
+          maxSize={100 * 1024 * 1024}
         />
       ) : (
         <Box>
@@ -247,7 +247,7 @@ export default function VideoCompressPage() {
           steps: [
             'Choose a compression mode — quality preset or target file size.',
             'For quality mode, select High, Medium, or Low. For target size, pick a preset or enter a custom size in MB.',
-            'Upload your video file (up to 200 MB).',
+            'Upload your video file (up to 100 MB).',
             'Download the compressed video instantly.',
           ],
         }}
@@ -256,14 +256,14 @@ export default function VideoCompressPage() {
           { icon: <TuneOutlinedIcon />, title: 'Quality Control', description: 'Fine-tune output with High, Medium, or Low quality presets for different use cases.' },
           { icon: <MovieOutlinedIcon />, title: 'Multiple Formats', description: 'Supports MP4, MOV, MKV, AVI, and WebM video files.' },
           { icon: <HighQualityOutlinedIcon />, title: 'Smart Encoding', description: 'Uses H.264 encoding with optimized settings to maximize quality at the target size.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Videos are compressed quickly, even for files up to 200 MB.' },
+          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Videos are compressed quickly, even for files up to 100 MB.' },
           { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
         ]}
         faq={[
           { question: 'How much smaller will my video be?', answer: 'It depends on the source. Videos with high bitrates can often be reduced 50-80% with medium quality. Low-bitrate videos may see smaller reductions.' },
           { question: 'What is the difference between quality mode and target size mode?', answer: 'Quality mode uses CRF (Constant Rate Factor) to maintain consistent visual quality throughout the video. Target size mode adjusts the bitrate to fit the video into your specified file size.' },
           { question: 'Will compression affect video quality?', answer: 'Yes, some quality loss is expected. High quality mode preserves most detail. Medium is a good balance. Low prioritizes small file size over visual quality.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 200 MB. This tool is currently in beta and works best with files under 50 MB.' },
+          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 100 MB. This tool is currently in beta and works best with files under 50 MB.' },
           { question: 'What output format will I get?', answer: 'The output is always MP4 with H.264 video and AAC audio for maximum compatibility across devices and platforms.' },
         ]}
         relatedTools={[
