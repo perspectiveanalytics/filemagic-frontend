@@ -1,8 +1,9 @@
 import { useState, useCallback, useRef } from 'react';
-import { Box, Typography, Textarea, IconButton, Tooltip, Sheet, Radio, RadioGroup, FormControl } from '@mui/joy';
+import { Box, Typography, Textarea, IconButton, Tooltip, Sheet, Radio, RadioGroup, FormControl, Input } from '@mui/joy';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import SEO, { buildToolSchema } from '../components/SEO';
 import ToolDisclaimer from '../components/ToolDisclaimer';
 import ToolSEOContent from '../components/ToolSEOContent';
@@ -21,6 +22,7 @@ export default function Base64Page() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [ext, setExt] = useState('txt');
   const fileRef = useRef<HTMLInputElement>(null);
 
   const convert = useCallback(
@@ -92,6 +94,20 @@ export default function Base64Page() {
       setTimeout(() => setCopied(false), 2000);
     }
   }, [output]);
+
+  const handleDownload = useCallback(() => {
+    if (!output) return;
+    const sanitized = ext.replace(/[^a-zA-Z0-9]/g, '') || 'txt';
+    const blob = new Blob([output], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `base64-output.${sanitized}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [output, ext]);
 
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -267,21 +283,51 @@ export default function Base64Page() {
             {mode === 'encode' ? 'Base64' : 'Text'}
           </Typography>
           {output && (
-            <Tooltip title={copied ? 'Copied!' : 'Copy'} placement="left">
-              <IconButton
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+              <Input
                 size="sm"
-                variant="soft"
-                color={copied ? 'success' : 'neutral'}
-                onClick={handleCopy}
-                sx={{ minWidth: 28, minHeight: 28 }}
-              >
-                {copied ? (
-                  <CheckRoundedIcon sx={{ fontSize: 14 }} />
-                ) : (
-                  <ContentCopyRoundedIcon sx={{ fontSize: 14 }} />
-                )}
-              </IconButton>
-            </Tooltip>
+                value={ext}
+                onChange={(e) => setExt(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
+                startDecorator={
+                  <Typography level="body-xs" sx={{ color: 'text.tertiary', userSelect: 'none' }}>
+                    .
+                  </Typography>
+                }
+                sx={{
+                  width: 80,
+                  '--Input-minHeight': '28px',
+                  '--Input-paddingInline': '6px',
+                  fontSize: '0.75rem',
+                  fontFamily: 'monospace',
+                }}
+              />
+              <Tooltip title="Download" placement="top">
+                <IconButton
+                  size="sm"
+                  variant="soft"
+                  color="primary"
+                  onClick={handleDownload}
+                  sx={{ minWidth: 28, minHeight: 28 }}
+                >
+                  <FileDownloadOutlinedIcon sx={{ fontSize: 14 }} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={copied ? 'Copied!' : 'Copy'} placement="top">
+                <IconButton
+                  size="sm"
+                  variant="soft"
+                  color={copied ? 'success' : 'neutral'}
+                  onClick={handleCopy}
+                  sx={{ minWidth: 28, minHeight: 28 }}
+                >
+                  {copied ? (
+                    <CheckRoundedIcon sx={{ fontSize: 14 }} />
+                  ) : (
+                    <ContentCopyRoundedIcon sx={{ fontSize: 14 }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+            </Box>
           )}
         </Box>
         <Textarea
