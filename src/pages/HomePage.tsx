@@ -72,7 +72,7 @@ const tools = [
     icon: <DocumentScannerOutlinedIcon />,
   },
   {
-    path: '/generate/qrcode',
+    path: '/qrcode',
     title: 'QR Code',
     description: 'Generate QR codes for URLs, WiFi, contacts and more',
     icon: <QrCode2OutlinedIcon />,

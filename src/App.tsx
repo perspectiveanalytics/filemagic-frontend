@@ -86,7 +86,7 @@ export default function App() {
           <Route path="/metadata/remove" element={<MetadataRemovePage />} />
           <Route path="/merge/pdf" element={<PdfMergePage />} />
           <Route path="/merge/image-to-pdf" element={<ImageToPdfPage />} />
-          <Route path="/generate/qrcode" element={<QrCodePage />} />
+          <Route path="/qrcode" element={<QrCodePage />} />
           <Route path="/inspect/certificate" element={<CertInspectPage />} />
           <Route path="/convert/certificate" element={<CertConvertPage />} />
           <Route path="/archive/create" element={<ArchivePage />} />

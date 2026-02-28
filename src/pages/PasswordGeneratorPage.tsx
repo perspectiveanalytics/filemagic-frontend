@@ -626,7 +626,7 @@ export default function PasswordGeneratorPage() {
           { question: 'What is entropy?', answer: 'Entropy measures password strength in bits. It depends on both length and the size of the character pool. Higher entropy means more possible combinations and a harder password to crack.' },
         ]}
         relatedTools={[
-          { label: 'QR Code Generator', href: '/generate/qrcode' },
+          { label: 'QR Code Generator', href: '/qrcode' },
           { label: 'Certificate Inspector', href: '/inspect/certificate' },
           { label: 'Compress & Encrypt', href: '/archive/create' },
           { label: 'PDF Compress', href: '/compress/pdf' },

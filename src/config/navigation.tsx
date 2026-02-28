@@ -119,7 +119,7 @@ export const categories: NavCategory[] = [
     id: 'utilities',
     label: 'Utilities',
     items: [
-      { path: '/generate/qrcode', label: 'QR Code', icon: <QrCode2OutlinedIcon fontSize="small" />, keywords: 'qr barcode link url generate' },
+      { path: '/qrcode', label: 'QR Code', icon: <QrCode2OutlinedIcon fontSize="small" />, keywords: 'qr barcode link url generate' },
       { path: '/convert/yaml', label: 'YAML / JSON', icon: <DataObjectOutlinedIcon fontSize="small" />, keywords: 'yaml json convert format validate tree coercion' },
       { path: '/tools/word-counter', label: 'Word Counter', icon: <TextFieldsOutlinedIcon fontSize="small" />, keywords: 'count words characters sentences paragraphs reading time' },
       { path: '/convert/json-csv', label: 'JSON / CSV', icon: <TableChartOutlinedIcon fontSize="small" />, keywords: 'json csv convert table data spreadsheet' },

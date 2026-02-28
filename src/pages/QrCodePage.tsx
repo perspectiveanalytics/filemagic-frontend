@@ -62,7 +62,7 @@ export default function QrCodePage() {
   const [dotShape, setDotShape] = useState('square');
   const [eyeShape, setEyeShape] = useState('square');
 
-  const conversion = useTextConversion('/generate/qrcode');
+  const conversion = useTextConversion('/qrcode');
 
   const setField = useCallback((key: string, value: string) => {
     setFields(prev => ({ ...prev, [key]: value }));
@@ -98,8 +98,8 @@ export default function QrCodePage() {
       <SEO
         title="QR Code Generator"
         description="Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup."
-        path="/generate/qrcode"
-        structuredData={buildToolSchema('QR Code Generator', 'Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup.', '/generate/qrcode')}
+        path="/qrcode"
+        structuredData={buildToolSchema('QR Code Generator', 'Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup.', '/qrcode')}
       />
       <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
         QR Code Generator

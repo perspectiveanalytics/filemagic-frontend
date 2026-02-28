@@ -119,7 +119,7 @@ export default function FontConvertPage() {
         relatedTools={[
           { label: 'Ebook Converter', href: '/convert/ebook' },
           { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'QR Code Generator', href: '/generate/qrcode' },
+          { label: 'QR Code Generator', href: '/qrcode' },
           { label: 'Compress & Encrypt', href: '/archive/create' },
         ]}
       />

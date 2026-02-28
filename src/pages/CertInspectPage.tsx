@@ -806,7 +806,7 @@ export default function CertInspectPage() {
           { label: 'Certificate Converter', href: '/convert/certificate' },
           { label: 'Password Generator', href: '/generate/password' },
           { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'QR Code Generator', href: '/generate/qrcode' },
+          { label: 'QR Code Generator', href: '/qrcode' },
         ]}
       />
     </Box>

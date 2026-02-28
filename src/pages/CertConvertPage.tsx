@@ -186,7 +186,7 @@ export default function CertConvertPage() {
           { label: 'Certificate Inspector', href: '/inspect/certificate' },
           { label: 'Password Generator', href: '/generate/password' },
           { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'QR Code Generator', href: '/generate/qrcode' },
+          { label: 'QR Code Generator', href: '/qrcode' },
         ]}
       />
     </Box>
