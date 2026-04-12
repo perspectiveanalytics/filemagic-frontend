@@ -15,8 +15,10 @@ import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HighQualityOutlinedIcon from '@mui/icons-material/HighQualityOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function PdfExtractImagesPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<{ file: FileManifestEntry; url: string } | null>(null);
 
@@ -66,13 +68,9 @@ export default function PdfExtractImagesPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Extract Images from PDF" description="Extract all images from a PDF file for free. Download individually or as ZIP." path="/convert/pdf-extract-images" structuredData={buildToolSchema('Extract Images from PDF', 'Extract images from PDF files.', '/convert/pdf-extract-images')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Extract Images from PDF
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Extract all embedded images from a PDF file
-      </Typography>
+      <SEO title={t`Extract Images from PDF`} description={t`Extract all images from a PDF file for free. Download individually or as ZIP.`} path="/convert/pdf-extract-images" structuredData={buildToolSchema(t`Extract Images from PDF`, t`Extract images from PDF files.`, '/convert/pdf-extract-images')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Extract Images from PDF</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Extract all embedded images from a PDF file</Trans></Typography>
 
       <ToolDisclaimer toolId="pdf-extract-images" />
 
@@ -104,33 +102,33 @@ export default function PdfExtractImagesPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to extract images from a PDF',
+          title: t`How to extract images from a PDF`,
           steps: [
-            'Upload your PDF file (up to 30 MB).',
-            'The tool automatically finds and extracts all embedded images.',
-            'Preview extracted images with the built-in lightbox viewer.',
-            'Download images individually or all at once as a ZIP file.',
+            t`Upload your PDF file (up to 30 MB).`,
+            t`The tool automatically finds and extracts all embedded images.`,
+            t`Preview extracted images with the built-in lightbox viewer.`,
+            t`Download images individually or all at once as a ZIP file.`,
           ],
         }}
         features={[
-          { icon: <ImageOutlinedIcon />, title: 'Extract All Images', description: 'Automatically finds and extracts every embedded image from your PDF document.' },
-          { icon: <HighQualityOutlinedIcon />, title: 'Original Quality', description: 'Images are extracted at their original resolution and format without re-compression.' },
-          { icon: <PhotoLibraryOutlinedIcon />, title: 'Preview & Lightbox', description: 'Browse extracted images with thumbnails and a full-size lightbox viewer.' },
-          { icon: <FolderZipOutlinedIcon />, title: 'ZIP Download', description: 'Download all extracted images at once in a convenient ZIP archive.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Extraction', description: 'Images are extracted in seconds, even from large multi-page PDF documents.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <ImageOutlinedIcon />, title: t`Extract All Images`, description: t`Automatically finds and extracts every embedded image from your PDF document.` },
+          { icon: <HighQualityOutlinedIcon />, title: t`Original Quality`, description: t`Images are extracted at their original resolution and format without re-compression.` },
+          { icon: <PhotoLibraryOutlinedIcon />, title: t`Preview & Lightbox`, description: t`Browse extracted images with thumbnails and a full-size lightbox viewer.` },
+          { icon: <FolderZipOutlinedIcon />, title: t`ZIP Download`, description: t`Download all extracted images at once in a convenient ZIP archive.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Extraction`, description: t`Images are extracted in seconds, even from large multi-page PDF documents.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What image formats are extracted?', answer: 'Images are extracted in their original embedded format — typically JPEG, PNG, or TIFF. The format depends on how images were stored in the PDF.' },
-          { question: 'Can I extract images from a scanned PDF?', answer: 'Yes. Scanned PDFs typically contain one large image per page, and each page image will be extracted.' },
-          { question: 'Is there a limit on the number of images?', answer: 'No. All embedded images are extracted regardless of quantity. The maximum PDF file size is 30 MB.' },
-          { question: 'Are vector graphics extracted too?', answer: 'No. This tool extracts raster (bitmap) images only. Vector graphics, text, and shapes are not extracted as images.' },
+          { question: t`What image formats are extracted?`, answer: t`Images are extracted in their original embedded format — typically JPEG, PNG, or TIFF. The format depends on how images were stored in the PDF.` },
+          { question: t`Can I extract images from a scanned PDF?`, answer: t`Yes. Scanned PDFs typically contain one large image per page, and each page image will be extracted.` },
+          { question: t`Is there a limit on the number of images?`, answer: t`No. All embedded images are extracted regardless of quantity. The maximum PDF file size is 30 MB.` },
+          { question: t`Are vector graphics extracted too?`, answer: t`No. This tool extracts raster (bitmap) images only. Vector graphics, text, and shapes are not extracted as images.` },
         ]}
         relatedTools={[
-          { label: 'PDF Editor', href: '/edit/pdf' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Images to PDF', href: '/merge/image-to-pdf' },
-          { label: 'PDF Merge', href: '/merge/pdf' },
+          { label: t`PDF Editor`, href: '/edit/pdf' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Images to PDF`, href: '/merge/image-to-pdf' },
+          { label: t`PDF Merge`, href: '/merge/pdf' },
         ]}
       />
 

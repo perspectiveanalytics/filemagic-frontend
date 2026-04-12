@@ -21,115 +21,28 @@ import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { Trans, useLingui } from '@lingui/react/macro';
 
-const tools = [
-  {
-    path: '/compress/pdf',
-    title: 'PDF Compress',
-    description: 'Shrink PDF file size without losing readability',
-    icon: <PictureAsPdfOutlinedIcon />,
-  },
-  {
-    path: '/edit/pdf',
-    title: 'PDF Editor',
-    description: 'Rotate, reorder, delete, split, watermark and redact pages',
-    icon: <EditNoteOutlinedIcon />,
-  },
-  {
-    path: '/convert/image',
-    title: 'Image Tools',
-    description: 'Convert, crop, resize images. Generate favicons.',
-    icon: <SwapHorizOutlinedIcon />,
-  },
-  {
-    path: '/merge/pdf',
-    title: 'Merge PDFs',
-    description: 'Combine multiple PDF files into one document',
-    icon: <MergeOutlinedIcon />,
-  },
-  {
-    path: '/compress/image',
-    title: 'Image Compress',
-    description: 'Reduce image size with crop, resize and quality control',
-    icon: <PhotoSizeSelectLargeOutlinedIcon />,
-  },
-  {
-    path: '/convert/heic',
-    title: 'HEIC Convert',
-    description: 'Convert iPhone HEIC photos to JPG, PNG or WebP',
-    icon: <PhotoCameraOutlinedIcon />,
-  },
-  {
-    path: '/compress/video',
-    title: 'Video Compress',
-    description: 'Reduce video file size by quality or target size',
-    icon: <VideoFileOutlinedIcon />,
-  },
-  {
-    path: '/ocr',
-    title: 'OCR',
-    description: 'Extract text from images and scanned documents',
-    icon: <DocumentScannerOutlinedIcon />,
-  },
-  {
-    path: '/qrcode',
-    title: 'QR Code',
-    description: 'Generate QR codes for URLs, WiFi, contacts and more',
-    icon: <QrCode2OutlinedIcon />,
-  },
-  {
-    path: '/archive/create',
-    title: 'Encrypt & Compress',
-    description: 'Create password-protected ZIP, 7z or tar archives',
-    icon: <FolderZipOutlinedIcon />,
-  },
-  {
-    path: '/archive/decompress',
-    title: 'Decompress',
-    description: 'Extract ZIP, RAR, 7z, tar and other archive formats',
-    icon: <UnarchiveOutlinedIcon />,
-  },
-  {
-    path: '/convert/mov-to-mp4',
-    title: 'MOV to MP4',
-    description: 'Convert Apple QuickTime videos to universal MP4',
-    icon: <MovieFilterOutlinedIcon />,
-  },
+const TOOL_ICONS = [
+  <PictureAsPdfOutlinedIcon />,
+  <EditNoteOutlinedIcon />,
+  <SwapHorizOutlinedIcon />,
+  <MergeOutlinedIcon />,
+  <PhotoSizeSelectLargeOutlinedIcon />,
+  <PhotoCameraOutlinedIcon />,
+  <VideoFileOutlinedIcon />,
+  <DocumentScannerOutlinedIcon />,
+  <QrCode2OutlinedIcon />,
+  <FolderZipOutlinedIcon />,
+  <UnarchiveOutlinedIcon />,
+  <MovieFilterOutlinedIcon />,
 ];
 
-const features = [
-  { icon: <VolunteerActivismOutlinedIcon sx={{ fontSize: 18 }} />, text: 'Always free, no account needed', color: 'primary.400' },
-  { icon: <LockOutlinedIcon sx={{ fontSize: 18 }} />, text: 'Your files stay yours — never stored', color: 'success.500' },
-  { icon: <SpeedOutlinedIcon sx={{ fontSize: 18 }} />, text: 'Instant results, everything in memory', color: 'warning.500' },
+const TOOL_PATHS = [
+  '/compress/pdf', '/edit/pdf', '/convert/image', '/merge/pdf',
+  '/compress/image', '/convert/heic', '/compress/video', '/ocr',
+  '/qrcode', '/archive/create', '/archive/decompress', '/convert/mov-to-mp4',
 ];
-
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'FileMagic',
-  url: 'https://filemagic.app',
-  applicationCategory: 'UtilitiesApplication',
-  operatingSystem: 'Any',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  description: 'Free, private file conversion tools. Compress PDFs and videos, convert images, extract text with OCR, generate QR codes, and more. No signup, no ads, files never touch disk.',
-  featureList: [
-    'PDF compression, merging, splitting, page rotation and reordering',
-    'Image format conversion (HEIC, SVG, PNG, JPG, WebP, BMP, TIFF)',
-    'Image compression, resizing and cropping',
-    'Video compression, MOV to MP4, video to GIF',
-    'Audio extraction and conversion',
-    'OCR text extraction from images and scanned documents',
-    'QR code generation for URLs, WiFi, contacts, email and more',
-    'Encrypted archive creation (ZIP, 7z, tar.gz, tar.zst)',
-    'Archive decompression (ZIP, RAR, 7z, tar)',
-    'PDF password protection and removal',
-    'SSL/TLS certificate inspection and format conversion',
-    'Metadata removal for privacy (EXIF, GPS)',
-    'Secure password generation',
-    'Markdown to PDF conversion',
-    'YAML/JSON and CSV/Excel conversion tools',
-  ],
-};
 
 function formatCount(n: number): string {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, '')}M`;
@@ -138,18 +51,68 @@ function formatCount(n: number): string {
 }
 
 export default function HomePage() {
+  const { t } = useLingui();
   const [stats, setStats] = useState<{ filesProcessed: number; thanks: number } | null>(null);
 
   useEffect(() => {
     apiClient.getStats().then(setStats).catch(() => {});
   }, []);
 
+  const tools = [
+    { path: TOOL_PATHS[0], title: t`PDF Compress`, description: t`Shrink PDF file size without losing readability`, icon: TOOL_ICONS[0] },
+    { path: TOOL_PATHS[1], title: t`PDF Editor`, description: t`Rotate, reorder, delete, split, watermark and redact pages`, icon: TOOL_ICONS[1] },
+    { path: TOOL_PATHS[2], title: t`Image Tools`, description: t`Convert, crop, resize images. Generate favicons.`, icon: TOOL_ICONS[2] },
+    { path: TOOL_PATHS[3], title: t`Merge PDFs`, description: t`Combine multiple PDF files into one document`, icon: TOOL_ICONS[3] },
+    { path: TOOL_PATHS[4], title: t`Image Compress`, description: t`Reduce image size with crop, resize and quality control`, icon: TOOL_ICONS[4] },
+    { path: TOOL_PATHS[5], title: t`HEIC Convert`, description: t`Convert iPhone HEIC photos to JPG, PNG or WebP`, icon: TOOL_ICONS[5] },
+    { path: TOOL_PATHS[6], title: t`Video Compress`, description: t`Reduce video file size by quality or target size`, icon: TOOL_ICONS[6] },
+    { path: TOOL_PATHS[7], title: 'OCR', description: t`Extract text from images and scanned documents`, icon: TOOL_ICONS[7] },
+    { path: TOOL_PATHS[8], title: t`QR Code`, description: t`Generate QR codes for URLs, WiFi, contacts and more`, icon: TOOL_ICONS[8] },
+    { path: TOOL_PATHS[9], title: t`Encrypt & Compress`, description: t`Create password-protected ZIP, 7z or tar archives`, icon: TOOL_ICONS[9] },
+    { path: TOOL_PATHS[10], title: t`Decompress`, description: t`Extract ZIP, RAR, 7z, tar and other archive formats`, icon: TOOL_ICONS[10] },
+    { path: TOOL_PATHS[11], title: 'MOV to MP4', description: t`Convert Apple QuickTime videos to universal MP4`, icon: TOOL_ICONS[11] },
+  ];
+
+  const features = [
+    { icon: <VolunteerActivismOutlinedIcon sx={{ fontSize: 18 }} />, text: t`Always free, no account needed`, color: 'primary.400' },
+    { icon: <LockOutlinedIcon sx={{ fontSize: 18 }} />, text: t`Your files stay yours — never stored`, color: 'success.500' },
+    { icon: <SpeedOutlinedIcon sx={{ fontSize: 18 }} />, text: t`Instant results, everything in memory`, color: 'warning.500' },
+  ];
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'FileMagic',
+    url: 'https://filemagic.app',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    description: t`Free, private file conversion tools. Compress PDFs and videos, convert images, extract text with OCR, generate QR codes, and more. No signup, no ads, files never touch disk.`,
+    featureList: [
+      t`PDF compression, merging, splitting, page rotation and reordering`,
+      t`Image format conversion (HEIC, SVG, PNG, JPG, WebP, BMP, TIFF)`,
+      t`Image compression, resizing and cropping`,
+      t`Video compression, MOV to MP4, video to GIF`,
+      t`Audio extraction and conversion`,
+      t`OCR text extraction from images and scanned documents`,
+      t`QR code generation for URLs, WiFi, contacts, email and more`,
+      t`Encrypted archive creation (ZIP, 7z, tar.gz, tar.zst)`,
+      t`Archive decompression (ZIP, RAR, 7z, tar)`,
+      t`PDF password protection and removal`,
+      t`SSL/TLS certificate inspection and format conversion`,
+      t`Metadata removal for privacy (EXIF, GPS)`,
+      t`Secure password generation`,
+      t`Markdown to PDF conversion`,
+      t`YAML/JSON and CSV/Excel conversion tools`,
+    ],
+  };
+
   return (
     <Box sx={{ maxWidth: 640, mx: 'auto', width: '100%', py: { xs: 3, md: 5 } }}>
       <SEO
-        title="Free Private File Conversion"
+        title={t`Free Private File Conversion`}
         path="/"
-        description="Free, private file conversion tools. Compress PDFs and videos, convert images, generate QR codes, extract text with OCR, and more. No signup required."
+        description={t`Free, private file conversion tools. Compress PDFs and videos, convert images, generate QR codes, extract text with OCR, and more. No signup required.`}
         structuredData={structuredData}
       />
       <Box sx={{ mb: 5 }}>
@@ -162,12 +125,8 @@ export default function HomePage() {
             letterSpacing: '-0.03em',
             fontSize: { xs: '1.75rem', md: '2rem' },
           }}
-        >
-          File tools that just work
-        </Typography>
-        <Typography level="body-md" sx={{ color: 'text.secondary', lineHeight: 1.8, mb: 3, maxWidth: 480 }}>
-          Drop a file, pick a tool, get your result. No accounts to create, no ads, no data collected, no strings attached.
-        </Typography>
+        ><Trans>File tools that just work</Trans></Typography>
+        <Typography level="body-md" sx={{ color: 'text.secondary', lineHeight: 1.8, mb: 3, maxWidth: 480 }}><Trans>Drop a file, pick a tool, get your result. No accounts to create, no ads, no data collected, no strings attached.</Trans></Typography>
 
         {stats && (stats.filesProcessed > 0 || stats.thanks > 0) && (
           <Box
@@ -189,7 +148,7 @@ export default function HomePage() {
                 <Typography component="span" sx={{ fontWeight: 700, color: 'text.primary', fontVariantNumeric: 'tabular-nums' }}>
                   {formatCount(stats.filesProcessed)}
                 </Typography>
-                {' files processed'}
+                {' '}<Trans>files processed</Trans>
               </Typography>
             )}
             {stats.filesProcessed > 0 && stats.thanks > 0 && (
@@ -200,7 +159,7 @@ export default function HomePage() {
                 <Typography component="span" sx={{ fontWeight: 700, color: 'text.primary', fontVariantNumeric: 'tabular-nums' }}>
                   {formatCount(stats.thanks)}
                 </Typography>
-                {' thanks'}
+                {' '}<Trans>thanks</Trans>
               </Typography>
             )}
           </Box>
@@ -248,9 +207,7 @@ export default function HomePage() {
             }}
           >
             <SecurityOutlinedIcon sx={{ fontSize: 15 }} />
-            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'inherit' }}>
-              See how we protect your files
-            </Typography>
+            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'inherit' }}><Trans>See how we protect your files</Trans></Typography>
             <ArrowForwardIcon className="security-arrow" sx={{ fontSize: 13, transition: 'transform 0.2s ease' }} />
           </Box>
           <Box
@@ -281,9 +238,7 @@ export default function HomePage() {
             }}
           >
             <GitHubIcon sx={{ fontSize: 15 }} />
-            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'inherit' }}>
-              Open source
-            </Typography>
+            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'inherit' }}><Trans>Open source</Trans></Typography>
             <ArrowForwardIcon className="github-arrow" sx={{ fontSize: 13, transition: 'transform 0.2s ease' }} />
           </Box>
         </Box>
@@ -363,11 +318,11 @@ export default function HomePage() {
 
       <Box sx={{ mt: 5, display: 'flex', gap: 1.5 }}>
         <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-          <Link to="/privacy" style={{ color: 'inherit' }}>Privacy</Link>
+          <Link to="/privacy" style={{ color: 'inherit' }}><Trans>Privacy</Trans></Link>
           {' · '}
-          <Link to="/terms" style={{ color: 'inherit' }}>Terms</Link>
+          <Link to="/terms" style={{ color: 'inherit' }}><Trans>Terms</Trans></Link>
           {' · '}
-          <Link to="/legal" style={{ color: 'inherit' }}>Legal</Link>
+          <Link to="/legal" style={{ color: 'inherit' }}><Trans>Legal</Trans></Link>
           {' · '}
           <a href="https://github.com/perspectiveanalytics/filemagic-backend" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>GitHub</a>
         </Typography>

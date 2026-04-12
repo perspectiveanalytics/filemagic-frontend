@@ -1,4 +1,5 @@
-import type { ReactElement } from 'react';
+import { type ReactElement, useMemo } from 'react';
+import { useLingui } from '@lingui/react/macro';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SwapHorizOutlinedIcon from '@mui/icons-material/SwapHorizOutlined';
 import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined';
@@ -147,3 +148,75 @@ export const allItems: NavItem[] = (() => {
   }
   return items;
 })();
+
+/** Hook that returns navigation data with translated labels. */
+export function useNavigation() {
+  const { t } = useLingui();
+
+  return useMemo(() => {
+    const labels: Record<string, string> = {
+      'Home': t`Home`,
+      'Image Tools': t`Image Tools`,
+      'HEIC Convert': t`HEIC Convert`,
+      'Image Compress': t`Image Compress`,
+      'OCR': t`OCR`,
+      'Metadata': t`Metadata`,
+      'Images to PDF': t`Images to PDF`,
+      'PDF Compress': t`PDF Compress`,
+      'PDF Editor': t`PDF Editor`,
+      'Merge PDFs': t`Merge PDFs`,
+      'Markdown to PDF': t`Markdown to PDF`,
+      'PDF Password': t`PDF Password`,
+      'Extract Images': t`Extract Images`,
+      'PDF Repair': t`PDF Repair`,
+      'Extract Audio': t`Extract Audio`,
+      'Audio Convert': t`Audio Convert`,
+      'Video Compress': t`Video Compress`,
+      'MOV to MP4': t`MOV to MP4`,
+      'Video to GIF': t`Video to GIF`,
+      'Cert Inspector': t`Cert Inspector`,
+      'Cert Convert': t`Cert Convert`,
+      'Encrypt & Compress': t`Encrypt & Compress`,
+      'Decompress': t`Decompress`,
+      'Password': t`Password`,
+      'QR Code': t`QR Code`,
+      'YAML / JSON': t`YAML / JSON`,
+      'Word Counter': t`Word Counter`,
+      'JSON / CSV': t`JSON / CSV`,
+      'Base64': t`Base64`,
+      'CSV / Excel': t`CSV / Excel`,
+      'ASCII Art': t`ASCII Art`,
+      'Hash Generator': t`Hash Generator`,
+      'Font Convert': t`Font Convert`,
+      'Ebook Convert': t`Ebook Convert`,
+      'Image': t`Image`,
+      'PDF': t`PDF`,
+      'Audio / Video': t`Audio / Video`,
+      'Security': t`Security`,
+      'Utilities': t`Utilities`,
+    };
+
+    const tr = (label: string) => labels[label] ?? label;
+
+    const tHomeItem: NavItem = { ...homeItem, label: tr(homeItem.label) };
+
+    const tCategories: NavCategory[] = categories.map((cat) => ({
+      ...cat,
+      label: tr(cat.label),
+      items: cat.items.map((item) => ({ ...item, label: tr(item.label) })),
+    }));
+
+    const seen = new Set<string>();
+    const tAllItems: NavItem[] = [tHomeItem];
+    for (const cat of tCategories) {
+      for (const item of cat.items) {
+        if (!seen.has(item.path)) {
+          seen.add(item.path);
+          tAllItems.push(item);
+        }
+      }
+    }
+
+    return { homeItem: tHomeItem, categories: tCategories, allItems: tAllItems };
+  }, [t]);
+}

@@ -14,8 +14,7 @@ import KeyboardOutlinedIcon from '@mui/icons-material/KeyboardOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
 import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
-import { useLang } from '../hooks/useLang';
-import type { Lang } from '../hooks/useLang';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const UPPERCASE = 'BCDEFGHIJKLNOPRSTUVXY';
 const LOWERCASE = 'bcdefghijklnoprstuvxy';
@@ -146,24 +145,6 @@ const strengthWidths: Record<Strength, string> = {
   'very strong': '100%',
 };
 
-const BANNER_TEXT = {
-  en: {
-    title: 'Honest disclaimer',
-    body: 'Generating passwords on a website (yes, even this one) isn\'t exactly best practice. For real security, use a dedicated password manager — they generate, store, and auto-fill passwords so you don\'t have to remember anything.',
-    responsibility: 'This tool is handy for quick throwaway passwords, but don\'t blame us if you close the tab without copying. Nothing is stored — once it\'s gone, it\'s gone.',
-    recommended: 'Recommended',
-    guidelines: 'Official guidelines',
-  },
-  fr: {
-    title: 'Avertissement honnête',
-    body: 'Générer un mot de passe sur un site web (oui, même celui-ci) n\'est pas exactement une bonne pratique. Pour une vraie sécurité, utilisez un gestionnaire de mots de passe dédié — ils génèrent, stockent et remplissent automatiquement vos mots de passe.',
-    responsibility: 'Cet outil est pratique pour un mot de passe rapide, mais ne nous en voulez pas si vous fermez l\'onglet sans le copier. Rien n\'est stocké — une fois perdu, c\'est perdu.',
-    recommended: 'Recommandés',
-    guidelines: 'Guides officiels',
-  },
-};
-
-const LANGS: Lang[] = ['en', 'fr'];
 
 const linkSx = {
   color: 'warning.plainColor',
@@ -174,8 +155,8 @@ const linkSx = {
 } as const;
 
 function PasswordBestPracticeBanner() {
-  const [lang, setLang] = useLang();
-  const t = BANNER_TEXT[lang];
+  const { t } = useLingui();
+  
 
   return (
     <Box
@@ -189,79 +170,24 @@ function PasswordBestPracticeBanner() {
         position: 'relative',
       }}
     >
-      <Box
-        role="radiogroup"
-        aria-label="Banner language"
-        sx={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          display: 'inline-flex',
-          borderRadius: '6px',
-          bgcolor: 'warning.softActiveBg',
-          border: '1px solid',
-          borderColor: 'warning.outlinedBorder',
-          p: '2px',
-        }}
-      >
-        {LANGS.map((l) => (
-          <Box
-            key={l}
-            component="button"
-            role="radio"
-            aria-checked={lang === l}
-            onClick={() => setLang(l)}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              px: 0.75,
-              py: 0.125,
-              minWidth: 24,
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '0.625rem',
-              fontFamily: 'inherit',
-              fontWeight: lang === l ? 650 : 400,
-              letterSpacing: '0.04em',
-              color: lang === l ? 'warning.softBg' : 'warning.softColor',
-              bgcolor: lang === l ? 'warning.softColor' : 'transparent',
-              transition: 'all 0.15s ease',
-              outline: 'none',
-              '&:hover': {
-                opacity: lang === l ? 1 : 0.8,
-              },
-              '&:focus-visible': {
-                outline: '2px solid',
-                outlineColor: 'warning.outlinedBorder',
-                outlineOffset: '1px',
-              },
-            }}
-          >
-            {l.toUpperCase()}
-          </Box>
-        ))}
-      </Box>
-
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <WarningAmberRoundedIcon sx={{ fontSize: 18, color: 'warning.softColor' }} />
         <Typography level="title-sm" sx={{ fontWeight: 700, color: 'warning.softColor' }}>
-          {t.title}
+          {t`Honest disclaimer`}
         </Typography>
       </Box>
 
       <Typography level="body-xs" sx={{ color: 'warning.softColor', lineHeight: 1.6, mb: 1 }}>
-        {t.body}
+        {t`Generating passwords on a website (yes, even this one) isn't exactly best practice. For real security, use a dedicated password manager — they generate, store, and auto-fill passwords so you don't have to remember anything.`}
       </Typography>
 
       <Typography level="body-xs" sx={{ color: 'warning.softColor', lineHeight: 1.6, fontStyle: 'italic', opacity: 0.8, mb: 1.5 }}>
-        {t.responsibility}
+        {t`This tool is handy for quick throwaway passwords, but don't blame us if you close the tab without copying. Nothing is stored — once it's gone, it's gone.`}
       </Typography>
 
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, rowGap: 0.75, alignItems: 'center' }}>
         <Typography level="body-xs" sx={{ color: 'warning.softColor', fontWeight: 600, mr: 0.5 }}>
-          {t.recommended}:
+          {t`Recommended`}:
         </Typography>
         <Typography
           level="body-xs"
@@ -270,9 +196,7 @@ function PasswordBestPracticeBanner() {
           target="_blank"
           rel="noopener noreferrer"
           sx={linkSx}
-        >
-          KeePassXC
-        </Typography>
+        ><Trans>KeePassXC</Trans></Typography>
         <Typography level="body-xs" sx={{ color: 'warning.softColor', opacity: 0.6 }}>·</Typography>
         <Typography
           level="body-xs"
@@ -281,12 +205,10 @@ function PasswordBestPracticeBanner() {
           target="_blank"
           rel="noopener noreferrer"
           sx={linkSx}
-        >
-          Bitwarden
-        </Typography>
+        ><Trans>Bitwarden</Trans></Typography>
         <Typography level="body-xs" sx={{ color: 'warning.softColor', opacity: 0.4, mx: 0.25 }}>|</Typography>
         <Typography level="body-xs" sx={{ color: 'warning.softColor', fontWeight: 600, mr: 0.5 }}>
-          {t.guidelines}:
+          {t`Official guidelines`}:
         </Typography>
         <Typography
           level="body-xs"
@@ -295,9 +217,7 @@ function PasswordBestPracticeBanner() {
           target="_blank"
           rel="noopener noreferrer"
           sx={linkSx}
-        >
-          ANSSI (FR)
-        </Typography>
+        ><Trans>ANSSI (FR)</Trans></Typography>
         <Typography level="body-xs" sx={{ color: 'warning.softColor', opacity: 0.6 }}>·</Typography>
         <Typography
           level="body-xs"
@@ -306,15 +226,14 @@ function PasswordBestPracticeBanner() {
           target="_blank"
           rel="noopener noreferrer"
           sx={linkSx}
-        >
-          NIST (US)
-        </Typography>
+        ><Trans>NIST (US)</Trans></Typography>
       </Box>
     </Box>
   );
 }
 
 export default function PasswordGeneratorPage() {
+  const { t } = useLingui();
   const [mode, setMode] = useState<GeneratorMode>('password');
   const [length, setLength] = useState(20);
   const [useUpper, setUseUpper] = useState(true);
@@ -385,17 +304,13 @@ export default function PasswordGeneratorPage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Password Generator"
-        description="Generate secure random passwords with QWERTY/AZERTY keyboard-safe option. Free, no signup, runs entirely in your browser."
+        title={t`Password Generator`}
+        description={t`Generate secure random passwords with QWERTY/AZERTY keyboard-safe option. Free, no signup, runs entirely in your browser.`}
         path="/generate/password"
-        structuredData={buildToolSchema('Password Generator', 'Generate secure random passwords with QWERTY/AZERTY keyboard-safe option. Free, no signup, runs entirely in your browser.', '/generate/password')}
+        structuredData={buildToolSchema(t`Password Generator`, t`Generate secure random passwords with QWERTY/AZERTY keyboard-safe option. Free, no signup, runs entirely in your browser.`, '/generate/password')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Password Generator
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 3 }}>
-        Generate secure random passwords
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Password Generator</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 3 }}><Trans>Generate secure random passwords</Trans></Typography>
 
       <ToolDisclaimer toolId="password-generator" />
 
@@ -409,7 +324,7 @@ export default function PasswordGeneratorPage() {
           startDecorator={<KeyOutlinedIcon sx={{ fontSize: 16 }} />}
           sx={{ cursor: 'pointer', fontWeight: mode === 'password' ? 600 : 400 }}
         >
-          Password
+          <Trans>Password</Trans>
         </Chip>
         <Chip
           variant={mode === 'passphrase' ? 'solid' : 'outlined'}
@@ -418,7 +333,7 @@ export default function PasswordGeneratorPage() {
           startDecorator={<TextFieldsOutlinedIcon sx={{ fontSize: 16 }} />}
           sx={{ cursor: 'pointer', fontWeight: mode === 'passphrase' ? 600 : 400 }}
         >
-          Passphrase
+          <Trans>Passphrase</Trans>
         </Chip>
       </Box>
 
@@ -454,11 +369,11 @@ export default function PasswordGeneratorPage() {
               variant="plain"
               color={copied ? 'success' : 'neutral'}
               onClick={handleCopy}
-              title="Copy"
+              title={t`Copy`}
             >
               {copied ? <CheckOutlinedIcon /> : <ContentCopyOutlinedIcon />}
             </IconButton>
-            <IconButton size="sm" variant="plain" color="neutral" onClick={generate} title="Regenerate">
+            <IconButton size="sm" variant="plain" color="neutral" onClick={generate} title={t`Regenerate`}>
               <RefreshOutlinedIcon />
             </IconButton>
           </Box>
@@ -468,9 +383,7 @@ export default function PasswordGeneratorPage() {
       {password && atLeastOne && (
         <Box sx={{ mb: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-              Strength
-            </Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Strength</Trans></Typography>
             <Typography level="body-xs" sx={{ color: strengthColors[strength], fontWeight: 600, textTransform: 'capitalize' }}>
               {strength}
             </Typography>
@@ -487,7 +400,7 @@ export default function PasswordGeneratorPage() {
             />
           </Box>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}>
-            {Math.round(entropy)} bits of entropy{mode === 'password' ? ` · ${pool.length} character pool` : ` · ${wordCount} words + digit`}
+            {mode === 'password' ? t`${Math.round(entropy)} bits of entropy · ${pool.length} character pool` : t`${Math.round(entropy)} bits of entropy · ${wordCount} words + digit`}
           </Typography>
         </Box>
       )}
@@ -507,7 +420,7 @@ export default function PasswordGeneratorPage() {
         {mode === 'passphrase' ? (
           <Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-              <Typography level="body-sm" sx={{ fontWeight: 500 }}>Words</Typography>
+              <Typography level="body-sm" sx={{ fontWeight: 500 }}><Trans>Words</Trans></Typography>
               <Typography level="body-sm" sx={{ fontFamily: 'monospace', color: 'text.secondary' }}>{wordCount}</Typography>
             </Box>
             <Slider
@@ -524,7 +437,7 @@ export default function PasswordGeneratorPage() {
           <>
             <Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                <Typography level="body-sm" sx={{ fontWeight: 500 }}>Length</Typography>
+                <Typography level="body-sm" sx={{ fontWeight: 500 }}><Trans>Length</Trans></Typography>
                 <Input
                   type="number"
                   size="sm"
@@ -548,30 +461,30 @@ export default function PasswordGeneratorPage() {
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Typography level="body-sm" sx={{ fontWeight: 500 }}>Characters</Typography>
+              <Typography level="body-sm" sx={{ fontWeight: 500 }}><Trans>Characters</Trans></Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                 <Checkbox
                   size="sm"
-                  label="Uppercase (A-Z)"
+                  label={t`Uppercase (A-Z)`}
                   checked={useUpper}
                   onChange={(e) => setUseUpper(e.target.checked)}
                 />
                 <Checkbox
                   size="sm"
-                  label="Lowercase (a-z)"
+                  label={t`Lowercase (a-z)`}
                   checked={useLower}
                   onChange={(e) => setUseLower(e.target.checked)}
                 />
                 <Checkbox
                   size="sm"
-                  label="Digits (0-9)"
+                  label={t`Digits (0-9)`}
                   checked={useDigits}
                   disabled={keyboardSafe}
                   onChange={(e) => setUseDigits(e.target.checked)}
                 />
                 <Checkbox
                   size="sm"
-                  label="Symbols (!@#...)"
+                  label={t`Symbols (!@#...)`}
                   checked={useSymbols}
                   onChange={(e) => setUseSymbols(e.target.checked)}
                 />
@@ -580,10 +493,8 @@ export default function PasswordGeneratorPage() {
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Box>
-                <Typography level="body-sm" sx={{ fontWeight: 500 }}>Keyboard-safe</Typography>
-                <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-                  Avoid QWERTY / AZERTY confusion (a↔q, z↔w, m, digits)
-                </Typography>
+                <Typography level="body-sm" sx={{ fontWeight: 500 }}><Trans>Keyboard-safe</Trans></Typography>
+                <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Avoid QWERTY / AZERTY confusion (a↔q, z↔w, m, digits)</Trans></Typography>
               </Box>
               <Switch
                 size="sm"
@@ -596,40 +507,38 @@ export default function PasswordGeneratorPage() {
       </Box>
 
       {!atLeastOne && (
-        <Typography level="body-sm" sx={{ color: 'danger.plainColor', mt: 2, textAlign: 'center' }}>
-          Select at least one character set
-        </Typography>
+        <Typography level="body-sm" sx={{ color: 'danger.plainColor', mt: 2, textAlign: 'center' }}><Trans>Select at least one character set</Trans></Typography>
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to generate a secure password',
+          title: t`How to generate a secure password`,
           steps: [
-            'Choose between Password mode (random characters) or Passphrase mode (memorable words).',
-            'For passwords: adjust length, character sets, and keyboard-safe mode. For passphrases: set the number of words (3-8).',
-            'Copy the generated result or click the refresh button to generate a new one.',
+            t`Choose between Password mode (random characters) or Passphrase mode (memorable words).`,
+            t`For passwords: adjust length, character sets, and keyboard-safe mode. For passphrases: set the number of words (3-8).`,
+            t`Copy the generated result or click the refresh button to generate a new one.`,
           ],
         }}
         features={[
-          { icon: <KeyOutlinedIcon />, title: 'Cryptographically Random', description: 'Uses the Web Crypto API (crypto.getRandomValues) for truly random password generation in your browser.' },
-          { icon: <AbcOutlinedIcon />, title: 'Passphrase Mode', description: 'Generate memorable passphrases from a 1296-word list — easy to remember, hard to crack.' },
-          { icon: <TuneOutlinedIcon />, title: 'Flexible Settings', description: 'Password mode: 4-128 characters with configurable character sets. Passphrase mode: 3-8 words.' },
-          { icon: <KeyboardOutlinedIcon />, title: 'Keyboard-Safe Mode', description: 'Avoid letters and symbols that differ between QWERTY and AZERTY layouts (a/q, z/w, m, digits).' },
-          { icon: <ShieldOutlinedIcon />, title: 'Entropy Indicator', description: 'Real-time strength meter shows bits of entropy so you know exactly how strong your password is.' },
-          { icon: <SecurityOutlinedIcon />, title: '100% Client-Side', description: 'Nothing leaves your browser. No passwords are sent, stored, or logged anywhere.' },
+          { icon: <KeyOutlinedIcon />, title: t`Cryptographically Random`, description: t`Uses the Web Crypto API (crypto.getRandomValues) for truly random password generation in your browser.` },
+          { icon: <AbcOutlinedIcon />, title: t`Passphrase Mode`, description: t`Generate memorable passphrases from a 1296-word list — easy to remember, hard to crack.` },
+          { icon: <TuneOutlinedIcon />, title: t`Flexible Settings`, description: t`Password mode: 4-128 characters with configurable character sets. Passphrase mode: 3-8 words.` },
+          { icon: <KeyboardOutlinedIcon />, title: t`Keyboard-Safe Mode`, description: t`Avoid letters and symbols that differ between QWERTY and AZERTY layouts (a/q, z/w, m, digits).` },
+          { icon: <ShieldOutlinedIcon />, title: t`Entropy Indicator`, description: t`Real-time strength meter shows bits of entropy so you know exactly how strong your password is.` },
+          { icon: <SecurityOutlinedIcon />, title: t`100% Client-Side`, description: t`Nothing leaves your browser. No passwords are sent, stored, or logged anywhere.` },
         ]}
         faq={[
-          { question: 'Is this password generator secure?', answer: 'Yes. It uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically secure random numbers. However, for long-term credential management, a dedicated password manager is always recommended.' },
-          { question: 'Are my passwords stored anywhere?', answer: 'No. Everything runs entirely in your browser. No data is sent to any server — if you close the tab without copying, the password is gone forever.' },
-          { question: 'What is a passphrase?', answer: 'A passphrase is a sequence of random words joined by dashes (e.g. Flame-Brook-Tiger-Coral3). They are easier to remember than random characters while still providing strong security — 5 words gives about 55 bits of entropy.' },
-          { question: 'What does keyboard-safe mode do?', answer: 'It excludes characters that are in different positions on QWERTY and AZERTY keyboards (a, q, z, w, m, and digits) as well as symbols that move between layouts. This prevents typos when switching between keyboard types.' },
-          { question: 'How long should my password be?', answer: 'For random passwords, 16+ characters with mixed character sets (80+ bits of entropy) is considered strong. For passphrases, 5+ words is a good starting point.' },
-          { question: 'What is entropy?', answer: 'Entropy measures password strength in bits. It depends on both length and the size of the character pool. Higher entropy means more possible combinations and a harder password to crack.' },
+          { question: t`Is this password generator secure?`, answer: t`Yes. It uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically secure random numbers. However, for long-term credential management, a dedicated password manager is always recommended.` },
+          { question: t`Are my passwords stored anywhere?`, answer: t`No. Everything runs entirely in your browser. No data is sent to any server — if you close the tab without copying, the password is gone forever.` },
+          { question: t`What is a passphrase?`, answer: t`A passphrase is a sequence of random words joined by dashes (e.g. Flame-Brook-Tiger-Coral3). They are easier to remember than random characters while still providing strong security — 5 words gives about 55 bits of entropy.` },
+          { question: t`What does keyboard-safe mode do?`, answer: t`It excludes characters that are in different positions on QWERTY and AZERTY keyboards (a, q, z, w, m, and digits) as well as symbols that move between layouts. This prevents typos when switching between keyboard types.` },
+          { question: t`How long should my password be?`, answer: t`For random passwords, 16+ characters with mixed character sets (80+ bits of entropy) is considered strong. For passphrases, 5+ words is a good starting point.` },
+          { question: t`What is entropy?`, answer: t`Entropy measures password strength in bits. It depends on both length and the size of the character pool. Higher entropy means more possible combinations and a harder password to crack.` },
         ]}
         relatedTools={[
-          { label: 'QR Code Generator', href: '/qrcode' },
-          { label: 'Certificate Inspector', href: '/inspect/certificate' },
-          { label: 'Compress & Encrypt', href: '/archive/create' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
+          { label: t`QR Code Generator`, href: '/qrcode' },
+          { label: t`Certificate Inspector`, href: '/inspect/certificate' },
+          { label: t`Compress & Encrypt`, href: '/archive/create' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
         ]}
       />
     </Box>

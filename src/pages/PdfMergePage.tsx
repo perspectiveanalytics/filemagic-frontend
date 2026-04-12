@@ -13,8 +13,10 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import ReorderOutlinedIcon from '@mui/icons-material/ReorderOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function PdfMergePage() {
+  const { t } = useLingui();
   const [files, setFiles] = useState<File[]>([]);
 
   const conversion = useMergeConversion('/merge/pdf');
@@ -37,13 +39,9 @@ export default function PdfMergePage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Merge PDFs" description="Combine multiple PDF files and images into one PDF document for free. No signup, files processed in memory only." path="/merge/pdf" structuredData={buildToolSchema('Merge PDFs', 'Combine multiple PDF files and images into one PDF document for free. No signup, files processed in memory only.', '/merge/pdf')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Merge PDFs
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Combine multiple PDFs and images into one document
-      </Typography>
+      <SEO title={t`Merge PDFs`} description={t`Combine multiple PDF files and images into one PDF document for free. No signup, files processed in memory only.`} path="/merge/pdf" structuredData={buildToolSchema(t`Merge PDFs`, t`Combine multiple PDF files and images into one PDF document for free. No signup, files processed in memory only.`, '/merge/pdf')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Merge PDFs</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Combine multiple PDFs and images into one document</Trans></Typography>
 
       <ToolDisclaimer toolId="pdf-merge" />
 
@@ -86,33 +84,33 @@ export default function PdfMergePage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to merge PDFs online',
+          title: t`How to merge PDFs online`,
           steps: [
-            'Drag and drop or select multiple PDF files and images (up to 10 files, 8 MB each).',
-            'Reorder files by dragging them into the desired sequence.',
-            'Click "Merge" to combine all files into a single PDF.',
-            'Download the merged PDF instantly.',
+            t`Drag and drop or select multiple PDF files and images (up to 10 files, 8 MB each).`,
+            t`Reorder files by dragging them into the desired sequence.`,
+            t`Click "Merge" to combine all files into a single PDF.`,
+            t`Download the merged PDF instantly.`,
           ],
         }}
         features={[
-          { icon: <MergeOutlinedIcon />, title: 'Combine PDFs & Images', description: 'Merge PDFs, JPGs, PNGs, WebP, BMP, and TIFF files into one unified PDF document.' },
-          { icon: <ReorderOutlinedIcon />, title: 'Drag-to-Reorder', description: 'Rearrange files in any order before merging with intuitive drag-and-drop.' },
-          { icon: <ImageOutlinedIcon />, title: 'Mixed File Support', description: 'Combine different file types — PDFs and images — in a single merge operation.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Files are merged server-side in seconds, even with multiple large documents.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
-          { icon: <LockOutlinedIcon />, title: 'No Signup Required', description: 'Use the tool instantly — no account, no watermarks, completely free.' },
+          { icon: <MergeOutlinedIcon />, title: t`Combine PDFs & Images`, description: t`Merge PDFs, JPGs, PNGs, WebP, BMP, and TIFF files into one unified PDF document.` },
+          { icon: <ReorderOutlinedIcon />, title: t`Drag-to-Reorder`, description: t`Rearrange files in any order before merging with intuitive drag-and-drop.` },
+          { icon: <ImageOutlinedIcon />, title: t`Mixed File Support`, description: t`Combine different file types — PDFs and images — in a single merge operation.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Processing`, description: t`Files are merged server-side in seconds, even with multiple large documents.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
+          { icon: <LockOutlinedIcon />, title: t`No Signup Required`, description: t`Use the tool instantly — no account, no watermarks, completely free.` },
         ]}
         faq={[
-          { question: 'How many files can I merge at once?', answer: 'You can merge up to 10 files in a single operation. Each file can be up to 8 MB.' },
-          { question: 'Can I merge images with PDFs?', answer: 'Yes. You can combine PDF files with JPG, PNG, WebP, BMP, and TIFF images. Each image is converted to a PDF page during the merge.' },
-          { question: 'Does the order of files matter?', answer: 'Yes. Pages appear in the merged PDF in the same order you arrange them. Use drag-and-drop to reorder files before merging.' },
-          { question: 'Will the merged PDF lose quality?', answer: 'No. PDF pages are copied without re-encoding, so text, images, and formatting remain identical to the originals.' },
+          { question: t`How many files can I merge at once?`, answer: t`You can merge up to 10 files in a single operation. Each file can be up to 8 MB.` },
+          { question: t`Can I merge images with PDFs?`, answer: t`Yes. You can combine PDF files with JPG, PNG, WebP, BMP, and TIFF images. Each image is converted to a PDF page during the merge.` },
+          { question: t`Does the order of files matter?`, answer: t`Yes. Pages appear in the merged PDF in the same order you arrange them. Use drag-and-drop to reorder files before merging.` },
+          { question: t`Will the merged PDF lose quality?`, answer: t`No. PDF pages are copied without re-encoding, so text, images, and formatting remain identical to the originals.` },
         ]}
         relatedTools={[
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'PDF Editor', href: '/edit/pdf' },
-          { label: 'Images to PDF', href: '/merge/image-to-pdf' },
-          { label: 'PDF Password', href: '/convert/pdf-password' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`PDF Editor`, href: '/edit/pdf' },
+          { label: t`Images to PDF`, href: '/merge/image-to-pdf' },
+          { label: t`PDF Password`, href: '/convert/pdf-password' },
         ]}
       />
     </Box>

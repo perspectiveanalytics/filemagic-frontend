@@ -13,10 +13,12 @@ import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import SyncAltOutlinedIcon from '@mui/icons-material/SyncAltOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type Mode = 'encode' | 'decode';
 
 export default function Base64Page() {
+  const { t } = useLingui();
   const [mode, setMode] = useState<Mode>('encode');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -136,17 +138,13 @@ export default function Base64Page() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Base64 Encode / Decode"
-        description="Encode and decode Base64 text or files. Free, no signup, runs entirely in your browser."
+        title={t`Base64 Encode / Decode`}
+        description={t`Encode and decode Base64 text or files. Free, no signup, runs entirely in your browser.`}
         path="/tools/base64"
-        structuredData={buildToolSchema('Base64 Encode / Decode', 'Encode and decode Base64 text or files.', '/tools/base64')}
+        structuredData={buildToolSchema(t`Base64 Encode / Decode`, t`Encode and decode Base64 text or files.`, '/tools/base64')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Base64
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Encode or decode Base64 text and files
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Base64</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Encode or decode Base64 text and files</Trans></Typography>
 
       <ToolDisclaimer toolId="base64" />
 
@@ -181,13 +179,11 @@ export default function Base64Page() {
             >
               <Radio
                 value="encode"
-                label="Encode"
+                label={t`Encode`}
                 overlay
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                Text → Base64
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>Text → Base64</Trans></Typography>
             </Sheet>
             <Sheet
               variant={mode === 'decode' ? 'soft' : 'plain'}
@@ -203,13 +199,11 @@ export default function Base64Page() {
             >
               <Radio
                 value="decode"
-                label="Decode"
+                label={t`Decode`}
                 overlay
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                Base64 → Text
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>Base64 → Text</Trans></Typography>
             </Sheet>
           </RadioGroup>
         </FormControl>
@@ -257,7 +251,7 @@ export default function Base64Page() {
           )}
         </Box>
         <Textarea
-          placeholder={mode === 'encode' ? 'Enter text to encode...' : 'Paste Base64 string...'}
+          placeholder={mode === 'encode' ? t`Enter text to encode...` : t`Paste Base64 string...`}
           value={input}
           onChange={(e) => handleInputChange(e.target.value)}
           minRows={4}
@@ -333,7 +327,7 @@ export default function Base64Page() {
         <Textarea
           readOnly
           value={output}
-          placeholder="Result will appear here..."
+          placeholder={t`Result will appear here...`}
           minRows={4}
           maxRows={10}
           sx={{
@@ -347,35 +341,35 @@ export default function Base64Page() {
 
       <ToolSEOContent
         howTo={{
-          title: 'How to encode or decode Base64',
+          title: t`How to encode or decode Base64`,
           steps: [
-            'Select Encode to convert text to Base64, or Decode to convert Base64 back to text.',
-            'Type or paste your input in the text area.',
-            'The result appears instantly in the output panel below.',
-            'To encode a file, click the File button and select any file up to 5 MB.',
-            'Click the copy button to copy the result to your clipboard.',
+            t`Select Encode to convert text to Base64, or Decode to convert Base64 back to text.`,
+            t`Type or paste your input in the text area.`,
+            t`The result appears instantly in the output panel below.`,
+            t`To encode a file, click the File button and select any file up to 5 MB.`,
+            t`Click the copy button to copy the result to your clipboard.`,
           ],
         }}
         features={[
-          { icon: <EnhancedEncryptionOutlinedIcon />, title: 'Encode & Decode', description: 'Convert plain text to Base64 encoding or decode Base64 strings back to readable text.' },
-          { icon: <TextFieldsOutlinedIcon />, title: 'UTF-8 Safe', description: 'Properly handles Unicode and multi-byte characters using TextEncoder/TextDecoder for accurate results.' },
-          { icon: <AttachFileOutlinedIcon />, title: 'File Support', description: 'Encode any file (images, PDFs, documents) up to 5 MB directly to Base64 with one click.' },
-          { icon: <SyncAltOutlinedIcon />, title: 'Instant Conversion', description: 'Results update in real time as you type. No need to click a convert button.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast & Lightweight', description: 'Uses native browser APIs for encoding and decoding, delivering results in microseconds.' },
-          { icon: <LockOutlinedIcon />, title: 'Runs in Your Browser', description: 'No data is sent to any server. All encoding and decoding happens locally in your browser.' },
+          { icon: <EnhancedEncryptionOutlinedIcon />, title: t`Encode & Decode`, description: t`Convert plain text to Base64 encoding or decode Base64 strings back to readable text.` },
+          { icon: <TextFieldsOutlinedIcon />, title: t`UTF-8 Safe`, description: t`Properly handles Unicode and multi-byte characters using TextEncoder/TextDecoder for accurate results.` },
+          { icon: <AttachFileOutlinedIcon />, title: t`File Support`, description: t`Encode any file (images, PDFs, documents) up to 5 MB directly to Base64 with one click.` },
+          { icon: <SyncAltOutlinedIcon />, title: t`Instant Conversion`, description: t`Results update in real time as you type. No need to click a convert button.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast & Lightweight`, description: t`Uses native browser APIs for encoding and decoding, delivering results in microseconds.` },
+          { icon: <LockOutlinedIcon />, title: t`Runs in Your Browser`, description: t`No data is sent to any server. All encoding and decoding happens locally in your browser.` },
         ]}
         faq={[
-          { question: 'What is Base64 encoding?', answer: 'Base64 is a binary-to-text encoding scheme that represents binary data as ASCII characters. It is commonly used to embed images in HTML/CSS, transmit data in URLs, and encode email attachments.' },
-          { question: 'Does Base64 encrypt my data?', answer: 'No. Base64 is an encoding, not encryption. Anyone can decode a Base64 string back to its original content. Do not use Base64 to protect sensitive information.' },
-          { question: 'Why is the Base64 output larger than the input?', answer: 'Base64 encoding increases data size by approximately 33% because it represents every 3 bytes of input as 4 ASCII characters. This is a trade-off for compatibility with text-based systems.' },
-          { question: 'Can I decode Base64 images?', answer: 'This tool decodes Base64 to text. For Base64-encoded images, the decoded output will be binary data that appears as garbled text. Use a data URI (data:image/png;base64,...) in an img tag instead.' },
-          { question: 'Is there a size limit?', answer: 'Text input has no hard limit. File encoding supports files up to 5 MB. Since everything runs in your browser, very large inputs may briefly slow down the page.' },
+          { question: t`What is Base64 encoding?`, answer: t`Base64 is a binary-to-text encoding scheme that represents binary data as ASCII characters. It is commonly used to embed images in HTML/CSS, transmit data in URLs, and encode email attachments.` },
+          { question: t`Does Base64 encrypt my data?`, answer: t`No. Base64 is an encoding, not encryption. Anyone can decode a Base64 string back to its original content. Do not use Base64 to protect sensitive information.` },
+          { question: t`Why is the Base64 output larger than the input?`, answer: t`Base64 encoding increases data size by approximately 33% because it represents every 3 bytes of input as 4 ASCII characters. This is a trade-off for compatibility with text-based systems.` },
+          { question: t`Can I decode Base64 images?`, answer: t`This tool decodes Base64 to text. For Base64-encoded images, the decoded output will be binary data that appears as garbled text. Use a data URI (data:image/png;base64,...) in an img tag instead.` },
+          { question: t`Is there a size limit?`, answer: t`Text input has no hard limit. File encoding supports files up to 5 MB. Since everything runs in your browser, very large inputs may briefly slow down the page.` },
         ]}
         relatedTools={[
-          { label: 'Hash Generator', href: '/tools/hash' },
-          { label: 'Word Counter', href: '/tools/word-counter' },
-          { label: 'YAML / JSON Converter', href: '/convert/yaml' },
-          { label: 'JSON / CSV Converter', href: '/convert/json-csv' },
+          { label: t`Hash Generator`, href: '/tools/hash' },
+          { label: t`Word Counter`, href: '/tools/word-counter' },
+          { label: t`YAML / JSON Converter`, href: '/convert/yaml' },
+          { label: t`JSON / CSV Converter`, href: '/convert/json-csv' },
         ]}
       />
     </Box>

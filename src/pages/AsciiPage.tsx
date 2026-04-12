@@ -25,8 +25,10 @@ import {
   CHARSET_LABELS,
   type AsciiOptions, type CharsetKey,
 } from '../utils/asciiConverter';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function AsciiPage() {
+  const { t } = useLingui();
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileName, setFileName] = useState('');
   const [copied, setCopied] = useState(false);
@@ -117,19 +119,15 @@ export default function AsciiPage() {
   return (
     <Box sx={{ maxWidth: 900, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="ASCII Art"
-        description="Convert images to ASCII art. Free, client-side, no upload needed."
+        title={t`ASCII Art`}
+        description={t`Convert images to ASCII art. Free, client-side, no upload needed.`}
         path="/convert/ascii"
-        structuredData={buildToolSchema('ASCII Art Converter', 'Convert any image to ASCII art with adjustable width, character sets, colors and more.', '/convert/ascii')}
+        structuredData={buildToolSchema(t`ASCII Art Converter`, t`Convert any image to ASCII art with adjustable width, character sets, colors and more.`, '/convert/ascii')}
       />
 
       <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%' }}>
-        <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-          ASCII Art
-        </Typography>
-        <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}>
-          Convert images to ASCII text art
-        </Typography>
+        <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>ASCII Art</Trans></Typography>
+        <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}><Trans>Convert images to ASCII text art</Trans></Typography>
 
         <ToolDisclaimer toolId="ascii" />
 
@@ -178,7 +176,7 @@ export default function AsciiPage() {
             </FormControl>
 
             <FormControl>
-              <FormLabel sx={{ fontSize: '0.8rem' }}>Character set</FormLabel>
+              <FormLabel sx={{ fontSize: '0.8rem' }}><Trans>Character set</Trans></FormLabel>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 {charsetKeys.map((key) => (
                   <Chip
@@ -395,34 +393,34 @@ export default function AsciiPage() {
       <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%' }}>
         <ToolSEOContent
           howTo={{
-            title: 'How to convert an image to ASCII art',
+            title: t`How to convert an image to ASCII art`,
             steps: [
-              'Upload an image by dragging it onto the drop zone, clicking to browse, or pasting from your clipboard.',
-              'Adjust the output width, character set, brightness, and contrast to fine-tune the result.',
-              'Toggle color mode to preserve the original image colors in the ASCII output.',
-              'Copy the ASCII art to your clipboard or download it as a .txt file.',
+              t`Upload an image by dragging it onto the drop zone, clicking to browse, or pasting from your clipboard.`,
+              t`Adjust the output width, character set, brightness, and contrast to fine-tune the result.`,
+              t`Toggle color mode to preserve the original image colors in the ASCII output.`,
+              t`Copy the ASCII art to your clipboard or download it as a .txt file.`,
             ],
           }}
           features={[
-            { icon: <ImageOutlinedIcon />, title: 'Multiple Image Formats', description: 'Supports JPEG, PNG, WebP, BMP, GIF, and SVG. Upload files up to 20 MB or paste from clipboard.' },
-            { icon: <TuneOutlinedIcon />, title: 'Fine-grained Controls', description: 'Adjust width, brightness, contrast, and choose from multiple character sets for the perfect output.' },
-            { icon: <ColorLensOutlinedIcon />, title: 'Color Mode', description: 'Preserve original image colors in the ASCII output with HTML color spans for rich terminal or web display.' },
-            { icon: <TextFieldsOutlinedIcon />, title: 'Multiple Character Sets', description: 'Choose between standard, detailed, block, and minimal character sets to match your preferred style.' },
-            { icon: <BoltOutlinedIcon />, title: 'Real-time Preview', description: 'See the ASCII art update instantly as you adjust settings. No waiting, no re-uploading.' },
-            { icon: <LockOutlinedIcon />, title: '100% Client-side', description: 'Your image never leaves your browser. All conversion happens locally using the Canvas API.' },
+            { icon: <ImageOutlinedIcon />, title: t`Multiple Image Formats`, description: t`Supports JPEG, PNG, WebP, BMP, GIF, and SVG. Upload files up to 20 MB or paste from clipboard.` },
+            { icon: <TuneOutlinedIcon />, title: t`Fine-grained Controls`, description: t`Adjust width, brightness, contrast, and choose from multiple character sets for the perfect output.` },
+            { icon: <ColorLensOutlinedIcon />, title: t`Color Mode`, description: t`Preserve original image colors in the ASCII output with HTML color spans for rich terminal or web display.` },
+            { icon: <TextFieldsOutlinedIcon />, title: t`Multiple Character Sets`, description: t`Choose between standard, detailed, block, and minimal character sets to match your preferred style.` },
+            { icon: <BoltOutlinedIcon />, title: t`Real-time Preview`, description: t`See the ASCII art update instantly as you adjust settings. No waiting, no re-uploading.` },
+            { icon: <LockOutlinedIcon />, title: t`100% Client-side`, description: t`Your image never leaves your browser. All conversion happens locally using the Canvas API.` },
           ]}
           faq={[
-            { question: 'What image formats are supported?', answer: 'JPEG, PNG, WebP, BMP, GIF, and SVG are all supported. You can also paste images directly from your clipboard.' },
-            { question: 'How does the width setting work?', answer: 'The width controls how many characters wide the output will be (20 to 200). The height is calculated automatically to preserve the aspect ratio of your image.' },
-            { question: 'What is the difference between the character sets?', answer: 'Standard uses common ASCII characters for good all-around results. Detailed uses more characters for finer gradation. Block uses Unicode block elements for denser output. Minimal uses only a few characters for a cleaner look.' },
-            { question: 'Can I use the colored output in a terminal?', answer: 'The color mode generates HTML spans with inline colors, which works in web pages. For terminal use, copy the plain text version (with color mode off) instead.' },
-            { question: 'Is there a file size limit?', answer: 'The maximum upload size is 20 MB. Very high-resolution images are scaled down internally for performance.' },
+            { question: t`What image formats are supported?`, answer: t`JPEG, PNG, WebP, BMP, GIF, and SVG are all supported. You can also paste images directly from your clipboard.` },
+            { question: t`How does the width setting work?`, answer: t`The width controls how many characters wide the output will be (20 to 200). The height is calculated automatically to preserve the aspect ratio of your image.` },
+            { question: t`What is the difference between the character sets?`, answer: t`Standard uses common ASCII characters for good all-around results. Detailed uses more characters for finer gradation. Block uses Unicode block elements for denser output. Minimal uses only a few characters for a cleaner look.` },
+            { question: t`Can I use the colored output in a terminal?`, answer: t`The color mode generates HTML spans with inline colors, which works in web pages. For terminal use, copy the plain text version (with color mode off) instead.` },
+            { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 20 MB. Very high-resolution images are scaled down internally for performance.` },
           ]}
           relatedTools={[
-            { label: 'Image Compress', href: '/compress/image' },
-            { label: 'Image Converter', href: '/convert/image' },
-            { label: 'PDF Compress', href: '/compress/pdf' },
-            { label: 'Base64 Encode / Decode', href: '/tools/base64' },
+            { label: t`Image Compress`, href: '/compress/image' },
+            { label: t`Image Converter`, href: '/convert/image' },
+            { label: t`PDF Compress`, href: '/compress/pdf' },
+            { label: t`Base64 Encode / Decode`, href: '/tools/base64' },
           ]}
         />
       </Box>

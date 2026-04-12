@@ -14,8 +14,10 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function MarkdownPdfPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [mode, setMode] = useState<'upload' | 'paste'>('upload');
   const [markdown, setMarkdown] = useState('');
@@ -42,13 +44,9 @@ export default function MarkdownPdfPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Markdown to PDF" description="Convert Markdown files to formatted PDF for free. No signup, files processed in memory only." path="/convert/markdown/pdf" structuredData={buildToolSchema('Markdown to PDF', 'Convert Markdown files to formatted PDF for free. No signup, files processed in memory only.', '/convert/markdown/pdf')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Markdown to PDF
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert Markdown files to formatted PDF
-      </Typography>
+      <SEO title={t`Markdown to PDF`} description={t`Convert Markdown files to formatted PDF for free. No signup, files processed in memory only.`} path="/convert/markdown/pdf" structuredData={buildToolSchema(t`Markdown to PDF`, t`Convert Markdown files to formatted PDF for free. No signup, files processed in memory only.`, '/convert/markdown/pdf')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Markdown to PDF</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert Markdown files to formatted PDF</Trans></Typography>
 
       <ToolDisclaimer toolId="markdown-pdf" />
 
@@ -89,7 +87,7 @@ export default function MarkdownPdfPage() {
           ) : (
             <Box>
               <Textarea
-                placeholder="Paste or type your markdown here..."
+                placeholder={t`Paste or type your markdown here...`}
                 value={markdown}
                 onChange={(e) => setMarkdown(e.target.value)}
                 minRows={10}
@@ -135,33 +133,33 @@ export default function MarkdownPdfPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert Markdown to PDF',
+          title: t`How to convert Markdown to PDF`,
           steps: [
-            'Choose between uploading a .md file or pasting markdown text directly.',
-            'Upload your Markdown file (up to 5 MB) or paste your content into the editor.',
-            'Click "Convert to PDF" (paste mode) or drop your file to start conversion automatically.',
-            'Download the formatted PDF instantly.',
+            t`Choose between uploading a .md file or pasting markdown text directly.`,
+            t`Upload your Markdown file (up to 5 MB) or paste your content into the editor.`,
+            t`Click "Convert to PDF" (paste mode) or drop your file to start conversion automatically.`,
+            t`Download the formatted PDF instantly.`,
           ],
         }}
         features={[
-          { icon: <TextFieldsOutlinedIcon />, title: 'Rich Formatting', description: 'Headings, bold, italic, lists, blockquotes, and links are all rendered with professional typography.' },
-          { icon: <CodeOutlinedIcon />, title: 'Code Blocks', description: 'Syntax-highlighted code blocks and inline code are preserved with monospace formatting.' },
-          { icon: <EditNoteOutlinedIcon />, title: 'Paste or Upload', description: 'Type or paste markdown directly in the browser, or upload an existing .md file.' },
-          { icon: <ArticleOutlinedIcon />, title: 'Clean PDF Output', description: 'Generates properly paginated, print-ready PDF documents from your markdown source.' },
-          { icon: <BoltOutlinedIcon />, title: 'Instant Conversion', description: 'Markdown files are converted to PDF in seconds, even for long documents.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <TextFieldsOutlinedIcon />, title: t`Rich Formatting`, description: t`Headings, bold, italic, lists, blockquotes, and links are all rendered with professional typography.` },
+          { icon: <CodeOutlinedIcon />, title: t`Code Blocks`, description: t`Syntax-highlighted code blocks and inline code are preserved with monospace formatting.` },
+          { icon: <EditNoteOutlinedIcon />, title: t`Paste or Upload`, description: t`Type or paste markdown directly in the browser, or upload an existing .md file.` },
+          { icon: <ArticleOutlinedIcon />, title: t`Clean PDF Output`, description: t`Generates properly paginated, print-ready PDF documents from your markdown source.` },
+          { icon: <BoltOutlinedIcon />, title: t`Instant Conversion`, description: t`Markdown files are converted to PDF in seconds, even for long documents.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What Markdown features are supported?', answer: 'Standard Markdown syntax is fully supported, including headings, bold, italic, links, images, lists, blockquotes, code blocks, and horizontal rules.' },
-          { question: 'Can I paste markdown instead of uploading a file?', answer: 'Yes. Switch to the "Paste markdown" tab to type or paste your content directly. The conversion works the same way.' },
-          { question: 'What is the maximum file size?', answer: 'Uploaded Markdown files can be up to 5 MB. There is no character limit when pasting markdown directly.' },
-          { question: 'Are images in my markdown included?', answer: 'Remote images referenced via URLs may be included depending on accessibility. For best results, use text-based markdown content.' },
+          { question: t`What Markdown features are supported?`, answer: t`Standard Markdown syntax is fully supported, including headings, bold, italic, links, images, lists, blockquotes, code blocks, and horizontal rules.` },
+          { question: t`Can I paste markdown instead of uploading a file?`, answer: t`Yes. Switch to the "Paste markdown" tab to type or paste your content directly. The conversion works the same way.` },
+          { question: t`What is the maximum file size?`, answer: t`Uploaded Markdown files can be up to 5 MB. There is no character limit when pasting markdown directly.` },
+          { question: t`Are images in my markdown included?`, answer: t`Remote images referenced via URLs may be included depending on accessibility. For best results, use text-based markdown content.` },
         ]}
         relatedTools={[
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'PDF Editor', href: '/edit/pdf' },
-          { label: 'PDF Merge', href: '/merge/pdf' },
-          { label: 'PDF Password', href: '/convert/pdf-password' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`PDF Editor`, href: '/edit/pdf' },
+          { label: t`PDF Merge`, href: '/merge/pdf' },
+          { label: t`PDF Password`, href: '/convert/pdf-password' },
         ]}
       />
     </Box>

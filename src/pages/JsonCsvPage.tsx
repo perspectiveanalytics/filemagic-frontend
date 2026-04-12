@@ -24,6 +24,7 @@ import SyncAltOutlinedIcon from '@mui/icons-material/SyncAltOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import TextFieldsOutlinedIcon from '@mui/icons-material/TextFieldsOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -107,6 +108,7 @@ const toolBtn = {
 } as const;
 
 export default function JsonCsvPage() {
+  const { t } = useLingui();
   const jsonContainerRef = useRef<HTMLDivElement>(null);
   const csvContainerRef = useRef<HTMLDivElement>(null);
   const jsonViewRef = useRef<EditorView | null>(null);
@@ -305,8 +307,8 @@ export default function JsonCsvPage() {
   return (
     <Box sx={{ maxWidth: 960, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="JSON / CSV Converter"
-        description="Convert between JSON arrays and CSV. Free, runs entirely in your browser. No data leaves your device."
+        title={t`JSON / CSV Converter`}
+        description={t`Convert between JSON arrays and CSV. Free, runs entirely in your browser. No data leaves your device.`}
         path="/convert/json-csv"
         structuredData={buildToolSchema(
           'JSON / CSV Converter',
@@ -315,12 +317,8 @@ export default function JsonCsvPage() {
         )}
       />
 
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        JSON &harr; CSV
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert between JSON arrays and CSV
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>JSON &harr; CSV</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert between JSON arrays and CSV</Trans></Typography>
 
       <ToolDisclaimer toolId="json-csv" />
 
@@ -440,34 +438,34 @@ export default function JsonCsvPage() {
 
       <ToolSEOContent
         howTo={{
-          title: 'How to convert between JSON and CSV',
+          title: t`How to convert between JSON and CSV`,
           steps: [
-            'Choose a direction: JSON to CSV or CSV to JSON using the toolbar buttons.',
-            'Paste or type your JSON array in the left editor, or CSV data in the right editor.',
-            'The converted output appears automatically in the other panel.',
-            'Click the copy button on either panel to copy the result to your clipboard.',
-            'Use the Clear button to start over with new data.',
+            t`Choose a direction: JSON to CSV or CSV to JSON using the toolbar buttons.`,
+            t`Paste or type your JSON array in the left editor, or CSV data in the right editor.`,
+            t`The converted output appears automatically in the other panel.`,
+            t`Click the copy button on either panel to copy the result to your clipboard.`,
+            t`Use the Clear button to start over with new data.`,
           ],
         }}
         features={[
-          { icon: <SyncAltOutlinedIcon />, title: 'Bi-directional Conversion', description: 'Convert JSON arrays to CSV or CSV back to JSON arrays of objects with automatic header detection.' },
-          { icon: <DataObjectOutlinedIcon />, title: 'Smart Type Parsing', description: 'CSV to JSON conversion automatically detects numbers, booleans, and null values instead of treating everything as strings.' },
-          { icon: <TableChartOutlinedIcon />, title: 'Header-based Mapping', description: 'CSV headers become JSON object keys. Nested objects are flattened into dot-notation columns.' },
-          { icon: <TextFieldsOutlinedIcon />, title: 'Syntax-highlighted Editors', description: 'Full CodeMirror editor with JSON syntax highlighting, line numbers, and bracket matching.' },
-          { icon: <BoltOutlinedIcon />, title: 'Instant Conversion', description: 'Results update in real time as you type with smart debouncing for smooth performance.' },
-          { icon: <LockOutlinedIcon />, title: 'Runs in Your Browser', description: 'No data is sent to any server. All processing happens locally in your browser.' },
+          { icon: <SyncAltOutlinedIcon />, title: t`Bi-directional Conversion`, description: t`Convert JSON arrays to CSV or CSV back to JSON arrays of objects with automatic header detection.` },
+          { icon: <DataObjectOutlinedIcon />, title: t`Smart Type Parsing`, description: t`CSV to JSON conversion automatically detects numbers, booleans, and null values instead of treating everything as strings.` },
+          { icon: <TableChartOutlinedIcon />, title: t`Header-based Mapping`, description: t`CSV headers become JSON object keys. Nested objects are flattened into dot-notation columns.` },
+          { icon: <TextFieldsOutlinedIcon />, title: t`Syntax-highlighted Editors`, description: t`Full CodeMirror editor with JSON syntax highlighting, line numbers, and bracket matching.` },
+          { icon: <BoltOutlinedIcon />, title: t`Instant Conversion`, description: t`Results update in real time as you type with smart debouncing for smooth performance.` },
+          { icon: <LockOutlinedIcon />, title: t`Runs in Your Browser`, description: t`No data is sent to any server. All processing happens locally in your browser.` },
         ]}
         faq={[
-          { question: 'What JSON structure is required for CSV conversion?', answer: 'The JSON input must be an array of objects (e.g. [{"name": "Alice", "age": 30}]). Each object becomes a row, and the keys become column headers.' },
-          { question: 'How are nested JSON objects handled?', answer: 'Nested objects and arrays are serialized as JSON strings within the CSV cell. For deeply nested data, consider flattening your JSON first.' },
-          { question: 'Does CSV to JSON preserve data types?', answer: 'Yes. Dynamic typing is enabled by default, so numeric strings become numbers, "true"/"false" become booleans, and empty cells become null.' },
-          { question: 'Is there a row or file size limit?', answer: 'There is no hard limit since everything runs in your browser. However, very large datasets (tens of thousands of rows) may slow down the real-time preview.' },
+          { question: t`What JSON structure is required for CSV conversion?`, answer: t`The JSON input must be an array of objects (e.g. [{"name": "Alice", "age": 30}]). Each object becomes a row, and the keys become column headers.` },
+          { question: t`How are nested JSON objects handled?`, answer: t`Nested objects and arrays are serialized as JSON strings within the CSV cell. For deeply nested data, consider flattening your JSON first.` },
+          { question: t`Does CSV to JSON preserve data types?`, answer: t`Yes. Dynamic typing is enabled by default, so numeric strings become numbers, "true"/"false" become booleans, and empty cells become null.` },
+          { question: t`Is there a row or file size limit?`, answer: t`There is no hard limit since everything runs in your browser. However, very large datasets (tens of thousands of rows) may slow down the real-time preview.` },
         ]}
         relatedTools={[
-          { label: 'CSV / Excel Converter', href: '/convert/csv-excel' },
-          { label: 'YAML / JSON Converter', href: '/convert/yaml' },
-          { label: 'Base64 Encode / Decode', href: '/tools/base64' },
-          { label: 'Word Counter', href: '/tools/word-counter' },
+          { label: t`CSV / Excel Converter`, href: '/convert/csv-excel' },
+          { label: t`YAML / JSON Converter`, href: '/convert/yaml' },
+          { label: t`Base64 Encode / Decode`, href: '/tools/base64' },
+          { label: t`Word Counter`, href: '/tools/word-counter' },
         ]}
       />
     </Box>

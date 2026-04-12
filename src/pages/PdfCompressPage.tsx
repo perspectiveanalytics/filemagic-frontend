@@ -25,6 +25,7 @@ import PhotoSizeSelectLargeOutlinedIcon from '@mui/icons-material/PhotoSizeSelec
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type CompressMode = 'level' | 'targetSize';
 
@@ -68,6 +69,7 @@ function formatKB(kb: number): string {
 }
 
 export default function PdfCompressPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [mode, setMode] = useState<CompressMode>('level');
   const [level, setLevel] = useState<'low' | 'medium' | 'high'>('medium');
@@ -93,13 +95,9 @@ export default function PdfCompressPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="PDF Compress" description="Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, files processed in memory only." path="/compress/pdf" structuredData={buildToolSchema('PDF Compress', 'Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, files processed in memory only.', '/compress/pdf')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        PDF Compress
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Reduce PDF file size with adjustable quality
-      </Typography>
+      <SEO title={t`PDF Compress`} description={t`Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, files processed in memory only.`} path="/compress/pdf" structuredData={buildToolSchema(t`PDF Compress`, t`Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, files processed in memory only.`, '/compress/pdf')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>PDF Compress</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Reduce PDF file size with adjustable quality</Trans></Typography>
 
       <ToolDisclaimer toolId="pdf-compress" />
 
@@ -134,14 +132,12 @@ export default function PdfCompressPage() {
             >
               <Radio
                 value="level"
-                label="Compression level"
+                label={t`Compression level`}
                 overlay
                 disabled={isProcessing}
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                Choose preset quality
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>Choose preset quality</Trans></Typography>
             </Sheet>
             <Sheet
               variant={mode === 'targetSize' ? 'soft' : 'plain'}
@@ -157,14 +153,12 @@ export default function PdfCompressPage() {
             >
               <Radio
                 value="targetSize"
-                label="Target size"
+                label={t`Target size`}
                 overlay
                 disabled={isProcessing}
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                Compress to a file size
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>Compress to a file size</Trans></Typography>
             </Sheet>
           </RadioGroup>
         </FormControl>
@@ -172,15 +166,15 @@ export default function PdfCompressPage() {
         {mode === 'level' ? (
           <>
             <FormControl sx={{ mb: 2.5 }}>
-              <FormLabel>Compression level</FormLabel>
+              <FormLabel><Trans>Compression level</Trans></FormLabel>
               <Select
                 value={level}
                 onChange={(_, value) => value && setLevel(value)}
                 disabled={isProcessing}
               >
-                <Option value="low">Low (best quality)</Option>
-                <Option value="medium">Medium</Option>
-                <Option value="high">High (smallest size)</Option>
+                <Option value="low">{t`Low (best quality)`}</Option>
+                <Option value="medium">{t`Medium`}</Option>
+                <Option value="high">{t`High (smallest size)`}</Option>
               </Select>
             </FormControl>
 
@@ -193,10 +187,8 @@ export default function PdfCompressPage() {
               }}
             >
               <Box>
-                <FormLabel sx={{ mb: 0 }}>Lossy compression</FormLabel>
-                <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-                  Downsample images for smaller file size
-                </Typography>
+                <FormLabel sx={{ mb: 0 }}><Trans>Lossy compression</Trans></FormLabel>
+                <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Downsample images for smaller file size</Trans></Typography>
               </Box>
               <Switch
                 checked={lossy}
@@ -208,7 +200,7 @@ export default function PdfCompressPage() {
           </>
         ) : (
           <FormControl>
-            <FormLabel>Target file size</FormLabel>
+            <FormLabel><Trans>Target file size</Trans></FormLabel>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 0.5 }}>
               {TARGET_SIZE_PRESETS.map((preset) => (
                 <Box
@@ -261,9 +253,7 @@ export default function PdfCompressPage() {
                 }}
               />
             </Box>
-            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 2 }}>
-              Image DPI and quality will be adjusted automatically to meet the target.
-            </Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 2 }}><Trans>Image DPI and quality will be adjusted automatically to meet the target.</Trans></Typography>
           </FormControl>
         )}
       </Box>
@@ -295,35 +285,35 @@ export default function PdfCompressPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to compress a PDF online',
+          title: t`How to compress a PDF online`,
           steps: [
-            'Choose your compression mode — either a quality level preset or a specific target file size.',
-            'Optionally enable lossy compression to downsample embedded images for smaller output.',
-            'Upload your PDF file (up to 40 MB).',
-            'Download the compressed PDF instantly.',
+            t`Choose your compression mode — either a quality level preset or a specific target file size.`,
+            t`Optionally enable lossy compression to downsample embedded images for smaller output.`,
+            t`Upload your PDF file (up to 40 MB).`,
+            t`Download the compressed PDF instantly.`,
           ],
         }}
         features={[
-          { icon: <TuneOutlinedIcon />, title: 'Quality Presets', description: 'Choose Low, Medium, or High compression to balance quality against file size.' },
-          { icon: <AdjustOutlinedIcon />, title: 'Target File Size', description: 'Set an exact target from 100 KB to 20 MB. DPI and quality adjust automatically.' },
-          { icon: <PhotoSizeSelectLargeOutlinedIcon />, title: 'Lossy Compression', description: 'Optionally downsample embedded images for significantly smaller output.' },
-          { icon: <ArticleOutlinedIcon />, title: 'Structure Preserved', description: 'Text, fonts, bookmarks, and hyperlinks remain intact after compression.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Most PDFs compress in under 10 seconds, even large documents.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <TuneOutlinedIcon />, title: t`Quality Presets`, description: t`Choose Low, Medium, or High compression to balance quality against file size.` },
+          { icon: <AdjustOutlinedIcon />, title: t`Target File Size`, description: t`Set an exact target from 100 KB to 20 MB. DPI and quality adjust automatically.` },
+          { icon: <PhotoSizeSelectLargeOutlinedIcon />, title: t`Lossy Compression`, description: t`Optionally downsample embedded images for significantly smaller output.` },
+          { icon: <ArticleOutlinedIcon />, title: t`Structure Preserved`, description: t`Text, fonts, bookmarks, and hyperlinks remain intact after compression.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Processing`, description: t`Most PDFs compress in under 10 seconds, even large documents.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'How much smaller will my PDF be?', answer: 'It depends on the content. PDFs with high-resolution images typically compress 50–80%. Text-heavy documents with few images may only shrink 10–20%.' },
-          { question: 'Does compression affect text quality?', answer: 'No. Text and vector elements are losslessly compressed and remain perfectly sharp. Only embedded raster images are affected by lossy compression.' },
-          { question: 'What is the difference between lossy and lossless compression?', answer: 'Lossless compression reduces file size without any quality loss by optimizing internal PDF structures. Lossy compression additionally downsamples embedded images, achieving smaller sizes at the cost of some image detail.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 40 MB. For larger files, consider splitting the PDF first using the PDF Editor tool.' },
-          { question: 'Can I compress a password-protected PDF?', answer: 'No. You need to remove the password first using the PDF Password tool, then compress the unprotected file.' },
+          { question: t`How much smaller will my PDF be?`, answer: t`It depends on the content. PDFs with high-resolution images typically compress 50–80%. Text-heavy documents with few images may only shrink 10–20%.` },
+          { question: t`Does compression affect text quality?`, answer: t`No. Text and vector elements are losslessly compressed and remain perfectly sharp. Only embedded raster images are affected by lossy compression.` },
+          { question: t`What is the difference between lossy and lossless compression?`, answer: t`Lossless compression reduces file size without any quality loss by optimizing internal PDF structures. Lossy compression additionally downsamples embedded images, achieving smaller sizes at the cost of some image detail.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 40 MB. For larger files, consider splitting the PDF first using the PDF Editor tool.` },
+          { question: t`Can I compress a password-protected PDF?`, answer: t`No. You need to remove the password first using the PDF Password tool, then compress the unprotected file.` },
         ]}
         relatedTools={[
-          { label: 'PDF Merge', href: '/merge/pdf' },
-          { label: 'PDF Editor', href: '/edit/pdf' },
-          { label: 'PDF Password', href: '/convert/pdf-password' },
-          { label: 'PDF Repair', href: '/repair/pdf' },
-          { label: 'Images to PDF', href: '/merge/image-to-pdf' },
+          { label: t`PDF Merge`, href: '/merge/pdf' },
+          { label: t`PDF Editor`, href: '/edit/pdf' },
+          { label: t`PDF Password`, href: '/convert/pdf-password' },
+          { label: t`PDF Repair`, href: '/repair/pdf' },
+          { label: t`Images to PDF`, href: '/merge/image-to-pdf' },
         ]}
       />
     </Box>

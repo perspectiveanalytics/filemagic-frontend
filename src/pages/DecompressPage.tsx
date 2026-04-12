@@ -12,8 +12,10 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function DecompressPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
 
@@ -33,23 +35,19 @@ export default function DecompressPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Decompress" description="Extract ZIP, RAR, 7Z, TAR archives for free. Supports password-protected archives." path="/archive/decompress" structuredData={buildToolSchema('Decompress Archive', 'Extract archives server-side.', '/archive/decompress')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Decompress Archive
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Extract ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, TAR.ZST
-      </Typography>
+      <SEO title={t`Decompress`} description={t`Extract ZIP, RAR, 7Z, TAR archives for free. Supports password-protected archives.`} path="/archive/decompress" structuredData={buildToolSchema(t`Decompress Archive`, t`Extract archives server-side.`, '/archive/decompress')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Decompress Archive</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Extract ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, TAR.ZST</Trans></Typography>
 
       <ToolDisclaimer toolId="decompress" />
 
       <FormControl sx={{ mb: 3 }}>
-        <FormLabel>Password (optional)</FormLabel>
+        <FormLabel><Trans>Password (optional)</Trans></FormLabel>
         <Input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="For encrypted archives"
+          placeholder={t`For encrypted archives`}
           disabled={isProcessing}
         />
       </FormControl>
@@ -80,33 +78,33 @@ export default function DecompressPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to extract an archive online',
+          title: t`How to extract an archive online`,
           steps: [
-            'If the archive is password-protected, enter the password first.',
-            'Upload your archive file (ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, or TAR.ZST). Max 50 MB.',
-            'Browse the extracted files and download them individually or as a ZIP.',
+            t`If the archive is password-protected, enter the password first.`,
+            t`Upload your archive file (ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, or TAR.ZST). Max 50 MB.`,
+            t`Browse the extracted files and download them individually or as a ZIP.`,
           ],
         }}
         features={[
-          { icon: <FolderZipOutlinedIcon />, title: 'Wide Format Support', description: 'Extract ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, and TAR.ZST archives.' },
-          { icon: <LockOutlinedIcon />, title: 'Password Support', description: 'Decompress password-protected ZIP, RAR, and 7z archives by entering the password before upload.' },
-          { icon: <CloudDownloadOutlinedIcon />, title: 'Individual Downloads', description: 'Download extracted files one by one or grab everything as a single ZIP.' },
-          { icon: <LanguageOutlinedIcon />, title: 'No Software Needed', description: 'Extract archives directly in your browser — no desktop app or plugin required.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Extraction', description: 'Server-side processing extracts even large archives in seconds.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <FolderZipOutlinedIcon />, title: t`Wide Format Support`, description: t`Extract ZIP, RAR, 7Z, TAR.GZ, TAR.BZ2, TAR.XZ, and TAR.ZST archives.` },
+          { icon: <LockOutlinedIcon />, title: t`Password Support`, description: t`Decompress password-protected ZIP, RAR, and 7z archives by entering the password before upload.` },
+          { icon: <CloudDownloadOutlinedIcon />, title: t`Individual Downloads`, description: t`Download extracted files one by one or grab everything as a single ZIP.` },
+          { icon: <LanguageOutlinedIcon />, title: t`No Software Needed`, description: t`Extract archives directly in your browser — no desktop app or plugin required.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Extraction`, description: t`Server-side processing extracts even large archives in seconds.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What archive formats are supported?', answer: 'ZIP, RAR, 7Z, TAR.GZ (.tgz), TAR.BZ2, TAR.XZ, and TAR.ZST are all supported.' },
-          { question: 'Can I extract password-protected archives?', answer: 'Yes. Enter the password in the optional password field before uploading the file.' },
-          { question: 'What is the file size limit?', answer: 'The maximum upload size is 50 MB.' },
-          { question: 'Can I download individual files from the archive?', answer: 'Yes. After extraction you can download files one at a time, or download all extracted files bundled as a single ZIP.' },
-          { question: 'Are my files stored on the server?', answer: 'No. All files are processed in memory and deleted immediately after you download them.' },
+          { question: t`What archive formats are supported?`, answer: t`ZIP, RAR, 7Z, TAR.GZ (.tgz), TAR.BZ2, TAR.XZ, and TAR.ZST are all supported.` },
+          { question: t`Can I extract password-protected archives?`, answer: t`Yes. Enter the password in the optional password field before uploading the file.` },
+          { question: t`What is the file size limit?`, answer: t`The maximum upload size is 50 MB.` },
+          { question: t`Can I download individual files from the archive?`, answer: t`Yes. After extraction you can download files one at a time, or download all extracted files bundled as a single ZIP.` },
+          { question: t`Are my files stored on the server?`, answer: t`No. All files are processed in memory and deleted immediately after you download them.` },
         ]}
         relatedTools={[
-          { label: 'Compress & Encrypt', href: '/archive/create' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Password Generator', href: '/generate/password' },
-          { label: 'Font Converter', href: '/convert/font' },
+          { label: t`Compress & Encrypt`, href: '/archive/create' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Password Generator`, href: '/generate/password' },
+          { label: t`Font Converter`, href: '/convert/font' },
         ]}
       />
     </Box>

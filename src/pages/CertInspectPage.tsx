@@ -15,6 +15,7 @@ import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const CERT_ACCEPT = '.pem,.crt,.cer,.der,.p12,.pfx,.p7b,.p7c,.csr';
 
@@ -213,7 +214,7 @@ function SubjectDisplay({ label, info }: { label: string; info: SubjectInfo }) {
       {dnParts.length > 0 ? (
         <CopyableValue value={dnString} label={label.toLowerCase()} />
       ) : (
-        <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>N/A</Typography>
+        <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>N/A</Trans></Typography>
       )}
     </InfoRow>
   );
@@ -234,11 +235,11 @@ function ValidityTimeline({ notBefore, notAfter, isExpired }: { notBefore: strin
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.75 }}>
         <Box>
-          <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>Not Before</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Not Before</Trans></Typography>
           <Typography level="body-xs" sx={{ fontWeight: 500 }}>{formatDate(notBefore)}</Typography>
         </Box>
         <Box sx={{ textAlign: 'right' }}>
-          <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>Not After</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Not After</Trans></Typography>
           <Typography level="body-xs" sx={{ fontWeight: 500, color: isExpired ? 'danger.plainColor' : undefined }}>
             {formatDate(notAfter)}
           </Typography>
@@ -330,7 +331,7 @@ function ChainCertCard({ cert, index, showConnector, isLast }: { cert: CertSumma
             #{index + 1}
           </Typography>
           {cert.isCA && <Chip size="sm" variant="soft" color="neutral" sx={{ fontSize: '0.65rem', height: 18 }}>CA</Chip>}
-          {cert.isExpired && <Chip size="sm" variant="soft" color="danger" sx={{ fontSize: '0.65rem', height: 18 }}>Expired</Chip>}
+          {cert.isExpired && <Chip size="sm" variant="soft" color="danger" sx={{ fontSize: '0.65rem', height: 18 }}><Trans>Expired</Trans></Chip>}
         </Box>
         <Typography level="body-sm" sx={{ fontWeight: 500, mb: 0.25 }}>
           {subjectLine || 'Unknown'}
@@ -400,13 +401,13 @@ function CertResult({ result }: { result: CertificateInfo }) {
         <Chip size="sm" variant="soft" color="neutral">{result.format}</Chip>
         {!isCSR && (
           result.isExpired ? (
-            <Chip size="sm" variant="soft" color="danger">Expired</Chip>
+            <Chip size="sm" variant="soft" color="danger"><Trans>Expired</Trans></Chip>
           ) : (
-            <Chip size="sm" variant="soft" color="success">Valid</Chip>
+            <Chip size="sm" variant="soft" color="success"><Trans>Valid</Trans></Chip>
           )
         )}
-        {result.isSelfSigned && <Chip size="sm" variant="soft" color="warning">Self-Signed</Chip>}
-        {result.isTrusted && <Chip size="sm" variant="soft" color="success">Trusted</Chip>}
+        {result.isSelfSigned && <Chip size="sm" variant="soft" color="warning"><Trans>Self-Signed</Trans></Chip>}
+        {result.isTrusted && <Chip size="sm" variant="soft" color="success"><Trans>Trusted</Trans></Chip>}
         {result.isCA && <Chip size="sm" variant="soft" color="neutral">CA</Chip>}
         {result.certCount > 1 && (
           <Chip size="sm" variant="soft" color="neutral">{result.certCount} certs</Chip>
@@ -528,6 +529,7 @@ function SanChip({ value }: { value: string }) {
 // --- Main page ---
 
 export default function CertInspectPage() {
+  const { t } = useLingui();
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
   const [inputMode, setInputMode] = useState<'file' | 'paste'>('file');
@@ -567,17 +569,13 @@ export default function CertInspectPage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Certificate Inspector"
-        description="Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats."
+        title={t`Certificate Inspector`}
+        description={t`Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats.`}
         path="/inspect/certificate"
-        structuredData={buildToolSchema('Certificate Inspector', 'Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats.', '/inspect/certificate')}
+        structuredData={buildToolSchema(t`Certificate Inspector`, t`Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats.`, '/inspect/certificate')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Certificate Inspector
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        View details of SSL/TLS certificates
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Certificate Inspector</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>View details of SSL/TLS certificates</Trans></Typography>
 
       <ToolDisclaimer toolId="cert-inspect" />
 
@@ -598,7 +596,7 @@ export default function CertInspectPage() {
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Input
               type="password"
-              placeholder="Enter password"
+              placeholder={t`Enter password`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handlePasswordSubmit()}
@@ -708,9 +706,7 @@ export default function CertInspectPage() {
           }}
         >
           <CircularProgress size="md" thickness={3} color="primary" />
-          <Typography level="body-md" sx={{ color: 'text.secondary' }}>
-            Analyzing certificate...
-          </Typography>
+          <Typography level="body-md" sx={{ color: 'text.secondary' }}><Trans>Analyzing certificate...</Trans></Typography>
         </Box>
       ) : inspection.status === 'error' ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
@@ -779,34 +775,34 @@ export default function CertInspectPage() {
       ) : null}
       <ToolSEOContent
         howTo={{
-          title: 'How to inspect an SSL/TLS certificate',
+          title: t`How to inspect an SSL/TLS certificate`,
           steps: [
-            'Upload your certificate file (PEM, CRT, DER, P12, PFX, P7B, or CSR). Max 5 MB.',
-            'If the file is a password-protected P12/PFX, enter the password when prompted.',
-            'Review subject, issuer, validity dates, SANs, key usage, and fingerprints.',
-            'Click any value to copy it to your clipboard.',
+            t`Upload your certificate file (PEM, CRT, DER, P12, PFX, P7B, or CSR). Max 5 MB.`,
+            t`If the file is a password-protected P12/PFX, enter the password when prompted.`,
+            t`Review subject, issuer, validity dates, SANs, key usage, and fingerprints.`,
+            t`Click any value to copy it to your clipboard.`,
           ],
         }}
         features={[
-          { icon: <SecurityOutlinedIcon />, title: 'Full Certificate Details', description: 'View subject, issuer, validity period, signature algorithm, key size, and serial number at a glance.' },
-          { icon: <LanguageOutlinedIcon />, title: 'SAN Inspection', description: 'List all Subject Alternative Names (DNS, IP, email) with one-click copy for each entry.' },
-          { icon: <FingerprintOutlinedIcon />, title: 'Fingerprint Verification', description: 'Display SHA-256 and SHA-1 fingerprints for easy certificate pinning and comparison.' },
-          { icon: <LinkOutlinedIcon />, title: 'Chain Visualization', description: 'See the full certificate chain with status badges for CA, expired, and self-signed certificates.' },
-          { icon: <BoltOutlinedIcon />, title: 'Multiple Formats', description: 'Supports PEM, CRT, DER, P12/PFX (with password), P7B, and CSR files.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Certificates are analyzed in isolated memory and never stored. Data is deleted immediately after inspection.' },
+          { icon: <SecurityOutlinedIcon />, title: t`Full Certificate Details`, description: t`View subject, issuer, validity period, signature algorithm, key size, and serial number at a glance.` },
+          { icon: <LanguageOutlinedIcon />, title: t`SAN Inspection`, description: t`List all Subject Alternative Names (DNS, IP, email) with one-click copy for each entry.` },
+          { icon: <FingerprintOutlinedIcon />, title: t`Fingerprint Verification`, description: t`Display SHA-256 and SHA-1 fingerprints for easy certificate pinning and comparison.` },
+          { icon: <LinkOutlinedIcon />, title: t`Chain Visualization`, description: t`See the full certificate chain with status badges for CA, expired, and self-signed certificates.` },
+          { icon: <BoltOutlinedIcon />, title: t`Multiple Formats`, description: t`Supports PEM, CRT, DER, P12/PFX (with password), P7B, and CSR files.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Certificates are analyzed in isolated memory and never stored. Data is deleted immediately after inspection.` },
         ]}
         faq={[
-          { question: 'What certificate formats are supported?', answer: 'PEM (.pem, .crt, .cer), DER (.der), PKCS#12 (.p12, .pfx), PKCS#7 (.p7b, .p7c), and Certificate Signing Requests (.csr).' },
-          { question: 'Can I inspect a password-protected certificate?', answer: 'Yes. P12 and PFX files that require a password will prompt you to enter it before analysis.' },
-          { question: 'What is the file size limit?', answer: 'The maximum upload size is 5 MB, which covers virtually all certificate files.' },
-          { question: 'Does this tool validate the certificate chain?', answer: 'It displays the chain and indicates whether each certificate is expired, a CA, or self-signed. Full trust-chain validation against system roots is also shown when available.' },
-          { question: 'Is my certificate stored on the server?', answer: 'No. The certificate is processed in memory and discarded immediately. Nothing is saved or logged.' },
+          { question: t`What certificate formats are supported?`, answer: t`PEM (.pem, .crt, .cer), DER (.der), PKCS#12 (.p12, .pfx), PKCS#7 (.p7b, .p7c), and Certificate Signing Requests (.csr).` },
+          { question: t`Can I inspect a password-protected certificate?`, answer: t`Yes. P12 and PFX files that require a password will prompt you to enter it before analysis.` },
+          { question: t`What is the file size limit?`, answer: t`The maximum upload size is 5 MB, which covers virtually all certificate files.` },
+          { question: t`Does this tool validate the certificate chain?`, answer: t`It displays the chain and indicates whether each certificate is expired, a CA, or self-signed. Full trust-chain validation against system roots is also shown when available.` },
+          { question: t`Is my certificate stored on the server?`, answer: t`No. The certificate is processed in memory and discarded immediately. Nothing is saved or logged.` },
         ]}
         relatedTools={[
-          { label: 'Certificate Converter', href: '/convert/certificate' },
-          { label: 'Password Generator', href: '/generate/password' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'QR Code Generator', href: '/qrcode' },
+          { label: t`Certificate Converter`, href: '/convert/certificate' },
+          { label: t`Password Generator`, href: '/generate/password' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`QR Code Generator`, href: '/qrcode' },
         ]}
       />
     </Box>

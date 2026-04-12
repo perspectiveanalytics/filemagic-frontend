@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/joy';
+import { Trans } from '@lingui/react/macro';
 
 const credits = [
   { name: 'Cloudflare', url: 'https://cloudflare.com' },
@@ -41,7 +42,7 @@ export default function CreditsBanner({ position = 'top' }: { position?: 'top' |
         level="body-xs"
         sx={{ color: 'text.tertiary', fontSize: '0.675rem', letterSpacing: '0.01em' }}
       >
-        Special thanks to
+        <Trans>Special thanks to</Trans>
       </Typography>
       {credits.map((c, i) => (
         <Box key={c.name} sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>

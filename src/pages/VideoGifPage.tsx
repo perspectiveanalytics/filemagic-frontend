@@ -14,6 +14,7 @@ import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { actionBtnBase } from '../styles/buttons';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const FPS_OPTIONS = [5, 8, 10, 12, 15];
 const WIDTH_OPTIONS = [160, 240, 320, 480, 640];
@@ -34,6 +35,7 @@ function formatTime(s: number): string {
 }
 
 export default function VideoGifPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -136,13 +138,9 @@ export default function VideoGifPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Video to GIF" description="Convert video clips to animated GIFs for free. Preview and trim before converting." path="/convert/video-to-gif" structuredData={buildToolSchema('Video to GIF', 'Convert videos to GIF with preview.', '/convert/video-to-gif')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Video to GIF
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert a video clip to an animated GIF
-      </Typography>
+      <SEO title={t`Video to GIF`} description={t`Convert video clips to animated GIFs for free. Preview and trim before converting.`} path="/convert/video-to-gif" structuredData={buildToolSchema(t`Video to GIF`, t`Convert videos to GIF with preview.`, '/convert/video-to-gif')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Video to GIF</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert a video clip to an animated GIF</Trans></Typography>
 
       <ToolDisclaimer toolId="video-to-gif" />
 
@@ -165,7 +163,7 @@ export default function VideoGifPage() {
               variant="plain"
               color="neutral"
               onClick={handleClose}
-              aria-label="Close"
+              aria-label={t`Close`}
               sx={{ flexShrink: 0, ml: 1 }}
             >
               <CloseOutlinedIcon sx={{ fontSize: 18 }} />
@@ -290,7 +288,7 @@ export default function VideoGifPage() {
                   </Select>
                 </FormControl>
                 <FormControl sx={{ flex: 1 }}>
-                  <FormLabel>Width</FormLabel>
+                  <FormLabel><Trans>Width</Trans></FormLabel>
                   <Select value={maxWidth} onChange={(_, v) => v && setMaxWidth(v)}>
                     {WIDTH_OPTIONS.map((w) => (
                       <Option key={w} value={w}>{w}px</Option>
@@ -346,35 +344,35 @@ export default function VideoGifPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert a video to GIF online',
+          title: t`How to convert a video to GIF online`,
           steps: [
-            'Upload your video file (up to 30 MB).',
-            'Use the clip slider to select the segment you want (up to 15 seconds).',
-            'Adjust speed, FPS, and width to fine-tune your GIF.',
-            'Click "Convert to GIF" and download the result.',
+            t`Upload your video file (up to 30 MB).`,
+            t`Use the clip slider to select the segment you want (up to 15 seconds).`,
+            t`Adjust speed, FPS, and width to fine-tune your GIF.`,
+            t`Click "Convert to GIF" and download the result.`,
           ],
         }}
         features={[
-          { icon: <GifOutlinedIcon />, title: 'Animated GIF Output', description: 'Convert any video clip into a looping animated GIF ready to share.' },
-          { icon: <ContentCutOutlinedIcon />, title: 'Trim & Clip', description: 'Select exactly which part of the video to convert with a visual range slider.' },
-          { icon: <SpeedOutlinedIcon />, title: 'Speed Control', description: 'Speed up or slow down from 0.5x to 2x for the perfect effect.' },
-          { icon: <TuneOutlinedIcon />, title: 'FPS & Width Settings', description: 'Control frame rate (5-15 fps) and output width (160-640px) to balance quality and file size.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Conversion', description: 'GIFs are generated quickly, even from large video files up to 30 MB.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <GifOutlinedIcon />, title: t`Animated GIF Output`, description: t`Convert any video clip into a looping animated GIF ready to share.` },
+          { icon: <ContentCutOutlinedIcon />, title: t`Trim & Clip`, description: t`Select exactly which part of the video to convert with a visual range slider.` },
+          { icon: <SpeedOutlinedIcon />, title: t`Speed Control`, description: t`Speed up or slow down from 0.5x to 2x for the perfect effect.` },
+          { icon: <TuneOutlinedIcon />, title: t`FPS & Width Settings`, description: t`Control frame rate (5-15 fps) and output width (160-640px) to balance quality and file size.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Conversion`, description: t`GIFs are generated quickly, even from large video files up to 30 MB.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What is the maximum clip length?', answer: 'You can select a clip up to 15 seconds long. Shorter clips produce smaller, more shareable GIFs.' },
-          { question: 'How can I reduce the GIF file size?', answer: 'Lower the width (e.g., 240px instead of 480px), reduce the FPS (e.g., 8 instead of 15), or shorten the clip duration. All three factors directly impact file size.' },
-          { question: 'Which video formats are supported?', answer: 'MP4, MKV, AVI, MOV, and WebM are all supported. Most common video formats will work.' },
-          { question: 'Can I preview the clip before converting?', answer: 'Yes. After uploading, a video player lets you preview your file. The clip range slider shows exactly which segment will be converted.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 30 MB. The output GIF size depends on your clip length, FPS, and width settings.' },
+          { question: t`What is the maximum clip length?`, answer: t`You can select a clip up to 15 seconds long. Shorter clips produce smaller, more shareable GIFs.` },
+          { question: t`How can I reduce the GIF file size?`, answer: t`Lower the width (e.g., 240px instead of 480px), reduce the FPS (e.g., 8 instead of 15), or shorten the clip duration. All three factors directly impact file size.` },
+          { question: t`Which video formats are supported?`, answer: t`MP4, MKV, AVI, MOV, and WebM are all supported. Most common video formats will work.` },
+          { question: t`Can I preview the clip before converting?`, answer: t`Yes. After uploading, a video player lets you preview your file. The clip range slider shows exactly which segment will be converted.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 30 MB. The output GIF size depends on your clip length, FPS, and width settings.` },
         ]}
         relatedTools={[
-          { label: 'Video Compress', href: '/compress/video' },
-          { label: 'MOV to MP4', href: '/convert/mov-to-mp4' },
-          { label: 'Extract Audio', href: '/convert/audio-extract' },
-          { label: 'Audio Convert', href: '/convert/audio' },
-          { label: 'Image Convert', href: '/convert/image' },
+          { label: t`Video Compress`, href: '/compress/video' },
+          { label: t`MOV to MP4`, href: '/convert/mov-to-mp4' },
+          { label: t`Extract Audio`, href: '/convert/audio-extract' },
+          { label: t`Audio Convert`, href: '/convert/audio' },
+          { label: t`Image Convert`, href: '/convert/image' },
         ]}
       />
     </Box>

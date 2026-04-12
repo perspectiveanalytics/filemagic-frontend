@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react';
 import { Box, IconButton, Input, List, ListItem, ListItemButton, ListItemDecorator, Typography } from '@mui/joy';
 import { useColorScheme } from '@mui/joy/styles';
 import { Link, useLocation } from 'react-router-dom';
+import { useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -9,8 +11,10 @@ import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { homeItem, categories, allItems, type NavItem } from '../config/navigation';
+import { useLingui as useLinguiRuntime } from '@lingui/react';
+import { useNavigation, type NavItem } from '../config/navigation';
 import { useThanks } from '../hooks/useThanks';
+import { changeLocale } from '../i18n';
 
 function NavItemRow({ item, isActive, onClick }: { item: NavItem; isActive: boolean; onClick: () => void }) {
   return (
@@ -70,16 +74,20 @@ export default function Sidebar() {
   const { mode, systemMode, setMode } = useColorScheme();
   const resolvedMode = mode === 'system' ? systemMode : mode;
   const { showThanks, markThanked } = useThanks();
+  const { t } = useLingui();
+  const { i18n } = useLinguiRuntime();
+  const nextLocale = i18n.locale === 'fr' ? 'en' : 'fr';
+  const nav = useNavigation();
 
   const filteredItems = useMemo(() => {
     if (!search.trim()) return null; // null means show categories
     const q = search.toLowerCase().trim();
-    return allItems.filter(
+    return nav.allItems.filter(
       (item) =>
         item.label.toLowerCase().includes(q) ||
         item.keywords.toLowerCase().includes(q)
     );
-  }, [search]);
+  }, [search, nav.allItems]);
 
   const clearSearch = () => setSearch('');
 
@@ -129,7 +137,7 @@ export default function Sidebar() {
       <Box sx={{ px: 1.5, pb: 1.5 }}>
         <Input
           size="sm"
-          placeholder="Search tools..."
+          placeholder={t`Search tools...`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           startDecorator={<SearchOutlinedIcon sx={{ fontSize: 16, color: 'text.tertiary' }} />}
@@ -172,7 +180,7 @@ export default function Sidebar() {
           >
             <FavoriteBorderRoundedIcon sx={{ fontSize: 15 }} />
             <Typography level="body-xs" sx={{ color: 'inherit', fontWeight: 600 }}>
-              Say thanks
+              <Trans>Say thanks</Trans>
             </Typography>
           </Box>
         </Box>
@@ -191,7 +199,7 @@ export default function Sidebar() {
           ))}
           {filteredItems.length === 0 && (
             <Typography level="body-xs" sx={{ color: 'text.tertiary', px: 1.5, py: 2, textAlign: 'center' }}>
-              No tools found
+              <Trans>No tools found</Trans>
             </Typography>
           )}
         </List>
@@ -200,13 +208,13 @@ export default function Sidebar() {
         <Box sx={{ px: 1.5 }}>
           <List size="sm" sx={{ gap: 0.25, pb: 0.5 }}>
             <NavItemRow
-              item={homeItem}
-              isActive={location.pathname === homeItem.path}
+              item={nav.homeItem}
+              isActive={location.pathname === nav.homeItem.path}
               onClick={clearSearch}
             />
           </List>
 
-          {categories.map((cat) => (
+          {nav.categories.map((cat) => (
             <Box key={cat.id} sx={{ mb: 0.5 }}>
               <Typography
                 level="body-xs"
@@ -267,7 +275,7 @@ export default function Sidebar() {
         >
           <ShieldOutlinedIcon sx={{ fontSize: 15 }} />
           <Typography level="body-xs" sx={{ color: 'inherit', fontWeight: 600 }}>
-            How it works
+            <Trans>How it works</Trans>
           </Typography>
           <ArrowForwardIcon
             className="sidebar-security-arrow"
@@ -282,7 +290,7 @@ export default function Sidebar() {
               level="body-xs"
               sx={{ color: 'text.tertiary', textDecoration: 'none', transition: 'color 0.15s', '&:hover': { color: 'text.secondary' } }}
             >
-              Privacy
+              <Trans>Privacy</Trans>
             </Typography>
             <Typography
               component={Link}
@@ -290,7 +298,7 @@ export default function Sidebar() {
               level="body-xs"
               sx={{ color: 'text.tertiary', textDecoration: 'none', transition: 'color 0.15s', '&:hover': { color: 'text.secondary' } }}
             >
-              Terms
+              <Trans>Terms</Trans>
             </Typography>
             <Typography
               component={Link}
@@ -298,7 +306,7 @@ export default function Sidebar() {
               level="body-xs"
               sx={{ color: 'text.tertiary', textDecoration: 'none', transition: 'color 0.15s', '&:hover': { color: 'text.secondary' } }}
             >
-              Legal
+              <Trans>Legal</Trans>
             </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.25 }}>
@@ -311,7 +319,7 @@ export default function Sidebar() {
               color="neutral"
               size="sm"
               sx={{ minWidth: 24, minHeight: 24, '--IconButton-size': '24px' }}
-              aria-label="View source on GitHub"
+              aria-label={t`View source on GitHub`}
             >
               <GitHubIcon sx={{ fontSize: 14 }} />
             </IconButton>
@@ -321,11 +329,21 @@ export default function Sidebar() {
               size="sm"
               onClick={() => setMode(resolvedMode === 'dark' ? 'light' : 'dark')}
               sx={{ minWidth: 24, minHeight: 24, '--IconButton-size': '24px' }}
-              aria-label="Toggle color mode"
+              aria-label={t`Toggle color mode`}
             >
               {resolvedMode === 'dark'
                 ? <LightModeOutlinedIcon sx={{ fontSize: 14 }} />
                 : <DarkModeOutlinedIcon sx={{ fontSize: 14 }} />}
+            </IconButton>
+            <IconButton
+              variant="plain"
+              color="neutral"
+              size="sm"
+              onClick={() => changeLocale(nextLocale)}
+              aria-label={t`Switch language`}
+              sx={{ minWidth: 24, minHeight: 24, '--IconButton-size': '24px', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.03em' }}
+            >
+              {nextLocale.toUpperCase()}
             </IconButton>
         </Box>
 

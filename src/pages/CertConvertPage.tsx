@@ -11,6 +11,7 @@ import SwapHorizOutlinedIcon from '@mui/icons-material/SwapHorizOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const CERT_ACCEPT = '.pem,.crt,.cer,.der,.p12,.pfx,.p7b,.p7c';
 
@@ -26,6 +27,7 @@ function needsOutputPassword(format: string): boolean {
 }
 
 export default function CertConvertPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetFormat, setTargetFormat] = useState<string>('pem');
   const [password, setPassword] = useState('');
@@ -55,21 +57,15 @@ export default function CertConvertPage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Certificate Converter"
-        description="Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required."
+        title={t`Certificate Converter`}
+        description={t`Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required.`}
         path="/convert/certificate"
-        structuredData={buildToolSchema('Certificate Converter', 'Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required.', '/convert/certificate')}
+        structuredData={buildToolSchema(t`Certificate Converter`, t`Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required.`, '/convert/certificate')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Certificate Converter
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Certificate Converter</Trans></Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-        <Typography level="body-sm" sx={{ color: 'text.tertiary' }}>
-          Convert between certificate formats
-        </Typography>
-        <Chip size="sm" variant="soft" color="warning" sx={{ fontSize: '0.65rem', fontWeight: 700 }}>
-          Beta
-        </Chip>
+        <Typography level="body-sm" sx={{ color: 'text.tertiary' }}><Trans>Convert between certificate formats</Trans></Typography>
+        <Chip size="sm" variant="soft" color="warning" sx={{ fontSize: '0.65rem', fontWeight: 700 }}><Trans>Beta</Trans></Chip>
       </Box>
       <ToolDisclaimer toolId="cert-convert" />
 
@@ -87,7 +83,7 @@ export default function CertConvertPage() {
         }}
       >
         <FormControl>
-          <FormLabel>Target format</FormLabel>
+          <FormLabel><Trans>Target format</Trans></FormLabel>
           <Select
             value={targetFormat}
             onChange={(_, val) => val && setTargetFormat(val)}
@@ -102,10 +98,10 @@ export default function CertConvertPage() {
 
         {showInputPassword && (
           <FormControl>
-            <FormLabel>Input password (for P12/PFX)</FormLabel>
+            <FormLabel><Trans>Input password (for P12/PFX)</Trans></FormLabel>
             <Input
               type="password"
-              placeholder="Leave empty if not encrypted"
+              placeholder={t`Leave empty if not encrypted`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isProcessing}
@@ -116,18 +112,16 @@ export default function CertConvertPage() {
 
         {showOutputPassword && (
           <FormControl>
-            <FormLabel>Output password</FormLabel>
+            <FormLabel><Trans>Output password</Trans></FormLabel>
             <Input
               type="password"
-              placeholder="Password for output file"
+              placeholder={t`Password for output file`}
               value={outputPassword}
               onChange={(e) => setOutputPassword(e.target.value)}
               disabled={isProcessing}
               size="sm"
             />
-            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}>
-              Required for P12 output
-            </Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Required for P12 output</Trans></Typography>
           </FormControl>
         )}
       </Box>
@@ -160,33 +154,33 @@ export default function CertConvertPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert a certificate online',
+          title: t`How to convert a certificate online`,
           steps: [
-            'Select the target format (PEM, DER, P12, or P7B).',
-            'If your input file is a P12/PFX, enter the input password.',
-            'If converting to P12, enter an output password to protect the new file.',
-            'Upload your certificate file (up to 1 MB).',
-            'Download the converted certificate instantly.',
+            t`Select the target format (PEM, DER, P12, or P7B).`,
+            t`If your input file is a P12/PFX, enter the input password.`,
+            t`If converting to P12, enter an output password to protect the new file.`,
+            t`Upload your certificate file (up to 1 MB).`,
+            t`Download the converted certificate instantly.`,
           ],
         }}
         features={[
-          { icon: <SwapHorizOutlinedIcon />, title: 'Four Output Formats', description: 'Convert to PEM, DER, PKCS#12 (.p12), or PKCS#7 (.p7b) with a single click.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Password-Protected Input', description: 'Supports encrypted P12/PFX files — just provide the password before uploading.' },
-          { icon: <LockOutlinedIcon />, title: 'Encrypted P12 Output', description: 'Set a password when converting to PKCS#12 to keep your private key protected.' },
-          { icon: <VerifiedUserOutlinedIcon />, title: 'Chain Preserved', description: 'Intermediate and root certificates in the source file are carried over to the output.' },
-          { icon: <BoltOutlinedIcon />, title: 'Instant Conversion', description: 'Certificates convert in under a second — no waiting, no queue.' },
+          { icon: <SwapHorizOutlinedIcon />, title: t`Four Output Formats`, description: t`Convert to PEM, DER, PKCS#12 (.p12), or PKCS#7 (.p7b) with a single click.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Password-Protected Input`, description: t`Supports encrypted P12/PFX files — just provide the password before uploading.` },
+          { icon: <LockOutlinedIcon />, title: t`Encrypted P12 Output`, description: t`Set a password when converting to PKCS#12 to keep your private key protected.` },
+          { icon: <VerifiedUserOutlinedIcon />, title: t`Chain Preserved`, description: t`Intermediate and root certificates in the source file are carried over to the output.` },
+          { icon: <BoltOutlinedIcon />, title: t`Instant Conversion`, description: t`Certificates convert in under a second — no waiting, no queue.` },
         ]}
         faq={[
-          { question: 'What certificate formats can I convert between?', answer: 'You can convert from PEM, CRT, CER, DER, P12/PFX, and P7B/P7C to any of the four target formats: PEM, DER, PKCS#12, and PKCS#7.' },
-          { question: 'Do I need a password for P12/PFX files?', answer: 'If the input P12/PFX is password-protected, you need to provide it. When converting to P12, you must set an output password to encrypt the new file.' },
-          { question: 'Is the certificate chain included in the output?', answer: 'Yes. All intermediate and root certificates present in the source file are included in the converted output.' },
-          { question: 'What is the file size limit?', answer: 'The maximum upload size is 1 MB, which is more than enough for certificate files.' },
+          { question: t`What certificate formats can I convert between?`, answer: t`You can convert from PEM, CRT, CER, DER, P12/PFX, and P7B/P7C to any of the four target formats: PEM, DER, PKCS#12, and PKCS#7.` },
+          { question: t`Do I need a password for P12/PFX files?`, answer: t`If the input P12/PFX is password-protected, you need to provide it. When converting to P12, you must set an output password to encrypt the new file.` },
+          { question: t`Is the certificate chain included in the output?`, answer: t`Yes. All intermediate and root certificates present in the source file are included in the converted output.` },
+          { question: t`What is the file size limit?`, answer: t`The maximum upload size is 1 MB, which is more than enough for certificate files.` },
         ]}
         relatedTools={[
-          { label: 'Certificate Inspector', href: '/inspect/certificate' },
-          { label: 'Password Generator', href: '/generate/password' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'QR Code Generator', href: '/qrcode' },
+          { label: t`Certificate Inspector`, href: '/inspect/certificate' },
+          { label: t`Password Generator`, href: '/generate/password' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`QR Code Generator`, href: '/qrcode' },
         ]}
       />
     </Box>

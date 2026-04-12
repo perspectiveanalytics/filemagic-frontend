@@ -3,6 +3,8 @@ import { Box, Typography } from '@mui/joy';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import ContentPasteRoundedIcon from '@mui/icons-material/ContentPasteRounded';
 import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+import { useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 
 interface FileDropZoneProps {
   onFileSelect: (file: File) => void;
@@ -46,6 +48,7 @@ export default function FileDropZone({
   disabled = false,
   allowPaste = false,
 }: FileDropZoneProps) {
+  const { t } = useLingui();
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,10 +67,13 @@ export default function FileDropZone({
 
   const validateFile = useCallback((file: File): string | null => {
     if (file.size > maxSize) {
-      return `${file.name} is ${formatSize(file.size)} — max is ${formatSize(maxSize)}`;
+      const name = file.name;
+      const size = formatSize(file.size);
+      const max = formatSize(maxSize);
+      return t`${name} is ${size} — max is ${max}`;
     }
 
-    const acceptedTypes = accept.split(',').map(t => t.trim());
+    const acceptedTypes = accept.split(',').map(a => a.trim());
     const fileExt = '.' + file.name.split('.').pop()?.toLowerCase();
     const isAccepted = acceptedTypes.some(type => {
       if (type.startsWith('.')) return fileExt === type.toLowerCase();
@@ -77,12 +83,13 @@ export default function FileDropZone({
 
     if (!isAccepted) {
       const formats = friendlyFormats(accept);
+      const ext = fileExtName(file.name);
       return formats
-        ? `${fileExtName(file.name)} isn't supported — try ${formats}`
-        : 'This file type isn\'t supported';
+        ? t`${ext} isn't supported — try ${formats}`
+        : t`This file type isn't supported`;
     }
     return null;
-  }, [accept, maxSize]);
+  }, [accept, maxSize, t]);
 
   const handleFile = useCallback((file: File) => {
     const validationError = validateFile(file);
@@ -211,18 +218,18 @@ export default function FileDropZone({
         }}
       />
       <Typography level="body-md" sx={{ color: isDragging ? 'primary.softColor' : 'text.secondary', fontWeight: 500 }}>
-        {isDragging ? 'Drop your file here' : 'Drop file here or click to browse'}
+        {isDragging ? <Trans>Drop your file here</Trans> : <Trans>Drop file here or click to browse</Trans>}
       </Typography>
       {allowPaste && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, color: 'text.tertiary' }}>
           <ContentPasteRoundedIcon sx={{ fontSize: 14 }} />
           <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-            or paste from clipboard
+            <Trans>or paste from clipboard</Trans>
           </Typography>
         </Box>
       )}
       <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-        Max {formatSize(maxSize)}
+        <Trans>Max {formatSize(maxSize)}</Trans>
       </Typography>
       {error && (
         <Box

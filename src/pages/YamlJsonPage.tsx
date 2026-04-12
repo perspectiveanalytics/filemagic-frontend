@@ -27,6 +27,7 @@ import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import SyncAltOutlinedIcon from '@mui/icons-material/SyncAltOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -277,6 +278,7 @@ const toolBtn = {
 } as const;
 
 export default function YamlJsonPage() {
+  const { t } = useLingui();
   const yamlContainerRef = useRef<HTMLDivElement>(null);
   const jsonContainerRef = useRef<HTMLDivElement>(null);
   const yamlViewRef = useRef<EditorView | null>(null);
@@ -493,8 +495,8 @@ export default function YamlJsonPage() {
   return (
     <Box sx={{ maxWidth: 960, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="YAML / JSON Converter"
-        description="Convert between YAML and JSON, format, minify, validate, sort keys, and visualize with a tree view. Detect type coercion issues. Free, runs in your browser."
+        title={t`YAML / JSON Converter`}
+        description={t`Convert between YAML and JSON, format, minify, validate, sort keys, and visualize with a tree view. Detect type coercion issues. Free, runs in your browser.`}
         path="/convert/yaml"
         structuredData={buildToolSchema(
           'YAML / JSON Converter',
@@ -503,12 +505,8 @@ export default function YamlJsonPage() {
         )}
       />
 
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        YAML &harr; JSON
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert, format, and validate &mdash; everything runs in your browser
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>YAML &harr; JSON</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert, format, and validate &mdash; everything runs in your browser</Trans></Typography>
 
       <ToolDisclaimer toolId="yaml-json" />
 
@@ -660,9 +658,7 @@ export default function YamlJsonPage() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, mb: 1 }}>
             <WarningAmberOutlinedIcon sx={{ fontSize: 14, color: 'warning.500' }} />
-            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'warning.plainColor' }}>
-              Type coercion detected
-            </Typography>
+            <Typography level="body-xs" sx={{ fontWeight: 600, color: 'warning.plainColor' }}><Trans>Type coercion detected</Trans></Typography>
           </Box>
           {warnings.map((w, i) => (
             <Typography key={i} level="body-xs" sx={{ color: 'text.tertiary', pl: 2.5 }}>
@@ -692,12 +688,8 @@ export default function YamlJsonPage() {
             <Typography
               level="body-xs"
               sx={{ fontWeight: 700, color: 'text.tertiary', textTransform: 'uppercase', letterSpacing: '0.08em' }}
-            >
-              Tree View
-            </Typography>
-            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-              Click a value to copy its path
-            </Typography>
+            ><Trans>Tree View</Trans></Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Click a value to copy its path</Trans></Typography>
           </Box>
           <Box sx={{ py: 1, maxHeight: 400, overflow: 'auto' }}>
             {typeof parsedData === 'object' ? (
@@ -720,34 +712,34 @@ export default function YamlJsonPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert between YAML and JSON',
+          title: t`How to convert between YAML and JSON`,
           steps: [
-            'Paste or type your YAML in the left editor, or JSON in the right editor.',
-            'The opposite format updates automatically in real time.',
-            'Use the toolbar to format, minify, or sort keys in both formats at once.',
-            'Toggle the tree view to visually explore your data structure and copy JSON paths.',
-            'Click the copy button on either panel to copy the result to your clipboard.',
+            t`Paste or type your YAML in the left editor, or JSON in the right editor.`,
+            t`The opposite format updates automatically in real time.`,
+            t`Use the toolbar to format, minify, or sort keys in both formats at once.`,
+            t`Toggle the tree view to visually explore your data structure and copy JSON paths.`,
+            t`Click the copy button on either panel to copy the result to your clipboard.`,
           ],
         }}
         features={[
-          { icon: <SyncAltOutlinedIcon />, title: 'Bi-directional Conversion', description: 'Edit either side and the other updates instantly. Works from YAML to JSON and JSON to YAML.' },
-          { icon: <CodeOutlinedIcon />, title: 'Syntax Highlighting', description: 'Full CodeMirror editors with syntax highlighting, line numbers, and bracket matching for both formats.' },
-          { icon: <AccountTreeOutlinedIcon />, title: 'Interactive Tree View', description: 'Visualize your data as a collapsible tree. Click any value to copy its JSON path.' },
-          { icon: <DataObjectOutlinedIcon />, title: 'Format, Minify & Sort', description: 'One-click formatting, minification, and alphabetical key sorting across both editors.' },
-          { icon: <BoltOutlinedIcon />, title: 'Multi-document Support', description: 'Handles YAML files with multiple documents separated by --- and merges them into a JSON array.' },
-          { icon: <LockOutlinedIcon />, title: 'Runs in Your Browser', description: 'No data is sent to any server. Everything is processed locally in your browser.' },
+          { icon: <SyncAltOutlinedIcon />, title: t`Bi-directional Conversion`, description: t`Edit either side and the other updates instantly. Works from YAML to JSON and JSON to YAML.` },
+          { icon: <CodeOutlinedIcon />, title: t`Syntax Highlighting`, description: t`Full CodeMirror editors with syntax highlighting, line numbers, and bracket matching for both formats.` },
+          { icon: <AccountTreeOutlinedIcon />, title: t`Interactive Tree View`, description: t`Visualize your data as a collapsible tree. Click any value to copy its JSON path.` },
+          { icon: <DataObjectOutlinedIcon />, title: t`Format, Minify & Sort`, description: t`One-click formatting, minification, and alphabetical key sorting across both editors.` },
+          { icon: <BoltOutlinedIcon />, title: t`Multi-document Support`, description: t`Handles YAML files with multiple documents separated by --- and merges them into a JSON array.` },
+          { icon: <LockOutlinedIcon />, title: t`Runs in Your Browser`, description: t`No data is sent to any server. Everything is processed locally in your browser.` },
         ]}
         faq={[
-          { question: 'Does this tool support multi-document YAML?', answer: 'Yes. If your YAML contains multiple documents separated by ---, they are parsed individually and merged into a JSON array.' },
-          { question: 'What are the type coercion warnings?', answer: 'YAML 1.1 silently converts values like "yes", "no", "on", "off", and date-like strings into booleans or Date objects. The converter detects these and warns you so you can quote them to keep them as strings.' },
-          { question: 'Is there a size limit?', answer: 'There is no hard limit since everything runs in your browser, but very large files (over a few MB) may slow down the live conversion. For those cases, consider using a CLI tool.' },
-          { question: 'Can I sort keys alphabetically?', answer: 'Yes. Click the "Sort keys" button in the toolbar to recursively sort all object keys in alphabetical order in both the YAML and JSON output.' },
+          { question: t`Does this tool support multi-document YAML?`, answer: t`Yes. If your YAML contains multiple documents separated by ---, they are parsed individually and merged into a JSON array.` },
+          { question: t`What are the type coercion warnings?`, answer: t`YAML 1.1 silently converts values like "yes", "no", "on", "off", and date-like strings into booleans or Date objects. The converter detects these and warns you so you can quote them to keep them as strings.` },
+          { question: t`Is there a size limit?`, answer: t`There is no hard limit since everything runs in your browser, but very large files (over a few MB) may slow down the live conversion. For those cases, consider using a CLI tool.` },
+          { question: t`Can I sort keys alphabetically?`, answer: t`Yes. Click the "Sort keys" button in the toolbar to recursively sort all object keys in alphabetical order in both the YAML and JSON output.` },
         ]}
         relatedTools={[
-          { label: 'JSON / CSV Converter', href: '/convert/json-csv' },
-          { label: 'Base64 Encode / Decode', href: '/tools/base64' },
-          { label: 'Hash Generator', href: '/tools/hash' },
-          { label: 'Word Counter', href: '/tools/word-counter' },
+          { label: t`JSON / CSV Converter`, href: '/convert/json-csv' },
+          { label: t`Base64 Encode / Decode`, href: '/tools/base64' },
+          { label: t`Hash Generator`, href: '/tools/hash' },
+          { label: t`Word Counter`, href: '/tools/word-counter' },
         ]}
       />
     </Box>

@@ -1,6 +1,10 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Box, IconButton, Input, Typography, Drawer, List, ListItem, ListItemButton, ListItemDecorator } from '@mui/joy';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useLingui } from '@lingui/react';
+import { useLingui as useLinguiMacro } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import Sidebar from './Sidebar';
 import MaintenanceBanner from './MaintenanceBanner';
 import CreditsBanner from './CreditsBanner';
@@ -13,8 +17,9 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { homeItem, categories, allItems, type NavItem } from '../config/navigation';
+import { useNavigation, type NavItem } from '../config/navigation';
 import { useThanks } from '../hooks/useThanks';
+import { changeLocale } from '../i18n';
 
 function MobileNavItem({
   item,
@@ -67,16 +72,20 @@ export default function Layout() {
   const { mode, systemMode, setMode } = useColorScheme();
   const resolvedMode = mode === 'system' ? systemMode : mode;
   const { showThanks, markThanked } = useThanks();
+  const { i18n } = useLingui();
+  const { t } = useLinguiMacro();
+  const nextLocale = i18n.locale === 'fr' ? 'en' : 'fr';
+  const nav = useNavigation();
 
   const filteredMobileItems = useMemo(() => {
     if (!mobileSearch.trim()) return null; // null means show categories
     const q = mobileSearch.toLowerCase().trim();
-    return allItems.filter(
+    return nav.allItems.filter(
       (item) =>
         item.label.toLowerCase().includes(q) ||
         item.keywords.toLowerCase().includes(q)
     );
-  }, [mobileSearch]);
+  }, [mobileSearch, nav.allItems]);
 
   useEffect(() => {
     if (turnstileInitialized.current || !turnstileRef.current) return;
@@ -108,6 +117,7 @@ export default function Layout() {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.body' }}>
+      <Helmet><html lang={i18n.locale} /></Helmet>
       <MaintenanceBanner />
       <CreditsBanner />
       <Box sx={{ display: 'flex', flex: 1 }}>
@@ -161,7 +171,7 @@ export default function Layout() {
               color="danger"
               size="sm"
               onClick={markThanked}
-              aria-label="Say thanks"
+              aria-label={t`Say thanks`}
             >
               <FavoriteBorderRoundedIcon sx={{ fontSize: 20 }} />
             </IconButton>
@@ -174,7 +184,7 @@ export default function Layout() {
             variant="plain"
             color="neutral"
             size="sm"
-            aria-label="View source on GitHub"
+            aria-label={t`View source on GitHub`}
           >
             <GitHubIcon sx={{ fontSize: 20 }} />
           </IconButton>
@@ -183,11 +193,21 @@ export default function Layout() {
             color="neutral"
             size="sm"
             onClick={() => setMode(resolvedMode === 'dark' ? 'light' : 'dark')}
-            aria-label="Toggle color mode"
+            aria-label={t`Toggle color mode`}
           >
             {resolvedMode === 'dark'
               ? <LightModeOutlinedIcon sx={{ fontSize: 20 }} />
               : <DarkModeOutlinedIcon sx={{ fontSize: 20 }} />}
+          </IconButton>
+          <IconButton
+            variant="plain"
+            color="neutral"
+            size="sm"
+            onClick={() => changeLocale(nextLocale)}
+            aria-label={t`Switch language`}
+            sx={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.03em' }}
+          >
+            {nextLocale.toUpperCase()}
           </IconButton>
           <IconButton
             variant="plain"
@@ -227,7 +247,7 @@ export default function Layout() {
         <Box sx={{ px: 1.5, pb: 1.5 }}>
           <Input
             size="sm"
-            placeholder="Search tools..."
+            placeholder={t`Search tools...`}
             value={mobileSearch}
             onChange={(e) => setMobileSearch(e.target.value)}
             startDecorator={<SearchOutlinedIcon sx={{ fontSize: 16, color: 'text.tertiary' }} />}
@@ -254,7 +274,7 @@ export default function Layout() {
             ))}
             {filteredMobileItems.length === 0 && (
               <Typography level="body-xs" sx={{ color: 'text.tertiary', px: 2, py: 2, textAlign: 'center' }}>
-                No tools found
+                <Trans>No tools found</Trans>
               </Typography>
             )}
           </List>
@@ -263,13 +283,13 @@ export default function Layout() {
           <Box sx={{ px: 1.5 }}>
             <List size="sm" sx={{ gap: 0.25, pb: 0.5 }}>
               <MobileNavItem
-                item={homeItem}
-                isActive={location.pathname === homeItem.path}
+                item={nav.homeItem}
+                isActive={location.pathname === nav.homeItem.path}
                 onClick={closeDrawer}
               />
             </List>
 
-            {categories.map((cat) => (
+            {nav.categories.map((cat) => (
               <Box key={cat.id} sx={{ mb: 0.5 }}>
                 <Typography
                   level="body-xs"
@@ -331,7 +351,7 @@ export default function Layout() {
           },
         }}
       >
-        Skip to main content
+        <Trans>Skip to main content</Trans>
       </Box>
       <Box
         component="main"

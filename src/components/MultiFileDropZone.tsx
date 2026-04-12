@@ -1,5 +1,7 @@
 import { useCallback, useState, useRef, useEffect } from 'react';
 import { Box, Typography, IconButton } from '@mui/joy';
+import { useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -33,6 +35,7 @@ export default function MultiFileDropZone({
   disabled = false,
   allowPreview = false,
 }: MultiFileDropZoneProps) {
+  const { t } = useLingui();
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
@@ -58,20 +61,25 @@ export default function MultiFileDropZone({
 
   const validateFile = useCallback((file: File): string | null => {
     if (file.size > maxSize) {
-      return `"${file.name}" is too large. Maximum size is ${Math.round(maxSize / 1024 / 1024)}MB.`;
+      const name = file.name;
+      const max = Math.round(maxSize / 1024 / 1024);
+      return t`"${name}" is too large. Maximum size is ${max}MB.`;
     }
     if (accept !== '*') {
-      const acceptedTypes = accept.split(',').map(t => t.trim());
+      const acceptedTypes = accept.split(',').map(a => a.trim());
       const fileExt = '.' + file.name.split('.').pop()?.toLowerCase();
       const isAccepted = acceptedTypes.some(type => {
         if (type.startsWith('.')) return fileExt === type.toLowerCase();
         if (type.endsWith('/*')) return file.type.startsWith(type.replace('/*', '/'));
         return file.type === type;
       });
-      if (!isAccepted) return `"${file.name}" is not a supported file type.`;
+      if (!isAccepted) {
+        const name = file.name;
+        return t`"${name}" is not a supported file type.`;
+      }
     }
     return null;
-  }, [accept, maxSize]);
+  }, [accept, maxSize, t]);
 
   const addFiles = useCallback((newFiles: FileList | File[]) => {
     const fileArray = Array.from(newFiles);
@@ -79,7 +87,7 @@ export default function MultiFileDropZone({
 
     for (const file of fileArray) {
       if (combined.length >= maxFiles) {
-        setError(`Maximum ${maxFiles} files allowed.`);
+        setError(t`Maximum ${maxFiles} files allowed.`);
         break;
       }
       const validationError = validateFile(file);
@@ -94,7 +102,7 @@ export default function MultiFileDropZone({
       setError(null);
       onFilesChange(combined);
     }
-  }, [files, maxFiles, validateFile, onFilesChange]);
+  }, [files, maxFiles, validateFile, onFilesChange, t]);
 
   const removeFile = useCallback((index: number) => {
     const updated = files.filter((_, i) => i !== index);
@@ -191,10 +199,10 @@ export default function MultiFileDropZone({
           }}
         />
         <Typography level="body-md" sx={{ color: isDragging ? 'primary.softColor' : 'text.secondary', fontWeight: 500 }}>
-          {isDragging ? 'Drop files here' : files.length > 0 ? 'Drop more files or click to add' : 'Drop files here or click to browse'}
+          {isDragging ? <Trans>Drop files here</Trans> : files.length > 0 ? <Trans>Drop more files or click to add</Trans> : <Trans>Drop files here or click to browse</Trans>}
         </Typography>
         <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-          Max {Math.round(maxSize / 1024 / 1024)}MB per file, up to {maxFiles} files
+          {t`Max ${Math.round(maxSize / 1024 / 1024)}MB per file, up to ${maxFiles} files`}
         </Typography>
         {error && (
           <Typography level="body-sm" sx={{ color: 'danger.500', mt: 0.5 }}>
@@ -274,7 +282,7 @@ export default function MultiFileDropZone({
             </Box>
           ))}
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}>
-            {files.length} file{files.length !== 1 ? 's' : ''} selected
+            {t`${files.length} file(s) selected`}
           </Typography>
         </Box>
       )}

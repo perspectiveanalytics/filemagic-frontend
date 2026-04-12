@@ -364,7 +364,7 @@ class ApiClient {
       case 'RATE_LIMITED':
         return 'Too many requests. Please wait a moment.';
       case 'CONVERSION_FAILED':
-        return 'Conversion failed. Please try a different file.';
+        return 'Processing failed. Please try a different file.';
       case 'NOT_FOUND':
         return 'Job not found or expired.';
       default:

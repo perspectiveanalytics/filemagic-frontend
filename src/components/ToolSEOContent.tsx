@@ -10,6 +10,7 @@ import {
 } from '@mui/joy';
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
+import { Trans } from '@lingui/react/macro';
 
 // ── Types ──
 
@@ -155,7 +156,7 @@ export default function ToolSEOContent({
         {features && features.length > 0 && (
           <Box component="section" sx={{ mb: 5 }}>
             <Typography component="h2" level="body-sm" sx={sectionHeadingSx}>
-              Features
+              <Trans>Features</Trans>
             </Typography>
             <Box
               sx={{
@@ -210,7 +211,7 @@ export default function ToolSEOContent({
         {faq && faq.length > 0 && (
           <Box component="section" sx={{ mb: 5 }}>
             <Typography component="h2" level="body-sm" sx={sectionHeadingSx}>
-              Frequently Asked Questions
+              <Trans>Frequently Asked Questions</Trans>
             </Typography>
             <AccordionGroup
               variant="outlined"
@@ -240,7 +241,7 @@ export default function ToolSEOContent({
         {relatedTools && relatedTools.length > 0 && (
           <Box component="nav" aria-label="Related tools">
             <Typography component="h2" level="body-sm" sx={sectionHeadingSx}>
-              Related Tools
+              <Trans>Related Tools</Trans>
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
               {relatedTools.map((tool) => (

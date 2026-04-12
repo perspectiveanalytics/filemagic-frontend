@@ -7,6 +7,14 @@ dist
 
 *.tsbuildinfo
 vite.config.d.ts
+vite.config.js
+lingui.config.d.ts
+lingui.config.js
+
+# Lingui compiled catalogs (Vite plugin handles compilation)
+src/locales/**/*.js
+src/locales/**/*.mjs
+src/locales/**/*.d.ts
 
 docker/allowed_ips.conf
 

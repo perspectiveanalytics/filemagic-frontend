@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/joy';
+import { useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -38,6 +40,7 @@ export default function ConversionProgress({
   showSizeComparison = true,
 }: ConversionProgressProps) {
   const { markUploaded } = useThanks();
+  const { t } = useLingui();
 
   useEffect(() => {
     if (status === 'done') {
@@ -72,9 +75,9 @@ export default function ConversionProgress({
         <>
           <CircularProgress size="md" thickness={3} color="primary" />
           <Typography level="body-md" sx={{ color: 'text.secondary' }}>
-            {status === 'uploading' && 'Uploading...'}
-            {status === 'queued' && `Queue position: ${position}`}
-            {status === 'processing' && 'Processing...'}
+            {status === 'uploading' && t`Uploading...`}
+            {status === 'queued' && t`Queue position: ${position}`}
+            {status === 'processing' && t`Processing...`}
           </Typography>
         </>
       )}
@@ -83,7 +86,7 @@ export default function ConversionProgress({
         <>
           {!previewUrl && (
             <Typography level="body-sm" sx={{ color: 'primary.plainColor', fontWeight: 600, letterSpacing: '0.02em' }}>
-              Ready
+              <Trans>Ready</Trans>
             </Typography>
           )}
 
@@ -91,7 +94,7 @@ export default function ConversionProgress({
             <Box
               component="img"
               src={previewUrl}
-              alt="Result preview"
+              alt={t`Result preview`}
               sx={{
                 maxWidth: '100%',
                 maxHeight: 280,
@@ -108,12 +111,12 @@ export default function ConversionProgress({
               </Typography>
               {saved !== null && saved > 0 && (
                 <Typography level="body-xs" sx={{ color: 'success.plainColor', mt: 0.5, fontWeight: 600 }}>
-                  {saved}% smaller
+                  {t`${saved}% smaller`}
                 </Typography>
               )}
               {outputSize >= inputSize && (
                 <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}>
-                  No size reduction
+                  <Trans>No size reduction</Trans>
                 </Typography>
               )}
             </Box>
@@ -144,7 +147,7 @@ export default function ConversionProgress({
               }}
             >
               <DownloadRoundedIcon sx={{ fontSize: 18 }} />
-              Download
+              <Trans>Download</Trans>
             </Box>
             <Box
               component="button"
@@ -167,7 +170,7 @@ export default function ConversionProgress({
               }}
             >
               <AddRoundedIcon sx={{ fontSize: 18 }} />
-              New
+              <Trans>New</Trans>
             </Box>
           </Box>
 
@@ -178,7 +181,7 @@ export default function ConversionProgress({
         <>
           <ErrorOutlineIcon sx={{ fontSize: 36, color: 'danger.500' }} />
           <Typography level="body-md" sx={{ color: 'danger.500', textAlign: 'center' }}>
-            {error || 'Conversion failed'}
+            {error || t`Processing failed`}
           </Typography>
           <Box
             component="button"
@@ -201,7 +204,7 @@ export default function ConversionProgress({
             }}
           >
             <ReplayRoundedIcon sx={{ fontSize: 18 }} />
-            Try again
+            <Trans>Try again</Trans>
           </Box>
         </>
       )}

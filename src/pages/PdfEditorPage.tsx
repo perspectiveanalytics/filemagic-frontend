@@ -29,6 +29,7 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { actionBtnBase } from '../styles/buttons';
 import type { RedactionRect } from '../components/RedactionCanvas';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 // ── Types ──
 
@@ -130,6 +131,7 @@ function watermarkPreviewSx(position: string): Record<string, unknown> {
 // ── Main Component ──
 
 export default function PdfEditorPage() {
+  const { t } = useLingui();
   // State: file & loading
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pages, setPages] = useState<PageState[]>([]);
@@ -436,17 +438,13 @@ export default function PdfEditorPage() {
   return (
     <Box sx={{ maxWidth: 740, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="PDF Editor"
-        description="Edit PDF pages: rotate, reorder, delete, extract, add watermarks, page numbers, and redact content. Free, private, no signup."
+        title={t`PDF Editor`}
+        description={t`Edit PDF pages: rotate, reorder, delete, extract, add watermarks, page numbers, and redact content. Free, private, no signup.`}
         path="/edit/pdf"
-        structuredData={buildToolSchema('PDF Editor', 'Edit PDF pages with rotate, reorder, watermark, page numbers and redaction.', '/edit/pdf')}
+        structuredData={buildToolSchema(t`PDF Editor`, t`Edit PDF pages with rotate, reorder, watermark, page numbers and redaction.`, '/edit/pdf')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        PDF Editor
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Rotate, reorder, watermark, number pages, and redact — all in one tool
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>PDF Editor</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Rotate, reorder, watermark, number pages, and redact — all in one tool</Trans></Typography>
 
       <ToolDisclaimer toolId="pdf-editor" />
 
@@ -513,8 +511,8 @@ export default function PdfEditorPage() {
           {activeTab === 'pages' && (
             <>
               <Box sx={{ display: 'flex', gap: 0.75, mb: 2 }}>
-                <Chip size="sm" variant={pageMode === 'organize' ? 'solid' : 'soft'} color={pageMode === 'organize' ? 'neutral' : 'neutral'} onClick={() => setPageMode('organize')} sx={{ cursor: 'pointer' }}>Organize</Chip>
-                <Chip size="sm" variant={pageMode === 'extract' ? 'solid' : 'soft'} color={pageMode === 'extract' ? 'neutral' : 'neutral'} onClick={() => setPageMode('extract')} sx={{ cursor: 'pointer' }}>Extract</Chip>
+                <Chip size="sm" variant={pageMode === 'organize' ? 'solid' : 'soft'} color={pageMode === 'organize' ? 'neutral' : 'neutral'} onClick={() => setPageMode('organize')} sx={{ cursor: 'pointer' }}><Trans>Organize</Trans></Chip>
+                <Chip size="sm" variant={pageMode === 'extract' ? 'solid' : 'soft'} color={pageMode === 'extract' ? 'neutral' : 'neutral'} onClick={() => setPageMode('extract')} sx={{ cursor: 'pointer' }}><Trans>Extract</Trans></Chip>
               </Box>
 
               {pageMode === 'organize' ? (
@@ -594,7 +592,7 @@ export default function PdfEditorPage() {
                       <Box component="button" onClick={(e: React.MouseEvent) => { e.stopPropagation(); rotatePage(index, -90); }} sx={iconBtnSx}><RotateLeftRoundedIcon sx={{ fontSize: 16 }} /></Box>
                       <Box component="button" onClick={(e: React.MouseEvent) => { e.stopPropagation(); rotatePage(index, 90); }} sx={iconBtnSx}><RotateRightRoundedIcon sx={{ fontSize: 16 }} /></Box>
                       <Dropdown>
-                        <MenuButton slots={{ root: Box }} slotProps={{ root: { component: 'button', sx: iconBtnSx, title: 'Download page', onClick: (e: React.MouseEvent) => e.stopPropagation() } }}>
+                        <MenuButton slots={{ root: Box }} slotProps={{ root: { component: 'button', sx: iconBtnSx, title: t`Download page`, onClick: (e: React.MouseEvent) => e.stopPropagation() } }}>
                           <SaveAltRoundedIcon sx={{ fontSize: 16 }} />
                         </MenuButton>
                         <Menu size="sm" placement="bottom-end" sx={{ minWidth: 120 }}>
@@ -647,7 +645,7 @@ export default function PdfEditorPage() {
               ) : (
                 <>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-                    <Typography level="body-xs" onClick={() => setWatermark(null)} sx={{ color: 'danger.plainColor', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 2 }}>Remove watermark</Typography>
+                    <Typography level="body-xs" onClick={() => setWatermark(null)} sx={{ color: 'danger.plainColor', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 2 }}><Trans>Remove watermark</Trans></Typography>
                   </Box>
 
                   {pages[0] && watermark.text.trim() && (
@@ -668,39 +666,39 @@ export default function PdfEditorPage() {
 
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
                     <Box>
-                      <Typography level="body-xs" sx={labelSx}>Text</Typography>
-                      <Input value={watermark.text} onChange={(e) => setWatermark(prev => prev ? { ...prev, text: e.target.value } : prev)} placeholder="DRAFT, CONFIDENTIAL..." size="sm" />
+                      <Typography level="body-xs" sx={labelSx}><Trans>Text</Trans></Typography>
+                      <Input value={watermark.text} onChange={(e) => setWatermark(prev => prev ? { ...prev, text: e.target.value } : prev)} placeholder={t`DRAFT, CONFIDENTIAL...`} size="sm" />
                     </Box>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Position</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Position</Trans></Typography>
                         <Select value={watermark.position} onChange={(_, v) => setWatermark(prev => prev ? { ...prev, position: v as string } : prev)} size="sm">
                           {WATERMARK_POSITIONS.map(p => <Option key={p.value} value={p.value}>{p.label}</Option>)}
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Font Size ({watermark.fontSize})</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Font Size ({watermark.fontSize})</Trans></Typography>
                         <Slider value={watermark.fontSize} onChange={(_, v) => setWatermark(prev => prev ? { ...prev, fontSize: v as number } : prev)} min={10} max={120} step={2} size="sm" />
                       </Box>
                     </Box>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Color</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Color</Trans></Typography>
                         <Box component="input" type="color" value={watermark.color}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWatermark(prev => prev ? { ...prev, color: e.target.value } : prev)}
                           sx={{ width: 40, height: 32, border: '2px solid', borderColor: 'divider', borderRadius: 'sm', cursor: 'pointer', p: 0 }}
                         />
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Opacity ({watermark.opacity})</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Opacity ({watermark.opacity})</Trans></Typography>
                         <Slider value={watermark.opacity} onChange={(_, v) => setWatermark(prev => prev ? { ...prev, opacity: v as number } : prev)} min={0.1} max={1} step={0.05} size="sm" />
                       </Box>
                     </Box>
 
                     <Box>
-                      <Typography level="body-xs" sx={labelSx}>Rotation ({watermark.rotation}°)</Typography>
+                      <Typography level="body-xs" sx={labelSx}><Trans>Rotation ({watermark.rotation}°)</Trans></Typography>
                       <Slider value={watermark.rotation} onChange={(_, v) => setWatermark(prev => prev ? { ...prev, rotation: v as number } : prev)} min={-90} max={90} step={5} size="sm" />
                     </Box>
                   </Box>
@@ -719,7 +717,7 @@ export default function PdfEditorPage() {
               ) : (
                 <>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-                    <Typography level="body-xs" onClick={() => setPageNumbers(null)} sx={{ color: 'danger.plainColor', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 2 }}>Remove page numbers</Typography>
+                    <Typography level="body-xs" onClick={() => setPageNumbers(null)} sx={{ color: 'danger.plainColor', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: 2 }}><Trans>Remove page numbers</Trans></Typography>
                   </Box>
 
                   {pages[0] && (
@@ -738,38 +736,38 @@ export default function PdfEditorPage() {
 
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
                     <Box>
-                      <Typography level="body-xs" sx={labelSx}>Format</Typography>
+                      <Typography level="body-xs" sx={labelSx}><Trans>Format</Trans></Typography>
                       <Input value={pageNumbers.format} onChange={(e) => setPageNumbers(prev => prev ? { ...prev, format: e.target.value } : prev)} size="sm" />
-                      <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}>Use {'{n}'} for page number, {'{total}'} for total pages</Typography>
+                      <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Use {'{n}'} for page number, {'{total}'} for total pages</Trans></Typography>
                     </Box>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Position</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Position</Trans></Typography>
                         <Select value={pageNumbers.position} onChange={(_, v) => setPageNumbers(prev => prev ? { ...prev, position: v as string } : prev)} size="sm">
                           {PAGE_NUM_POSITIONS.map(p => <Option key={p.value} value={p.value}>{p.label}</Option>)}
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Font Size ({pageNumbers.fontSize})</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Font Size ({pageNumbers.fontSize})</Trans></Typography>
                         <Slider value={pageNumbers.fontSize} onChange={(_, v) => setPageNumbers(prev => prev ? { ...prev, fontSize: v as number } : prev)} min={6} max={24} step={1} size="sm" />
                       </Box>
                     </Box>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr 1fr' }, gap: 2 }}>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Color</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Color</Trans></Typography>
                         <Box component="input" type="color" value={pageNumbers.color}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPageNumbers(prev => prev ? { ...prev, color: e.target.value } : prev)}
                           sx={{ width: 40, height: 32, border: '2px solid', borderColor: 'divider', borderRadius: 'sm', cursor: 'pointer', p: 0 }}
                         />
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Start From</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Start From</Trans></Typography>
                         <Input type="number" value={pageNumbers.startFrom} onChange={(e) => setPageNumbers(prev => prev ? { ...prev, startFrom: Math.max(1, Number(e.target.value) || 1) } : prev)} size="sm" slotProps={{ input: { min: 1 } }} />
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={labelSx}>Margin ({pageNumbers.margin})</Typography>
+                        <Typography level="body-xs" sx={labelSx}><Trans>Margin ({pageNumbers.margin})</Trans></Typography>
                         <Slider value={pageNumbers.margin} onChange={(_, v) => setPageNumbers(prev => prev ? { ...prev, margin: v as number } : prev)} min={10} max={60} step={5} size="sm" />
                       </Box>
                     </Box>
@@ -783,9 +781,7 @@ export default function PdfEditorPage() {
             <Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, p: 2, borderRadius: 'md', bgcolor: 'warning.softBg', border: '1px solid', borderColor: 'warning.outlinedBorder', mb: 3 }}>
                 <WarningAmberRoundedIcon sx={{ color: 'warning.plainColor', fontSize: 20, mt: 0.25 }} />
-                <Typography level="body-sm" sx={{ color: 'warning.plainColor' }}>
-                  Redacted content is permanently removed from the PDF and cannot be recovered.
-                </Typography>
+                <Typography level="body-sm" sx={{ color: 'warning.plainColor' }}><Trans>Redacted content is permanently removed from the PDF and cannot be recovered.</Trans></Typography>
               </Box>
 
               <Box sx={{
@@ -845,35 +841,35 @@ export default function PdfEditorPage() {
 
       <ToolSEOContent
         howTo={{
-          title: 'How to edit a PDF online',
+          title: t`How to edit a PDF online`,
           steps: [
-            'Upload your PDF file (up to 100 MB).',
-            'Use the Pages tab to rotate, reorder, delete, or extract pages.',
-            'Add a watermark, page numbers, or redact sensitive content using the other tabs.',
-            'Click "Apply & Download" to save the edited PDF.',
+            t`Upload your PDF file (up to 100 MB).`,
+            t`Use the Pages tab to rotate, reorder, delete, or extract pages.`,
+            t`Add a watermark, page numbers, or redact sensitive content using the other tabs.`,
+            t`Click "Apply & Download" to save the edited PDF.`,
           ],
         }}
         features={[
-          { icon: <RotateRightOutlinedIcon />, title: 'Rotate & Reorder', description: 'Rotate pages individually or in bulk, and drag-and-drop to reorder them.' },
-          { icon: <ContentCutOutlinedIcon />, title: 'Extract & Delete Pages', description: 'Select specific pages to extract into a new PDF, or remove unwanted pages.' },
-          { icon: <TextFieldsOutlinedIcon />, title: 'Watermark', description: 'Add custom text watermarks with adjustable font size, color, opacity, position, and rotation.' },
-          { icon: <FormatListNumberedOutlinedIcon />, title: 'Page Numbers', description: 'Insert page numbers with configurable format, position, font size, and starting number.' },
-          { icon: <BoltOutlinedIcon />, title: 'Redact Content', description: 'Permanently remove sensitive content by drawing redaction rectangles over any area on any page.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <RotateRightOutlinedIcon />, title: t`Rotate & Reorder`, description: t`Rotate pages individually or in bulk, and drag-and-drop to reorder them.` },
+          { icon: <ContentCutOutlinedIcon />, title: t`Extract & Delete Pages`, description: t`Select specific pages to extract into a new PDF, or remove unwanted pages.` },
+          { icon: <TextFieldsOutlinedIcon />, title: t`Watermark`, description: t`Add custom text watermarks with adjustable font size, color, opacity, position, and rotation.` },
+          { icon: <FormatListNumberedOutlinedIcon />, title: t`Page Numbers`, description: t`Insert page numbers with configurable format, position, font size, and starting number.` },
+          { icon: <BoltOutlinedIcon />, title: t`Redact Content`, description: t`Permanently remove sensitive content by drawing redaction rectangles over any area on any page.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What is the maximum file size?', answer: 'You can upload PDF files up to 100 MB. The editor renders page thumbnails locally in your browser for fast interaction.' },
-          { question: 'Can I undo changes?', answer: 'Yes. Use the Reset button on the Pages tab to restore the original page order and rotations. You can also start over at any time.' },
-          { question: 'Is redacted content truly removed?', answer: 'Yes. Redacted areas are permanently removed from the PDF at the server level. The content cannot be recovered or revealed.' },
-          { question: 'Can I add both watermarks and page numbers?', answer: 'Yes. All editing features can be combined in a single operation — rotate, reorder, watermark, page numbers, and redactions are applied together.' },
-          { question: 'Does editing affect text quality?', answer: 'No. Pages are not re-rendered. Text, fonts, and vector graphics remain identical to the original.' },
+          { question: t`What is the maximum file size?`, answer: t`You can upload PDF files up to 100 MB. The editor renders page thumbnails locally in your browser for fast interaction.` },
+          { question: t`Can I undo changes?`, answer: t`Yes. Use the Reset button on the Pages tab to restore the original page order and rotations. You can also start over at any time.` },
+          { question: t`Is redacted content truly removed?`, answer: t`Yes. Redacted areas are permanently removed from the PDF at the server level. The content cannot be recovered or revealed.` },
+          { question: t`Can I add both watermarks and page numbers?`, answer: t`Yes. All editing features can be combined in a single operation — rotate, reorder, watermark, page numbers, and redactions are applied together.` },
+          { question: t`Does editing affect text quality?`, answer: t`No. Pages are not re-rendered. Text, fonts, and vector graphics remain identical to the original.` },
         ]}
         relatedTools={[
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'PDF Merge', href: '/merge/pdf' },
-          { label: 'PDF Password', href: '/convert/pdf-password' },
-          { label: 'Extract Images', href: '/convert/pdf-extract-images' },
-          { label: 'PDF Repair', href: '/repair/pdf' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`PDF Merge`, href: '/merge/pdf' },
+          { label: t`PDF Password`, href: '/convert/pdf-password' },
+          { label: t`Extract Images`, href: '/convert/pdf-extract-images' },
+          { label: t`PDF Repair`, href: '/repair/pdf' },
         ]}
       />
       {redactModalPage !== null && selectedFile && (
@@ -895,9 +891,7 @@ export default function PdfEditorPage() {
               <ChevronRightRoundedIcon />
             </Box>
             <Box sx={{ flex: 1 }} />
-            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-              Click and drag to draw redaction rectangles
-            </Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Click and drag to draw redaction rectangles</Trans></Typography>
             <Box component="button" onClick={() => setRedactModalPage(null)} sx={iconBtnSx}>
               <CloseRoundedIcon />
             </Box>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/joy';
+import { Trans } from '@lingui/react/macro';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 
 function isMaintenanceWindow(): boolean {
@@ -35,7 +36,7 @@ export default function MaintenanceBanner() {
     >
       <BuildOutlinedIcon sx={{ fontSize: 16, color: 'warning.300' }} />
       <Typography level="body-xs" sx={{ color: 'warning.200', fontWeight: 500 }}>
-        Scheduled maintenance in progress — service may be briefly unavailable
+        <Trans>Scheduled maintenance in progress — service may be briefly unavailable</Trans>
       </Typography>
     </Box>
   );

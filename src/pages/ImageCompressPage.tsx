@@ -19,6 +19,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const TARGET_SIZE_PRESETS = [
   { label: '100 KB', value: 100 },
@@ -45,6 +46,7 @@ const presetBtnSx = (active: boolean) => ({
 } as const);
 
 export default function ImageCompressPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetSizeKB, setTargetSizeKB] = useState(500);
 
@@ -66,17 +68,13 @@ export default function ImageCompressPage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Image Compress"
-        description="Compress JPG or PNG images to a target file size. Free, no signup, files processed in memory only."
+        title={t`Image Compress`}
+        description={t`Compress JPG or PNG images to a target file size. Free, no signup, files processed in memory only.`}
         path="/compress/image"
-        structuredData={buildToolSchema('Image Compress', 'Compress JPG or PNG images to a target file size.', '/compress/image')}
+        structuredData={buildToolSchema(t`Image Compress`, t`Compress JPG or PNG images to a target file size.`, '/compress/image')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Image Compress
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Compress JPG or PNG images to a target file size
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Image Compress</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Compress JPG or PNG images to a target file size</Trans></Typography>
 
       <ToolDisclaimer toolId="image-compress" />
 
@@ -92,7 +90,7 @@ export default function ImageCompressPage() {
           }}
         >
           <FormControl>
-            <FormLabel>Target file size</FormLabel>
+            <FormLabel><Trans>Target file size</Trans></FormLabel>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 0.5 }}>
               {TARGET_SIZE_PRESETS.map((preset) => (
                 <Box
@@ -121,9 +119,7 @@ export default function ImageCompressPage() {
                 KB
               </Typography>
             </Box>
-            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 1.5 }}>
-              Quality will be adjusted automatically. For PNG, resolution may be reduced.
-            </Typography>
+            <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 1.5 }}><Trans>Quality will be adjusted automatically. For PNG, resolution may be reduced.</Trans></Typography>
           </FormControl>
         </Box>
       )}
@@ -158,34 +154,34 @@ export default function ImageCompressPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to compress images online',
+          title: t`How to compress images online`,
           steps: [
-            'Choose a target file size using the presets or enter a custom value in KB.',
-            'Upload your JPG or PNG image (up to 20 MB).',
-            'The compression starts automatically and adjusts quality to meet your target size.',
-            'Download the compressed image instantly.',
+            t`Choose a target file size using the presets or enter a custom value in KB.`,
+            t`Upload your JPG or PNG image (up to 20 MB).`,
+            t`The compression starts automatically and adjusts quality to meet your target size.`,
+            t`Download the compressed image instantly.`,
           ],
         }}
         features={[
-          { icon: <CompressOutlinedIcon />, title: 'Target Size Control', description: 'Set an exact target file size from 10 KB to 15 MB. Quality adjusts automatically.' },
-          { icon: <TuneOutlinedIcon />, title: 'Smart Presets', description: 'Quick presets for common sizes: 100 KB, 250 KB, 500 KB, 1 MB, and 2 MB.' },
-          { icon: <ImageOutlinedIcon />, title: 'JPG & PNG Support', description: 'Compress both JPG and PNG images. For PNG, resolution may be reduced to meet the target.' },
-          { icon: <SpeedOutlinedIcon />, title: 'Fast Processing', description: 'Server-side compression delivers results in seconds, even for large images.' },
-          { icon: <LockOutlinedIcon />, title: 'Private & Secure', description: 'Files are processed in an isolated sandbox and deleted immediately after download.' },
-          { icon: <BoltOutlinedIcon />, title: 'No Signup Required', description: 'Start compressing immediately. No account, no email, no ads.' },
+          { icon: <CompressOutlinedIcon />, title: t`Target Size Control`, description: t`Set an exact target file size from 10 KB to 15 MB. Quality adjusts automatically.` },
+          { icon: <TuneOutlinedIcon />, title: t`Smart Presets`, description: t`Quick presets for common sizes: 100 KB, 250 KB, 500 KB, 1 MB, and 2 MB.` },
+          { icon: <ImageOutlinedIcon />, title: t`JPG & PNG Support`, description: t`Compress both JPG and PNG images. For PNG, resolution may be reduced to meet the target.` },
+          { icon: <SpeedOutlinedIcon />, title: t`Fast Processing`, description: t`Server-side compression delivers results in seconds, even for large images.` },
+          { icon: <LockOutlinedIcon />, title: t`Private & Secure`, description: t`Files are processed in an isolated sandbox and deleted immediately after download.` },
+          { icon: <BoltOutlinedIcon />, title: t`No Signup Required`, description: t`Start compressing immediately. No account, no email, no ads.` },
         ]}
         faq={[
-          { question: 'How does target size compression work?', answer: 'The compressor automatically adjusts image quality and, for PNG files, resolution to bring the output as close to your target size as possible without going over.' },
-          { question: 'Will compression reduce image quality?', answer: 'Yes, compression involves a trade-off between file size and quality. Smaller targets require more aggressive compression. For best results, choose the largest target size that meets your requirements.' },
-          { question: 'What image formats are supported?', answer: 'Image Compress supports JPG/JPEG and PNG files. For other formats, use the Image Convert tool first to convert to JPG or PNG.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 20 MB per image. The minimum target size is 10 KB.' },
-          { question: 'Are my images stored on your servers?', answer: 'No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.' },
+          { question: t`How does target size compression work?`, answer: t`The compressor automatically adjusts image quality and, for PNG files, resolution to bring the output as close to your target size as possible without going over.` },
+          { question: t`Will compression reduce image quality?`, answer: t`Yes, compression involves a trade-off between file size and quality. Smaller targets require more aggressive compression. For best results, choose the largest target size that meets your requirements.` },
+          { question: t`What image formats are supported?`, answer: t`Image Compress supports JPG/JPEG and PNG files. For other formats, use the Image Convert tool first to convert to JPG or PNG.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 20 MB per image. The minimum target size is 10 KB.` },
+          { question: t`Are my images stored on your servers?`, answer: t`No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.` },
         ]}
         relatedTools={[
-          { label: 'Image Convert', href: '/convert/image' },
-          { label: 'HEIC Convert', href: '/convert/heic' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Metadata Remove', href: '/metadata/remove' },
+          { label: t`Image Convert`, href: '/convert/image' },
+          { label: t`HEIC Convert`, href: '/convert/heic' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Metadata Remove`, href: '/metadata/remove' },
         ]}
       />
     </Box>

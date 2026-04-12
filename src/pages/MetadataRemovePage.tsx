@@ -23,6 +23,7 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import { actionBtnBase } from '../styles/buttons';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type MetadataMode = 'remove' | 'inspect';
 
@@ -58,9 +59,7 @@ function MetadataTable({ metadata }: { metadata: Record<string, unknown> }) {
 
   if (totalFields === 0) {
     return (
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', textAlign: 'center', py: 2 }}>
-        No metadata found
-      </Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', textAlign: 'center', py: 2 }}><Trans>No metadata found</Trans></Typography>
     );
   }
 
@@ -145,6 +144,7 @@ function MetadataTable({ metadata }: { metadata: Record<string, unknown> }) {
 }
 
 export default function MetadataRemovePage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [mode, setMode] = useState<MetadataMode>('remove');
 
@@ -175,17 +175,13 @@ export default function MetadataRemovePage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Metadata Inspector & Remover"
-        description="Inspect or strip EXIF, GPS, and other metadata from images and PDFs for privacy. Free, no signup, files processed in memory only."
+        title={t`Metadata Inspector & Remover`}
+        description={t`Inspect or strip EXIF, GPS, and other metadata from images and PDFs for privacy. Free, no signup, files processed in memory only.`}
         path="/metadata/remove"
-        structuredData={buildToolSchema('Metadata Inspector & Remover', 'Inspect or strip EXIF, GPS, and other metadata from images and PDFs for privacy. Free, no signup, files processed in memory only.', '/metadata/remove')}
+        structuredData={buildToolSchema(t`Metadata Inspector & Remover`, t`Inspect or strip EXIF, GPS, and other metadata from images and PDFs for privacy. Free, no signup, files processed in memory only.`, '/metadata/remove')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Metadata
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Inspect or strip EXIF, GPS and other metadata from images and PDFs
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Metadata</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Inspect or strip EXIF, GPS and other metadata from images and PDFs</Trans></Typography>
 
       <ToolDisclaimer toolId="metadata-remove" />
 
@@ -224,14 +220,12 @@ export default function MetadataRemovePage() {
             >
               <Radio
                 value="remove"
-                label="Remove"
+                label={t`Remove`}
                 overlay
                 disabled={isProcessing}
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                Strip all metadata from file
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>Strip all metadata from file</Trans></Typography>
             </Sheet>
             <Sheet
               variant={mode === 'inspect' ? 'soft' : 'plain'}
@@ -247,14 +241,12 @@ export default function MetadataRemovePage() {
             >
               <Radio
                 value="inspect"
-                label="Inspect"
+                label={t`Inspect`}
                 overlay
                 disabled={isProcessing}
                 slotProps={{ label: { sx: { fontSize: '0.875rem', fontWeight: 600 } } }}
               />
-              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}>
-                View metadata without modifying
-              </Typography>
+              <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5, ml: 3.5 }}><Trans>View metadata without modifying</Trans></Typography>
             </Sheet>
           </RadioGroup>
         </FormControl>
@@ -291,9 +283,7 @@ export default function MetadataRemovePage() {
 
           {mode === 'remove' && conversion.metadata && (
             <Box sx={{ width: '100%' }}>
-              <Typography level="body-sm" sx={{ color: 'text.secondary', mb: 1, fontWeight: 600 }}>
-                Removed metadata:
-              </Typography>
+              <Typography level="body-sm" sx={{ color: 'text.secondary', mb: 1, fontWeight: 600 }}><Trans>Removed metadata:</Trans></Typography>
               <MetadataTable metadata={conversion.metadata as Record<string, unknown>} />
             </Box>
           )}
@@ -303,9 +293,7 @@ export default function MetadataRemovePage() {
           )}
 
           {mode === 'inspect' && !conversion.metadata && (
-            <Typography level="body-sm" sx={{ color: 'text.tertiary' }}>
-              No metadata found in this file.
-            </Typography>
+            <Typography level="body-sm" sx={{ color: 'text.tertiary' }}><Trans>No metadata found in this file.</Trans></Typography>
           )}
 
           <Box sx={{ display: 'flex', gap: 1.5, mt: 0.5 }}>
@@ -375,34 +363,34 @@ export default function MetadataRemovePage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to remove metadata from files online',
+          title: t`How to remove metadata from files online`,
           steps: [
-            'Choose a mode — Remove to strip all metadata, or Inspect to view metadata without modifying the file.',
-            'Upload your image or PDF (up to 15 MB).',
-            'Review the metadata found in your file.',
-            'If using Remove mode, download the cleaned file with all metadata stripped.',
+            t`Choose a mode — Remove to strip all metadata, or Inspect to view metadata without modifying the file.`,
+            t`Upload your image or PDF (up to 15 MB).`,
+            t`Review the metadata found in your file.`,
+            t`If using Remove mode, download the cleaned file with all metadata stripped.`,
           ],
         }}
         features={[
-          { icon: <VisibilityOffOutlinedIcon />, title: 'GPS & Location Removal', description: 'Strip GPS coordinates and location data embedded in photos to protect your privacy.' },
-          { icon: <SearchOutlinedIcon />, title: 'Metadata Inspector', description: 'View all EXIF, IPTC, XMP, and other metadata fields before deciding to remove them.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Complete EXIF Stripping', description: 'Remove all metadata including camera info, timestamps, software details, and author data.' },
-          { icon: <ImageOutlinedIcon />, title: 'Images & PDFs', description: 'Works with JPG, PNG, HEIC, WebP images and PDF documents.' },
-          { icon: <LockOutlinedIcon />, title: 'Private & Secure', description: 'Files are processed in an isolated sandbox and deleted immediately after download.' },
-          { icon: <BoltOutlinedIcon />, title: 'No Signup Required', description: 'Start removing metadata immediately. No account, no email, no ads.' },
+          { icon: <VisibilityOffOutlinedIcon />, title: t`GPS & Location Removal`, description: t`Strip GPS coordinates and location data embedded in photos to protect your privacy.` },
+          { icon: <SearchOutlinedIcon />, title: t`Metadata Inspector`, description: t`View all EXIF, IPTC, XMP, and other metadata fields before deciding to remove them.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Complete EXIF Stripping`, description: t`Remove all metadata including camera info, timestamps, software details, and author data.` },
+          { icon: <ImageOutlinedIcon />, title: t`Images & PDFs`, description: t`Works with JPG, PNG, HEIC, WebP images and PDF documents.` },
+          { icon: <LockOutlinedIcon />, title: t`Private & Secure`, description: t`Files are processed in an isolated sandbox and deleted immediately after download.` },
+          { icon: <BoltOutlinedIcon />, title: t`No Signup Required`, description: t`Start removing metadata immediately. No account, no email, no ads.` },
         ]}
         faq={[
-          { question: 'What metadata is removed?', answer: 'All embedded metadata is stripped, including EXIF data (camera model, settings, timestamps), GPS coordinates, IPTC captions, XMP data, ICC color profiles, and any other embedded metadata fields.' },
-          { question: 'Why should I remove metadata from my photos?', answer: 'Photos often contain hidden data like GPS coordinates revealing where the photo was taken, your camera model, and timestamps. Removing metadata before sharing photos online protects your privacy and prevents location tracking.' },
-          { question: 'Does removing metadata affect image quality?', answer: 'No. Metadata removal only strips the non-visual data embedded in the file. The actual image pixels remain completely untouched and the visual quality is identical.' },
-          { question: 'What file formats are supported?', answer: 'The tool supports JPG/JPEG, PNG, HEIC/HEIF, WebP images and PDF documents. The maximum file size is 15 MB.' },
-          { question: 'Are my files stored on your servers?', answer: 'No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.' },
+          { question: t`What metadata is removed?`, answer: t`All embedded metadata is stripped, including EXIF data (camera model, settings, timestamps), GPS coordinates, IPTC captions, XMP data, ICC color profiles, and any other embedded metadata fields.` },
+          { question: t`Why should I remove metadata from my photos?`, answer: t`Photos often contain hidden data like GPS coordinates revealing where the photo was taken, your camera model, and timestamps. Removing metadata before sharing photos online protects your privacy and prevents location tracking.` },
+          { question: t`Does removing metadata affect image quality?`, answer: t`No. Metadata removal only strips the non-visual data embedded in the file. The actual image pixels remain completely untouched and the visual quality is identical.` },
+          { question: t`What file formats are supported?`, answer: t`The tool supports JPG/JPEG, PNG, HEIC/HEIF, WebP images and PDF documents. The maximum file size is 15 MB.` },
+          { question: t`Are my files stored on your servers?`, answer: t`No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.` },
         ]}
         relatedTools={[
-          { label: 'Image Convert', href: '/convert/image' },
-          { label: 'Image Compress', href: '/compress/image' },
-          { label: 'HEIC Convert', href: '/convert/heic' },
-          { label: 'OCR', href: '/ocr' },
+          { label: t`Image Convert`, href: '/convert/image' },
+          { label: t`Image Compress`, href: '/compress/image' },
+          { label: t`HEIC Convert`, href: '/convert/heic' },
+          { label: t`OCR`, href: '/ocr' },
         ]}
       />
     </Box>

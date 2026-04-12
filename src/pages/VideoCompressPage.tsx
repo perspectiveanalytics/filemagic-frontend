@@ -12,6 +12,7 @@ import MovieOutlinedIcon from '@mui/icons-material/MovieOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import HighQualityOutlinedIcon from '@mui/icons-material/HighQualityOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type CompressMode = 'quality' | 'targetSize';
 
@@ -45,6 +46,7 @@ const presetBtnSx = (active: boolean, disabled: boolean) => ({
 } as const);
 
 export default function VideoCompressPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [mode, setMode] = useState<CompressMode>('quality');
   const [quality, setQuality] = useState('medium');
@@ -70,13 +72,9 @@ export default function VideoCompressPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Video Compress" description="Compress MP4, MOV, MKV and AVI videos for free. Quality or target size mode." path="/compress/video" structuredData={buildToolSchema('Video Compress', 'Compress videos with quality or target size mode.', '/compress/video')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Video Compress
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}>
-        Compress MP4, MOV, MKV and AVI videos
-      </Typography>
+      <SEO title={t`Video Compress`} description={t`Compress MP4, MOV, MKV and AVI videos for free. Quality or target size mode.`} path="/compress/video" structuredData={buildToolSchema(t`Video Compress`, t`Compress videos with quality or target size mode.`, '/compress/video')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Video Compress</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}><Trans>Compress MP4, MOV, MKV and AVI videos</Trans></Typography>
 
       <ToolDisclaimer toolId="video-compress" />
 
@@ -85,12 +83,10 @@ export default function VideoCompressPage() {
         variant="soft"
         color="warning"
         sx={{ mb: 3, fontWeight: 500, fontSize: '0.7rem' }}
-      >
-        Beta — works best with small files (under 50 MB)
-      </Chip>
+      ><Trans>Beta — works best with small files (under 50 MB)</Trans></Chip>
 
       <FormControl sx={{ mb: 3 }}>
-        <FormLabel>Compression mode</FormLabel>
+        <FormLabel><Trans>Compression mode</Trans></FormLabel>
         <RadioGroup
           orientation="horizontal"
           value={mode}
@@ -98,10 +94,10 @@ export default function VideoCompressPage() {
           sx={{ gap: 1.5 }}
         >
           <Sheet variant="outlined" sx={{ px: 2, py: 1, borderRadius: 'md' }}>
-            <Radio value="quality" label="Quality" overlay disabled={isProcessing} />
+            <Radio value="quality" label={t`Quality`} overlay disabled={isProcessing} />
           </Sheet>
           <Sheet variant="outlined" sx={{ px: 2, py: 1, borderRadius: 'md' }}>
-            <Radio value="targetSize" label="Target Size" overlay disabled={isProcessing} />
+            <Radio value="targetSize" label={t`Target Size`} overlay disabled={isProcessing} />
           </Sheet>
         </RadioGroup>
       </FormControl>
@@ -203,10 +199,10 @@ export default function VideoCompressPage() {
             ))}
           </Box>
           <FormControl sx={{ mb: 3 }}>
-            <FormLabel>Custom target size (MB)</FormLabel>
+            <FormLabel><Trans>Custom target size (MB)</Trans></FormLabel>
             <Input
               type="number"
-              placeholder="e.g. 15"
+              placeholder={t`e.g. 15`}
               value={customSize}
               onChange={(e) => setCustomSize(e.target.value ? Number(e.target.value) : '')}
               slotProps={{ input: { min: 1, max: 200 } }}
@@ -243,34 +239,34 @@ export default function VideoCompressPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to compress a video online',
+          title: t`How to compress a video online`,
           steps: [
-            'Choose a compression mode — quality preset or target file size.',
-            'For quality mode, select High, Medium, or Low. For target size, pick a preset or enter a custom size in MB.',
-            'Upload your video file (up to 100 MB).',
-            'Download the compressed video instantly.',
+            t`Choose a compression mode — quality preset or target file size.`,
+            t`For quality mode, select High, Medium, or Low. For target size, pick a preset or enter a custom size in MB.`,
+            t`Upload your video file (up to 100 MB).`,
+            t`Download the compressed video instantly.`,
           ],
         }}
         features={[
-          { icon: <CompressOutlinedIcon />, title: 'Dual Compression Modes', description: 'Choose between quality presets (CRF-based) or a specific target file size.' },
-          { icon: <TuneOutlinedIcon />, title: 'Quality Control', description: 'Fine-tune output with High, Medium, or Low quality presets for different use cases.' },
-          { icon: <MovieOutlinedIcon />, title: 'Multiple Formats', description: 'Supports MP4, MOV, MKV, AVI, and WebM video files.' },
-          { icon: <HighQualityOutlinedIcon />, title: 'Smart Encoding', description: 'Uses H.264 encoding with optimized settings to maximize quality at the target size.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Videos are compressed quickly, even for files up to 100 MB.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <CompressOutlinedIcon />, title: t`Dual Compression Modes`, description: t`Choose between quality presets (CRF-based) or a specific target file size.` },
+          { icon: <TuneOutlinedIcon />, title: t`Quality Control`, description: t`Fine-tune output with High, Medium, or Low quality presets for different use cases.` },
+          { icon: <MovieOutlinedIcon />, title: t`Multiple Formats`, description: t`Supports MP4, MOV, MKV, AVI, and WebM video files.` },
+          { icon: <HighQualityOutlinedIcon />, title: t`Smart Encoding`, description: t`Uses H.264 encoding with optimized settings to maximize quality at the target size.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Processing`, description: t`Videos are compressed quickly, even for files up to 100 MB.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'How much smaller will my video be?', answer: 'It depends on the source. Videos with high bitrates can often be reduced 50-80% with medium quality. Low-bitrate videos may see smaller reductions.' },
-          { question: 'What is the difference between quality mode and target size mode?', answer: 'Quality mode uses CRF (Constant Rate Factor) to maintain consistent visual quality throughout the video. Target size mode adjusts the bitrate to fit the video into your specified file size.' },
-          { question: 'Will compression affect video quality?', answer: 'Yes, some quality loss is expected. High quality mode preserves most detail. Medium is a good balance. Low prioritizes small file size over visual quality.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 100 MB. This tool is currently in beta and works best with files under 50 MB.' },
-          { question: 'What output format will I get?', answer: 'The output is always MP4 with H.264 video and AAC audio for maximum compatibility across devices and platforms.' },
+          { question: t`How much smaller will my video be?`, answer: t`It depends on the source. Videos with high bitrates can often be reduced 50-80% with medium quality. Low-bitrate videos may see smaller reductions.` },
+          { question: t`What is the difference between quality mode and target size mode?`, answer: t`Quality mode uses CRF (Constant Rate Factor) to maintain consistent visual quality throughout the video. Target size mode adjusts the bitrate to fit the video into your specified file size.` },
+          { question: t`Will compression affect video quality?`, answer: t`Yes, some quality loss is expected. High quality mode preserves most detail. Medium is a good balance. Low prioritizes small file size over visual quality.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 100 MB. This tool is currently in beta and works best with files under 50 MB.` },
+          { question: t`What output format will I get?`, answer: t`The output is always MP4 with H.264 video and AAC audio for maximum compatibility across devices and platforms.` },
         ]}
         relatedTools={[
-          { label: 'MOV to MP4', href: '/convert/mov-to-mp4' },
-          { label: 'Video to GIF', href: '/convert/video-to-gif' },
-          { label: 'Extract Audio', href: '/convert/audio-extract' },
-          { label: 'Audio Convert', href: '/convert/audio' },
+          { label: t`MOV to MP4`, href: '/convert/mov-to-mp4' },
+          { label: t`Video to GIF`, href: '/convert/video-to-gif' },
+          { label: t`Extract Audio`, href: '/convert/audio-extract' },
+          { label: t`Audio Convert`, href: '/convert/audio' },
         ]}
       />
     </Box>

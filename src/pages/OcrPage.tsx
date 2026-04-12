@@ -30,6 +30,7 @@ import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import { actionBtnBase } from '../styles/buttons';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const AVAILABLE_LANGUAGES = [
   { value: 'eng', label: 'English' },
@@ -48,6 +49,7 @@ const AVAILABLE_LANGUAGES = [
 ];
 
 export default function OcrPage() {
+  const { t } = useLingui();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [language, setLanguage] = useState('eng');
   const [copied, setCopied] = useState(false);
@@ -109,13 +111,9 @@ export default function OcrPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="OCR - Text Extraction" description="Extract text from images and PDFs with OCR. Free, no signup, files processed in memory only." path="/ocr" structuredData={buildToolSchema('OCR - Text Extraction', 'Extract text from images and PDFs with OCR. Free, no signup, files processed in memory only.', '/ocr')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        OCR - Text Extraction
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}>
-        Extract text from images and PDFs
-      </Typography>
+      <SEO title={t`OCR - Text Extraction`} description={t`Extract text from images and PDFs with OCR. Free, no signup, files processed in memory only.`} path="/ocr" structuredData={buildToolSchema(t`OCR - Text Extraction`, t`Extract text from images and PDFs with OCR. Free, no signup, files processed in memory only.`, '/ocr')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>OCR - Text Extraction</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 2 }}><Trans>Extract text from images and PDFs</Trans></Typography>
 
       <ToolDisclaimer toolId="ocr" />
 
@@ -124,12 +122,10 @@ export default function OcrPage() {
         variant="soft"
         color="warning"
         sx={{ mb: 3, fontWeight: 500, fontSize: '0.65rem', whiteSpace: 'normal', textAlign: 'left', height: 'auto', py: 0.5, px: 1.5 }}
-      >
-        Beta — detection accuracy may vary depending on image quality and language
-      </Chip>
+      ><Trans>Beta — detection accuracy may vary depending on image quality and language</Trans></Chip>
 
       <FormControl sx={{ mb: 3 }}>
-        <FormLabel>Language</FormLabel>
+        <FormLabel><Trans>Language</Trans></FormLabel>
         <Select
           value={language}
           onChange={handleLanguageChange}
@@ -244,9 +240,7 @@ export default function OcrPage() {
                   {conversion.textContent.trim() || '(No text detected)'}
                 </Typography>
               ) : (
-                <Typography level="body-sm" sx={{ color: 'text.tertiary', fontStyle: 'italic' }}>
-                  Loading text...
-                </Typography>
+                <Typography level="body-sm" sx={{ color: 'text.tertiary', fontStyle: 'italic' }}><Trans>Loading text...</Trans></Typography>
               )}
             </Box>
           </Box>
@@ -336,34 +330,34 @@ export default function OcrPage() {
       ) : null}
       <ToolSEOContent
         howTo={{
-          title: 'How to extract text from images online',
+          title: t`How to extract text from images online`,
           steps: [
-            'Select the language of the text in your image or PDF.',
-            'Upload your file (up to 5 MB). You can also paste an image from your clipboard.',
-            'Wait for the OCR engine to extract the text.',
-            'Copy the extracted text to your clipboard or download it as a .txt file.',
+            t`Select the language of the text in your image or PDF.`,
+            t`Upload your file (up to 5 MB). You can also paste an image from your clipboard.`,
+            t`Wait for the OCR engine to extract the text.`,
+            t`Copy the extracted text to your clipboard or download it as a .txt file.`,
           ],
         }}
         features={[
-          { icon: <LanguageOutlinedIcon />, title: '13 Languages', description: 'Supports English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese, Japanese, and Korean.' },
-          { icon: <ImageOutlinedIcon />, title: 'Multiple Image Formats', description: 'Extract text from JPG, PNG, HEIC, WebP, and BMP images.' },
-          { icon: <PictureAsPdfOutlinedIcon />, title: 'PDF Support', description: 'Extract text from scanned PDFs where the text is not selectable.' },
-          { icon: <ContentCopyOutlinedIcon />, title: 'Copy & Download', description: 'Copy extracted text to your clipboard with one click or download as a .txt file.' },
-          { icon: <LockOutlinedIcon />, title: 'Private & Secure', description: 'Files are processed in an isolated sandbox and deleted immediately after extraction.' },
-          { icon: <BoltOutlinedIcon />, title: 'No Signup Required', description: 'Start extracting text immediately. No account, no email, no ads.' },
+          { icon: <LanguageOutlinedIcon />, title: t`13 Languages`, description: t`Supports English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese, Japanese, and Korean.` },
+          { icon: <ImageOutlinedIcon />, title: t`Multiple Image Formats`, description: t`Extract text from JPG, PNG, HEIC, WebP, and BMP images.` },
+          { icon: <PictureAsPdfOutlinedIcon />, title: t`PDF Support`, description: t`Extract text from scanned PDFs where the text is not selectable.` },
+          { icon: <ContentCopyOutlinedIcon />, title: t`Copy & Download`, description: t`Copy extracted text to your clipboard with one click or download as a .txt file.` },
+          { icon: <LockOutlinedIcon />, title: t`Private & Secure`, description: t`Files are processed in an isolated sandbox and deleted immediately after extraction.` },
+          { icon: <BoltOutlinedIcon />, title: t`No Signup Required`, description: t`Start extracting text immediately. No account, no email, no ads.` },
         ]}
         faq={[
-          { question: 'What languages does the OCR support?', answer: 'The OCR engine supports 13 languages: English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese (Simplified and Traditional), Japanese, and Korean. Select the correct language before uploading for best results.' },
-          { question: 'How accurate is the text extraction?', answer: 'Accuracy depends on image quality, font clarity, and contrast. Clean, high-resolution images with standard fonts produce the best results. Handwritten text, low-resolution images, or unusual fonts may reduce accuracy.' },
-          { question: 'What is the file size limit?', answer: 'The maximum file size is 5 MB. For larger files, consider compressing or cropping the image first using the Image Compress or Image Convert tools.' },
-          { question: 'Can I extract text from a scanned PDF?', answer: 'Yes. Upload the PDF and the OCR engine will analyze the scanned pages and extract any readable text.' },
-          { question: 'Are my files stored on your servers?', answer: 'No. Files are processed in isolated memory and automatically deleted as soon as extraction is complete. We never store, log, or share your files.' },
+          { question: t`What languages does the OCR support?`, answer: t`The OCR engine supports 13 languages: English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese (Simplified and Traditional), Japanese, and Korean. Select the correct language before uploading for best results.` },
+          { question: t`How accurate is the text extraction?`, answer: t`Accuracy depends on image quality, font clarity, and contrast. Clean, high-resolution images with standard fonts produce the best results. Handwritten text, low-resolution images, or unusual fonts may reduce accuracy.` },
+          { question: t`What is the file size limit?`, answer: t`The maximum file size is 5 MB. For larger files, consider compressing or cropping the image first using the Image Compress or Image Convert tools.` },
+          { question: t`Can I extract text from a scanned PDF?`, answer: t`Yes. Upload the PDF and the OCR engine will analyze the scanned pages and extract any readable text.` },
+          { question: t`Are my files stored on your servers?`, answer: t`No. Files are processed in isolated memory and automatically deleted as soon as extraction is complete. We never store, log, or share your files.` },
         ]}
         relatedTools={[
-          { label: 'Image Convert', href: '/convert/image' },
-          { label: 'Image Compress', href: '/compress/image' },
-          { label: 'Metadata Remove', href: '/metadata/remove' },
-          { label: 'Images to PDF', href: '/merge/image-to-pdf' },
+          { label: t`Image Convert`, href: '/convert/image' },
+          { label: t`Image Compress`, href: '/compress/image' },
+          { label: t`Metadata Remove`, href: '/metadata/remove' },
+          { label: t`Images to PDF`, href: '/merge/image-to-pdf' },
         ]}
       />
     </Box>

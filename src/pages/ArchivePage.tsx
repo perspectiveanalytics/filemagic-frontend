@@ -12,6 +12,7 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 const ARCHIVE_FORMATS = [
   { value: 'zip', label: 'ZIP', supportsEncryption: true },
@@ -21,6 +22,7 @@ const ARCHIVE_FORMATS = [
 ];
 
 export default function ArchivePage() {
+  const { t } = useLingui();
   const [files, setFiles] = useState<File[]>([]);
   const [format, setFormat] = useState<string>('zip');
   const [encrypt, setEncrypt] = useState(false);
@@ -61,17 +63,13 @@ export default function ArchivePage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Compress & Encrypt"
-        description="Compress files into ZIP, 7z, tar.gz, or tar.zst archives. Optional AES-256 encryption for ZIP and 7z. Free, no signup."
+        title={t`Compress & Encrypt`}
+        description={t`Compress files into ZIP, 7z, tar.gz, or tar.zst archives. Optional AES-256 encryption for ZIP and 7z. Free, no signup.`}
         path="/archive/create"
-        structuredData={buildToolSchema('Compress & Encrypt', 'Compress files into ZIP, 7z, tar.gz, or tar.zst archives. Optional AES-256 encryption for ZIP and 7z. Free, no signup.', '/archive/create')}
+        structuredData={buildToolSchema(t`Compress & Encrypt`, t`Compress files into ZIP, 7z, tar.gz, or tar.zst archives. Optional AES-256 encryption for ZIP and 7z. Free, no signup.`, '/archive/create')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Compress & Encrypt
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Create compressed or encrypted archives
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Compress & Encrypt</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Create compressed or encrypted archives</Trans></Typography>
 
       <ToolDisclaimer toolId="archive" />
 
@@ -91,7 +89,7 @@ export default function ArchivePage() {
             }}
           >
             <FormControl>
-              <FormLabel>Archive format</FormLabel>
+              <FormLabel><Trans>Archive format</Trans></FormLabel>
               <Select
                 value={format}
                 onChange={handleFormatChange}
@@ -105,7 +103,7 @@ export default function ArchivePage() {
 
             {showEncryptOption && (
               <Checkbox
-                label="Encrypt with password (AES-256)"
+                label={t`Encrypt with password (AES-256)`}
                 checked={encrypt}
                 onChange={(e) => {
                   setEncrypt(e.target.checked);
@@ -118,10 +116,10 @@ export default function ArchivePage() {
 
             {needsPassword && (
               <FormControl>
-                <FormLabel>Password</FormLabel>
+                <FormLabel><Trans>Password</Trans></FormLabel>
                 <Input
                   type="password"
-                  placeholder="Enter encryption password"
+                  placeholder={t`Enter encryption password`}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   size="sm"
@@ -168,34 +166,34 @@ export default function ArchivePage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to create a compressed archive online',
+          title: t`How to create a compressed archive online`,
           steps: [
-            'Choose an archive format — ZIP, 7z, tar.gz, or tar.zst.',
-            'Optionally enable AES-256 encryption and set a password (ZIP and 7z only).',
-            'Add up to 3 files (max 35 MB each).',
-            'Click "Create archive" and download the result.',
+            t`Choose an archive format — ZIP, 7z, tar.gz, or tar.zst.`,
+            t`Optionally enable AES-256 encryption and set a password (ZIP and 7z only).`,
+            t`Add up to 3 files (max 35 MB each).`,
+            t`Click "Create archive" and download the result.`,
           ],
         }}
         features={[
-          { icon: <FolderZipOutlinedIcon />, title: 'Four Archive Formats', description: 'Create ZIP, 7z, tar.gz (gzip), or tar.zst (Zstandard) archives depending on your needs.' },
-          { icon: <LockOutlinedIcon />, title: 'AES-256 Encryption', description: 'Protect ZIP and 7z archives with strong AES-256 password encryption.' },
-          { icon: <TuneOutlinedIcon />, title: 'Flexible Options', description: 'Pick the format that fits your use case — maximum compatibility (ZIP) or best compression (7z, zst).' },
-          { icon: <CloudUploadOutlinedIcon />, title: 'Multi-File Support', description: 'Bundle up to 3 files into a single archive in one step.' },
-          { icon: <BoltOutlinedIcon />, title: 'Fast Processing', description: 'Archives are created server-side in seconds, even for larger files.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Privacy First', description: 'Files are processed in isolated memory and deleted immediately after download.' },
+          { icon: <FolderZipOutlinedIcon />, title: t`Four Archive Formats`, description: t`Create ZIP, 7z, tar.gz (gzip), or tar.zst (Zstandard) archives depending on your needs.` },
+          { icon: <LockOutlinedIcon />, title: t`AES-256 Encryption`, description: t`Protect ZIP and 7z archives with strong AES-256 password encryption.` },
+          { icon: <TuneOutlinedIcon />, title: t`Flexible Options`, description: t`Pick the format that fits your use case — maximum compatibility (ZIP) or best compression (7z, zst).` },
+          { icon: <CloudUploadOutlinedIcon />, title: t`Multi-File Support`, description: t`Bundle up to 3 files into a single archive in one step.` },
+          { icon: <BoltOutlinedIcon />, title: t`Fast Processing`, description: t`Archives are created server-side in seconds, even for larger files.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Privacy First`, description: t`Files are processed in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What archive formats are available?', answer: 'You can create ZIP, 7z, tar.gz (gzip compressed), and tar.zst (Zstandard compressed) archives.' },
-          { question: 'Which formats support encryption?', answer: 'ZIP and 7z support AES-256 password encryption. Tar-based formats (tar.gz, tar.zst) do not support built-in encryption.' },
-          { question: 'What is the file size limit?', answer: 'Each file can be up to 35 MB, and you can add up to 3 files per archive.' },
-          { question: 'Which format has the best compression?', answer: '7z and tar.zst generally offer the best compression ratios. ZIP offers the widest compatibility across operating systems.' },
-          { question: 'Are my files stored on the server?', answer: 'No. Files are processed in memory and deleted immediately after the archive is downloaded.' },
+          { question: t`What archive formats are available?`, answer: t`You can create ZIP, 7z, tar.gz (gzip compressed), and tar.zst (Zstandard compressed) archives.` },
+          { question: t`Which formats support encryption?`, answer: t`ZIP and 7z support AES-256 password encryption. Tar-based formats (tar.gz, tar.zst) do not support built-in encryption.` },
+          { question: t`What is the file size limit?`, answer: t`Each file can be up to 35 MB, and you can add up to 3 files per archive.` },
+          { question: t`Which format has the best compression?`, answer: t`7z and tar.zst generally offer the best compression ratios. ZIP offers the widest compatibility across operating systems.` },
+          { question: t`Are my files stored on the server?`, answer: t`No. Files are processed in memory and deleted immediately after the archive is downloaded.` },
         ]}
         relatedTools={[
-          { label: 'Decompress Archive', href: '/archive/decompress' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Password Generator', href: '/generate/password' },
-          { label: 'Certificate Inspector', href: '/inspect/certificate' },
+          { label: t`Decompress Archive`, href: '/archive/decompress' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Password Generator`, href: '/generate/password' },
+          { label: t`Certificate Inspector`, href: '/inspect/certificate' },
         ]}
       />
     </Box>

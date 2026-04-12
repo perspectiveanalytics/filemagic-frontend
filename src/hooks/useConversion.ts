@@ -93,7 +93,7 @@ export function useConversion(endpoint: string) {
       setState(prev => ({
         ...prev,
         status: 'error',
-        error: 'Conversion timed out. Please try again.',
+        error: 'Processing timed out. Please try again.',
       }));
       return;
     }
@@ -118,7 +118,7 @@ export function useConversion(endpoint: string) {
         setState(prev => ({
           ...prev,
           status: 'error',
-          error: response.error || 'Conversion failed.',
+          error: response.error || 'Processing failed.',
         }));
       } else {
         setState(prev => ({
@@ -134,7 +134,7 @@ export function useConversion(endpoint: string) {
       setState(prev => ({
         ...prev,
         status: 'error',
-        error: err instanceof Error ? err.message : 'Failed to check conversion status.',
+        error: err instanceof Error ? err.message : 'Failed to check status.',
       }));
     }
   }, [stopPolling, fetchResult]);
@@ -160,7 +160,7 @@ export function useConversion(endpoint: string) {
       setState(prev => ({
         ...prev,
         status: 'error',
-        error: err instanceof Error ? err.message : 'Failed to start conversion.',
+        error: err instanceof Error ? err.message : 'Failed to start processing.',
       }));
     }
   }, [endpoint, reset, pollStatus]);

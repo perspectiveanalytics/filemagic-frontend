@@ -13,8 +13,10 @@ import SortOutlinedIcon from '@mui/icons-material/SortOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export default function ImageToPdfPage() {
+  const { t } = useLingui();
   const [files, setFiles] = useState<File[]>([]);
 
   const conversion = useMergeConversion('/merge/image-to-pdf');
@@ -37,13 +39,9 @@ export default function ImageToPdfPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="Images to PDF" description="Convert one or multiple images into a single PDF document for free. No signup, files processed in memory only." path="/merge/image-to-pdf" structuredData={buildToolSchema('Images to PDF', 'Convert one or multiple images into a single PDF document for free. No signup, files processed in memory only.', '/merge/image-to-pdf')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Images to PDF
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert one or multiple images into a single PDF document
-      </Typography>
+      <SEO title={t`Images to PDF`} description={t`Convert one or multiple images into a single PDF document for free. No signup, files processed in memory only.`} path="/merge/image-to-pdf" structuredData={buildToolSchema(t`Images to PDF`, t`Convert one or multiple images into a single PDF document for free. No signup, files processed in memory only.`, '/merge/image-to-pdf')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Images to PDF</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert one or multiple images into a single PDF document</Trans></Typography>
 
       <ToolDisclaimer toolId="image-to-pdf" />
 
@@ -85,35 +83,35 @@ export default function ImageToPdfPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert images to PDF online',
+          title: t`How to convert images to PDF online`,
           steps: [
-            'Upload one or more images. Supported formats include JPG, PNG, WebP, and BMP.',
-            'Drag to reorder images if needed — each image becomes one page in the PDF.',
-            'Click "Create PDF" to combine all images into a single document.',
-            'Download your PDF instantly.',
+            t`Upload one or more images. Supported formats include JPG, PNG, WebP, and BMP.`,
+            t`Drag to reorder images if needed — each image becomes one page in the PDF.`,
+            t`Click "Create PDF" to combine all images into a single document.`,
+            t`Download your PDF instantly.`,
           ],
         }}
         features={[
-          { icon: <CollectionsOutlinedIcon />, title: 'Multiple Images', description: 'Combine up to 10 images into a single PDF document in one step.' },
-          { icon: <SortOutlinedIcon />, title: 'Drag to Reorder', description: 'Rearrange images by dragging before creating the PDF to control page order.' },
-          { icon: <ImageOutlinedIcon />, title: 'Popular Formats', description: 'Supports JPG, PNG, WebP, and BMP image formats.' },
-          { icon: <PictureAsPdfOutlinedIcon />, title: 'One Image per Page', description: 'Each image is placed on its own page, maintaining the original dimensions.' },
-          { icon: <LockOutlinedIcon />, title: 'Private & Secure', description: 'Files are processed in an isolated sandbox and deleted immediately after download.' },
-          { icon: <BoltOutlinedIcon />, title: 'No Signup Required', description: 'Start creating PDFs immediately. No account, no email, no ads.' },
+          { icon: <CollectionsOutlinedIcon />, title: t`Multiple Images`, description: t`Combine up to 10 images into a single PDF document in one step.` },
+          { icon: <SortOutlinedIcon />, title: t`Drag to Reorder`, description: t`Rearrange images by dragging before creating the PDF to control page order.` },
+          { icon: <ImageOutlinedIcon />, title: t`Popular Formats`, description: t`Supports JPG, PNG, WebP, and BMP image formats.` },
+          { icon: <PictureAsPdfOutlinedIcon />, title: t`One Image per Page`, description: t`Each image is placed on its own page, maintaining the original dimensions.` },
+          { icon: <LockOutlinedIcon />, title: t`Private & Secure`, description: t`Files are processed in an isolated sandbox and deleted immediately after download.` },
+          { icon: <BoltOutlinedIcon />, title: t`No Signup Required`, description: t`Start creating PDFs immediately. No account, no email, no ads.` },
         ]}
         faq={[
-          { question: 'How many images can I combine?', answer: 'You can combine up to 10 images into a single PDF. Each image can be up to 8 MB in size.' },
-          { question: 'What image formats are supported?', answer: 'Images to PDF supports JPG/JPEG, PNG, WebP, and BMP image formats.' },
-          { question: 'Can I control the page order?', answer: 'Yes. After uploading your images, you can drag and drop them to rearrange the order. Each image becomes one page in the final PDF.' },
-          { question: 'Does the conversion affect image quality?', answer: 'No. Images are embedded in the PDF at their original resolution and quality without any additional compression.' },
-          { question: 'Are my images stored on your servers?', answer: 'No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.' },
+          { question: t`How many images can I combine?`, answer: t`You can combine up to 10 images into a single PDF. Each image can be up to 8 MB in size.` },
+          { question: t`What image formats are supported?`, answer: t`Images to PDF supports JPG/JPEG, PNG, WebP, and BMP image formats.` },
+          { question: t`Can I control the page order?`, answer: t`Yes. After uploading your images, you can drag and drop them to rearrange the order. Each image becomes one page in the final PDF.` },
+          { question: t`Does the conversion affect image quality?`, answer: t`No. Images are embedded in the PDF at their original resolution and quality without any additional compression.` },
+          { question: t`Are my images stored on your servers?`, answer: t`No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.` },
         ]}
         relatedTools={[
-          { label: 'Image Convert', href: '/convert/image' },
-          { label: 'Image Compress', href: '/compress/image' },
-          { label: 'HEIC Convert', href: '/convert/heic' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'OCR', href: '/ocr' },
+          { label: t`Image Convert`, href: '/convert/image' },
+          { label: t`Image Compress`, href: '/compress/image' },
+          { label: t`HEIC Convert`, href: '/convert/heic' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`OCR`, href: '/ocr' },
         ]}
       />
     </Box>

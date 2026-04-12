@@ -22,6 +22,7 @@ import ToolSEOContent from '../components/ToolSEOContent';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type Tab = 'convert' | 'crop' | 'resize' | 'watermark' | 'favicon';
 type OutputFormat = 'jpg' | 'png' | 'webp' | 'tiff' | 'ico' | 'pdf';
@@ -56,6 +57,7 @@ function isSvgFile(file: File): boolean {
 }
 
 export default function ImageConvertPage() {
+  const { t } = useLingui();
   const [tab, setTab] = useState<Tab>('convert');
 
   const [file, setFile] = useState<File | null>(null);
@@ -269,17 +271,13 @@ export default function ImageConvertPage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="Image Tools"
-        description="Convert between HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO image formats. Crop, resize, and generate favicon packages. Free, no signup."
+        title={t`Image Tools`}
+        description={t`Convert between HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO image formats. Crop, resize, and generate favicon packages. Free, no signup.`}
         path="/convert/image"
-        structuredData={buildToolSchema('Image Tools', 'Convert, crop, resize images and generate favicon packages.', '/convert/image')}
+        structuredData={buildToolSchema(t`Image Tools`, t`Convert, crop, resize images and generate favicon packages.`, '/convert/image')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        Image Tools
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 3 }}>
-        HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>Image Tools</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 3 }}><Trans>HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO</Trans></Typography>
 
       <ToolDisclaimer toolId="image-convert" />
 
@@ -327,9 +325,7 @@ export default function ImageConvertPage() {
                 textAlign: 'center',
               }}
             >
-              <Typography level="body-sm" sx={{ color: 'text.tertiary' }}>
-                SVG files need to be converted to PNG first.
-              </Typography>
+              <Typography level="body-sm" sx={{ color: 'text.tertiary' }}><Trans>SVG files need to be converted to PNG first.</Trans></Typography>
               <Box
                 component="button"
                 onClick={() => setTab('convert')}
@@ -530,37 +526,33 @@ export default function ImageConvertPage() {
                 {tab === 'convert' && (
                   isSvg ? (
                     <>
-                      <Typography level="body-sm" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                        SVG &rarr; PNG
-                      </Typography>
+                      <Typography level="body-sm" sx={{ color: 'text.secondary', fontWeight: 600 }}><Trans>SVG &rarr; PNG</Trans></Typography>
                       <FormControl>
-                        <FormLabel>Output width (px)</FormLabel>
+                        <FormLabel><Trans>Output width (px)</Trans></FormLabel>
                         <Input
                           type="number"
-                          placeholder="Auto (native size)"
+                          placeholder={t`Auto (native size)`}
                           value={svgWidth}
                           onChange={(e) => setSvgWidth(e.target.value ? Number(e.target.value) : '')}
                           size="sm"
                           slotProps={{ input: { min: 1, max: 4096 } }}
                         />
-                        <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 1 }}>
-                          Height scales proportionally. Max 4096px.
-                        </Typography>
+                        <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 1 }}><Trans>Height scales proportionally. Max 4096px.</Trans></Typography>
                       </FormControl>
                     </>
                   ) : (
                     <FormControl>
-                      <FormLabel>Output format</FormLabel>
+                      <FormLabel><Trans>Output format</Trans></FormLabel>
                       <Select
                         value={outputFormat}
                         onChange={(_, value) => value && setOutputFormat(value)}
                       >
-                        <Option value="jpg">JPG</Option>
-                        <Option value="png">PNG</Option>
-                        <Option value="webp">WebP</Option>
-                        <Option value="tiff">TIFF</Option>
-                        <Option value="pdf">PDF</Option>
-                        <Option value="ico">ICO (favicon)</Option>
+                        <Option value="jpg">{t`JPG`}</Option>
+                        <Option value="png">{t`PNG`}</Option>
+                        <Option value="webp">{t`WebP`}</Option>
+                        <Option value="tiff">{t`TIFF`}</Option>
+                        <Option value="pdf">{t`PDF`}</Option>
+                        <Option value="ico">{t`ICO (favicon)`}</Option>
                       </Select>
                     </FormControl>
                   )
@@ -569,15 +561,15 @@ export default function ImageConvertPage() {
                 {tab === 'crop' && (
                   <>
                     <FormControl>
-                      <FormLabel>Output format</FormLabel>
+                      <FormLabel><Trans>Output format</Trans></FormLabel>
                       <Select
                         value={cropFormat}
                         onChange={(_, value) => value && setCropFormat(value)}
                         size="sm"
                       >
-                        <Option value="jpg">JPG</Option>
-                        <Option value="png">PNG</Option>
-                        <Option value="webp">WebP</Option>
+                        <Option value="jpg">{t`JPG`}</Option>
+                        <Option value="png">{t`PNG`}</Option>
+                        <Option value="webp">{t`WebP`}</Option>
                       </Select>
                     </FormControl>
 
@@ -600,7 +592,7 @@ export default function ImageConvertPage() {
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Width (px)</FormLabel>
+                        <FormLabel><Trans>Width (px)</Trans></FormLabel>
                         <Input
                           type="number"
                           placeholder={naturalSize ? String(naturalSize.w) : 'Width'}
@@ -611,7 +603,7 @@ export default function ImageConvertPage() {
                         />
                       </FormControl>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Height (px)</FormLabel>
+                        <FormLabel><Trans>Height (px)</Trans></FormLabel>
                         <Input
                           type="number"
                           placeholder={naturalSize ? String(naturalSize.h) : 'Height'}
@@ -627,20 +619,20 @@ export default function ImageConvertPage() {
                       checked={lockAspect}
                       onChange={(e) => setLockAspect(e.target.checked)}
                       size="sm"
-                      label="Keep proportions"
+                      label={t`Keep proportions`}
                     />
 
                     <FormControl>
-                      <FormLabel>Output format</FormLabel>
+                      <FormLabel><Trans>Output format</Trans></FormLabel>
                       <Select
                         value={resizeFormat}
                         onChange={(_, value) => value && setResizeFormat(value)}
                         size="sm"
                       >
-                        <Option value="jpg">JPG</Option>
-                        <Option value="png">PNG</Option>
-                        <Option value="webp">WebP</Option>
-                        <Option value="tiff">TIFF</Option>
+                        <Option value="jpg">{t`JPG`}</Option>
+                        <Option value="png">{t`PNG`}</Option>
+                        <Option value="webp">{t`WebP`}</Option>
+                        <Option value="tiff">{t`TIFF`}</Option>
                       </Select>
                     </FormControl>
                   </>
@@ -649,9 +641,9 @@ export default function ImageConvertPage() {
                 {tab === 'watermark' && (
                   <>
                     <FormControl>
-                      <FormLabel>Text</FormLabel>
+                      <FormLabel><Trans>Text</Trans></FormLabel>
                       <Input
-                        placeholder="Your watermark text"
+                        placeholder={t`Your watermark text`}
                         value={watermarkText}
                         onChange={(e) => setWatermarkText(e.target.value.slice(0, 100))}
                         size="sm"
@@ -660,21 +652,21 @@ export default function ImageConvertPage() {
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Position</FormLabel>
+                        <FormLabel><Trans>Position</Trans></FormLabel>
                         <Select
                           value={watermarkPosition}
                           onChange={(_, v) => v && setWatermarkPosition(v)}
                           size="sm"
                         >
-                          <Option value="bottom-right">Bottom right</Option>
-                          <Option value="bottom-left">Bottom left</Option>
-                          <Option value="top-right">Top right</Option>
-                          <Option value="top-left">Top left</Option>
-                          <Option value="center">Center</Option>
+                          <Option value="bottom-right">{t`Bottom right`}</Option>
+                          <Option value="bottom-left">{t`Bottom left`}</Option>
+                          <Option value="top-right">{t`Top right`}</Option>
+                          <Option value="top-left">{t`Top left`}</Option>
+                          <Option value="center">{t`Center`}</Option>
                         </Select>
                       </FormControl>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Size (px)</FormLabel>
+                        <FormLabel><Trans>Size (px)</Trans></FormLabel>
                         <Input
                           type="number"
                           value={watermarkSize}
@@ -687,18 +679,18 @@ export default function ImageConvertPage() {
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Color</FormLabel>
+                        <FormLabel><Trans>Color</Trans></FormLabel>
                         <Select
                           value={watermarkColor}
                           onChange={(_, v) => v && setWatermarkColor(v)}
                           size="sm"
                         >
-                          <Option value="#ffffff">White</Option>
-                          <Option value="#000000">Black</Option>
+                          <Option value="#ffffff">{t`White`}</Option>
+                          <Option value="#000000">{t`Black`}</Option>
                         </Select>
                       </FormControl>
                       <FormControl sx={{ minWidth: 0 }}>
-                        <FormLabel>Opacity (%)</FormLabel>
+                        <FormLabel><Trans>Opacity (%)</Trans></FormLabel>
                         <Input
                           type="number"
                           value={watermarkOpacity}
@@ -710,16 +702,16 @@ export default function ImageConvertPage() {
                     </Box>
 
                     <FormControl>
-                      <FormLabel>Output format</FormLabel>
+                      <FormLabel><Trans>Output format</Trans></FormLabel>
                       <Select
                         value={watermarkFormat}
                         onChange={(_, v) => v && setWatermarkFormat(v)}
                         size="sm"
                       >
-                        <Option value="png">PNG</Option>
-                        <Option value="jpg">JPG</Option>
-                        <Option value="webp">WebP</Option>
-                        <Option value="tiff">TIFF</Option>
+                        <Option value="png">{t`PNG`}</Option>
+                        <Option value="jpg">{t`JPG`}</Option>
+                        <Option value="webp">{t`WebP`}</Option>
+                        <Option value="tiff">{t`TIFF`}</Option>
                       </Select>
                     </FormControl>
                   </>
@@ -727,9 +719,7 @@ export default function ImageConvertPage() {
 
                 {tab === 'favicon' && (
                   <>
-                    <Typography level="body-sm" sx={{ fontWeight: 600 }}>
-                      Will generate:
-                    </Typography>
+                    <Typography level="body-sm" sx={{ fontWeight: 600 }}><Trans>Will generate:</Trans></Typography>
                     <Box
                       sx={{
                         display: 'grid',
@@ -751,9 +741,7 @@ export default function ImageConvertPage() {
                         </Typography>
                       ))}
                     </Box>
-                    <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-                      Downloaded as a ZIP with all sizes ready for deployment.
-                    </Typography>
+                    <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Downloaded as a ZIP with all sizes ready for deployment.</Trans></Typography>
                   </>
                 )}
               </Box>
@@ -878,35 +866,35 @@ export default function ImageConvertPage() {
 
       <ToolSEOContent
         howTo={{
-          title: 'How to convert images online',
+          title: t`How to convert images online`,
           steps: [
-            'Choose a mode — Convert, Crop, Resize, or Favicon.',
-            'Upload your image. Supported formats include HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG.',
-            'Select your output format and adjust any settings like crop area or target dimensions.',
-            'Click Convert and download the result instantly.',
+            t`Choose a mode — Convert, Crop, Resize, or Favicon.`,
+            t`Upload your image. Supported formats include HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG.`,
+            t`Select your output format and adjust any settings like crop area or target dimensions.`,
+            t`Click Convert and download the result instantly.`,
           ],
         }}
         features={[
-          { icon: <ImageOutlinedIcon />, title: '9 Formats', description: 'Convert between HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO, and PDF.' },
-          { icon: <CropOutlinedIcon />, title: 'Crop & Resize', description: 'Built-in tools for precise cropping and resizing with aspect ratio lock.' },
-          { icon: <FavoriteOutlinedIcon />, title: 'Favicon Package', description: 'Generate all standard favicon sizes as a ready-to-deploy ZIP.' },
-          { icon: <SwapHorizOutlinedIcon />, title: 'SVG to PNG', description: 'Rasterize vector SVG files to PNG with configurable output width.' },
-          { icon: <LockOutlinedIcon />, title: 'Private & Secure', description: 'Files are processed in an isolated sandbox and deleted immediately after download.' },
-          { icon: <BoltOutlinedIcon />, title: 'No Signup Required', description: 'Start converting immediately. No account, no email, no ads.' },
+          { icon: <ImageOutlinedIcon />, title: t`9 Formats`, description: t`Convert between HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, ICO, and PDF.` },
+          { icon: <CropOutlinedIcon />, title: t`Crop & Resize`, description: t`Built-in tools for precise cropping and resizing with aspect ratio lock.` },
+          { icon: <FavoriteOutlinedIcon />, title: t`Favicon Package`, description: t`Generate all standard favicon sizes as a ready-to-deploy ZIP.` },
+          { icon: <SwapHorizOutlinedIcon />, title: t`SVG to PNG`, description: t`Rasterize vector SVG files to PNG with configurable output width.` },
+          { icon: <LockOutlinedIcon />, title: t`Private & Secure`, description: t`Files are processed in an isolated sandbox and deleted immediately after download.` },
+          { icon: <BoltOutlinedIcon />, title: t`No Signup Required`, description: t`Start converting immediately. No account, no email, no ads.` },
         ]}
         faq={[
-          { question: 'What image formats are supported?', answer: 'FileMagic supports HEIC, HEIF, PNG, JPG/JPEG, WebP, BMP, TIFF, SVG, and ICO. You can convert between any combination of these formats.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum file size is 20 MB per image. This covers virtually all standard photos and graphics.' },
-          { question: 'Does converting images reduce quality?', answer: 'Converting between lossless formats (PNG, TIFF, BMP) preserves full quality. Converting to lossy formats (JPG, WebP) applies compression. For the best quality, choose PNG or WebP.' },
-          { question: 'Are my images stored on your servers?', answer: 'No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.' },
-          { question: 'Can I convert SVG files?', answer: 'Yes. SVG vector files are rasterized to PNG. You can optionally specify an output width — height scales proportionally to maintain the aspect ratio.' },
+          { question: t`What image formats are supported?`, answer: t`FileMagic supports HEIC, HEIF, PNG, JPG/JPEG, WebP, BMP, TIFF, SVG, and ICO. You can convert between any combination of these formats.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum file size is 20 MB per image. This covers virtually all standard photos and graphics.` },
+          { question: t`Does converting images reduce quality?`, answer: t`Converting between lossless formats (PNG, TIFF, BMP) preserves full quality. Converting to lossy formats (JPG, WebP) applies compression. For the best quality, choose PNG or WebP.` },
+          { question: t`Are my images stored on your servers?`, answer: t`No. Files are processed in isolated memory and automatically deleted as soon as you download the result. We never store, log, or share your files.` },
+          { question: t`Can I convert SVG files?`, answer: t`Yes. SVG vector files are rasterized to PNG. You can optionally specify an output width — height scales proportionally to maintain the aspect ratio.` },
         ]}
         relatedTools={[
-          { label: 'HEIC Convert', href: '/convert/heic' },
-          { label: 'Image Compress', href: '/compress/image' },
-          { label: 'OCR', href: '/ocr' },
-          { label: 'Images to PDF', href: '/merge/image-to-pdf' },
-          { label: 'Metadata Remove', href: '/metadata/remove' },
+          { label: t`HEIC Convert`, href: '/convert/heic' },
+          { label: t`Image Compress`, href: '/compress/image' },
+          { label: t`OCR`, href: '/ocr' },
+          { label: t`Images to PDF`, href: '/merge/image-to-pdf' },
+          { label: t`Metadata Remove`, href: '/metadata/remove' },
         ]}
       />
     </Box>

@@ -14,6 +14,7 @@ import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CloudOffOutlinedIcon from '@mui/icons-material/CloudOffOutlined';
 import { actionBtnBase } from '../styles/buttons';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type ConvertMode = 'csv-to-excel' | 'excel-to-csv';
 type PageStatus = 'idle' | 'processing' | 'done' | 'error';
@@ -34,6 +35,7 @@ function reloadOnStaleChunk(): never {
 }
 
 export default function CsvExcelPage() {
+  const { t } = useLingui();
   const [mode, setMode] = useState<ConvertMode>('csv-to-excel');
   const [status, setStatus] = useState<PageStatus>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -133,18 +135,14 @@ export default function CsvExcelPage() {
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
-      <SEO title="CSV / Excel" description="Convert between CSV and Excel for free. 100% client-side, no upload." path="/convert/csv-excel" structuredData={buildToolSchema('CSV / Excel', 'Convert CSV to Excel and back.', '/convert/csv-excel')} />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        CSV / Excel
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Convert between CSV and Excel — 100% client-side
-      </Typography>
+      <SEO title={t`CSV / Excel`} description={t`Convert between CSV and Excel for free. 100% client-side, no upload.`} path="/convert/csv-excel" structuredData={buildToolSchema(t`CSV / Excel`, t`Convert CSV to Excel and back.`, '/convert/csv-excel')} />
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>CSV / Excel</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Convert between CSV and Excel — 100% client-side</Trans></Typography>
 
       <ToolDisclaimer toolId="csv-excel" />
 
       <FormControl sx={{ mb: 3 }}>
-        <FormLabel>Direction</FormLabel>
+        <FormLabel><Trans>Direction</Trans></FormLabel>
         <RadioGroup
           orientation="horizontal"
           value={mode}
@@ -152,10 +150,10 @@ export default function CsvExcelPage() {
           sx={{ gap: 1.5 }}
         >
           <Sheet variant="outlined" sx={{ px: 2, py: 1, borderRadius: 'md' }}>
-            <Radio value="csv-to-excel" label="CSV → Excel" overlay disabled={status === 'processing'} />
+            <Radio value="csv-to-excel" label={t`CSV → Excel`} overlay disabled={status === 'processing'} />
           </Sheet>
           <Sheet variant="outlined" sx={{ px: 2, py: 1, borderRadius: 'md' }}>
-            <Radio value="excel-to-csv" label="Excel → CSV" overlay disabled={status === 'processing'} />
+            <Radio value="excel-to-csv" label={t`Excel → CSV`} overlay disabled={status === 'processing'} />
           </Sheet>
         </RadioGroup>
       </FormControl>
@@ -170,9 +168,7 @@ export default function CsvExcelPage() {
 
       {status === 'processing' && (
         <Box sx={{ p: 4, borderRadius: 'lg', bgcolor: 'background.surface', border: '1px solid', borderColor: 'divider', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-          <Typography level="body-md" sx={{ color: 'text.secondary' }}>
-            Converting...
-          </Typography>
+          <Typography level="body-md" sx={{ color: 'text.secondary' }}><Trans>Converting...</Trans></Typography>
         </Box>
       )}
 
@@ -207,34 +203,34 @@ export default function CsvExcelPage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to convert between CSV and Excel',
+          title: t`How to convert between CSV and Excel`,
           steps: [
-            'Select the conversion direction: CSV to Excel or Excel to CSV.',
-            'Upload your file by dragging it onto the drop zone or clicking to browse.',
-            'The conversion runs instantly in your browser.',
-            'Download the converted file with one click.',
+            t`Select the conversion direction: CSV to Excel or Excel to CSV.`,
+            t`Upload your file by dragging it onto the drop zone or clicking to browse.`,
+            t`The conversion runs instantly in your browser.`,
+            t`Download the converted file with one click.`,
           ],
         }}
         features={[
-          { icon: <SyncAltOutlinedIcon />, title: 'Bi-directional Conversion', description: 'Convert CSV files to Excel (.xlsx) or Excel spreadsheets back to CSV with a single click.' },
-          { icon: <TableChartOutlinedIcon />, title: 'Header Preservation', description: 'Column headers and data types are preserved accurately during conversion in both directions.' },
-          { icon: <GridOnOutlinedIcon />, title: 'Full Excel Support', description: 'Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting.' },
-          { icon: <CloudOffOutlinedIcon />, title: '100% Client-side', description: 'Files never leave your device. All processing happens locally in your browser using WebAssembly.' },
-          { icon: <BoltOutlinedIcon />, title: 'Instant Processing', description: 'Conversion happens in milliseconds, even for large spreadsheets with thousands of rows.' },
-          { icon: <LockOutlinedIcon />, title: 'Privacy First', description: 'No file uploads, no server processing, no data collection. Your spreadsheets stay on your machine.' },
+          { icon: <SyncAltOutlinedIcon />, title: t`Bi-directional Conversion`, description: t`Convert CSV files to Excel (.xlsx) or Excel spreadsheets back to CSV with a single click.` },
+          { icon: <TableChartOutlinedIcon />, title: t`Header Preservation`, description: t`Column headers and data types are preserved accurately during conversion in both directions.` },
+          { icon: <GridOnOutlinedIcon />, title: t`Full Excel Support`, description: t`Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting.` },
+          { icon: <CloudOffOutlinedIcon />, title: t`100% Client-side`, description: t`Files never leave your device. All processing happens locally in your browser using WebAssembly.` },
+          { icon: <BoltOutlinedIcon />, title: t`Instant Processing`, description: t`Conversion happens in milliseconds, even for large spreadsheets with thousands of rows.` },
+          { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`No file uploads, no server processing, no data collection. Your spreadsheets stay on your machine.` },
         ]}
         faq={[
-          { question: 'What Excel formats are supported?', answer: 'Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format.' },
-          { question: 'Is there a file size limit?', answer: 'The maximum upload size is 10 MB. Since everything runs in your browser, very large files may take a moment to process.' },
-          { question: 'Are formulas preserved when converting Excel to CSV?', answer: 'No. CSV is a plain text format, so only the computed cell values are exported. Formulas, styling, and charts are not included in the CSV output.' },
-          { question: 'Does it handle multiple sheets?', answer: 'When converting Excel to CSV, only the first sheet is exported. For multi-sheet workbooks, you may need to convert each sheet separately.' },
-          { question: 'Can I convert TSV (tab-separated) files?', answer: 'Currently only comma-separated CSV is supported. For TSV files, consider replacing tabs with commas first, or use the JSON/CSV converter as an intermediate step.' },
+          { question: t`What Excel formats are supported?`, answer: t`Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format.` },
+          { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 10 MB. Since everything runs in your browser, very large files may take a moment to process.` },
+          { question: t`Are formulas preserved when converting Excel to CSV?`, answer: t`No. CSV is a plain text format, so only the computed cell values are exported. Formulas, styling, and charts are not included in the CSV output.` },
+          { question: t`Does it handle multiple sheets?`, answer: t`When converting Excel to CSV, only the first sheet is exported. For multi-sheet workbooks, you may need to convert each sheet separately.` },
+          { question: t`Can I convert TSV (tab-separated) files?`, answer: t`Currently only comma-separated CSV is supported. For TSV files, consider replacing tabs with commas first, or use the JSON/CSV converter as an intermediate step.` },
         ]}
         relatedTools={[
-          { label: 'JSON / CSV Converter', href: '/convert/json-csv' },
-          { label: 'YAML / JSON Converter', href: '/convert/yaml' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Word Counter', href: '/tools/word-counter' },
+          { label: t`JSON / CSV Converter`, href: '/convert/json-csv' },
+          { label: t`YAML / JSON Converter`, href: '/convert/yaml' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Word Counter`, href: '/tools/word-counter' },
         ]}
       />
     </Box>

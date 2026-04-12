@@ -16,6 +16,7 @@ import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 type QrType = 'text' | 'wifi';
 
@@ -53,6 +54,7 @@ function isFormValid(type: QrType, fields: Record<string, string>): boolean {
 const inputSx = { fontSize: 'sm', '--Input-focusedThickness': '1px' };
 
 export default function QrCodePage() {
+  const { t } = useLingui();
   const [qrType, setQrType] = useState<QrType>('text');
   const [fields, setFields] = useState<Record<string, string>>({});
   const [fgColor, setFgColor] = useState('#000000');
@@ -96,17 +98,13 @@ export default function QrCodePage() {
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
       <SEO
-        title="QR Code Generator"
-        description="Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup."
+        title={t`QR Code Generator`}
+        description={t`Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup.`}
         path="/qrcode"
-        structuredData={buildToolSchema('QR Code Generator', 'Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup.', '/qrcode')}
+        structuredData={buildToolSchema(t`QR Code Generator`, t`Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup.`, '/qrcode')}
       />
-      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}>
-        QR Code Generator
-      </Typography>
-      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}>
-        Generate QR codes for URLs, text and WiFi networks
-      </Typography>
+      <Typography component="h1" level="h3" sx={{ mb: 1, fontWeight: 700, letterSpacing: '-0.02em' }}><Trans>QR Code Generator</Trans></Typography>
+      <Typography level="body-sm" sx={{ color: 'text.tertiary', mb: 4 }}><Trans>Generate QR codes for URLs, text and WiFi networks</Trans></Typography>
 
       <ToolDisclaimer toolId="qr-code" />
 
@@ -130,7 +128,7 @@ export default function QrCodePage() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 2.5 }}>
             {qrType === 'text' && (
               <Textarea
-                placeholder="Enter a URL or text..."
+                placeholder={t`Enter a URL or text...`}
                 value={fields.text || ''}
                 onChange={(e) => setField('text', e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -143,24 +141,24 @@ export default function QrCodePage() {
             {qrType === 'wifi' && (
               <>
                 <FormControl>
-                  <FormLabel sx={{ fontSize: 'xs' }}>Network name (SSID)</FormLabel>
+                  <FormLabel sx={{ fontSize: 'xs' }}><Trans>Network name (SSID)</Trans></FormLabel>
                   <Input value={fields.ssid || ''} onChange={(e) => setField('ssid', e.target.value)} sx={inputSx} />
                 </FormControl>
                 <FormControl>
-                  <FormLabel sx={{ fontSize: 'xs' }}>Password</FormLabel>
+                  <FormLabel sx={{ fontSize: 'xs' }}><Trans>Password</Trans></FormLabel>
                   <Input value={fields.password || ''} onChange={(e) => setField('password', e.target.value)} sx={inputSx} />
                 </FormControl>
                 <FormControl>
-                  <FormLabel sx={{ fontSize: 'xs' }}>Encryption</FormLabel>
+                  <FormLabel sx={{ fontSize: 'xs' }}><Trans>Encryption</Trans></FormLabel>
                   <Select value={fields.encryption || 'WPA'} onChange={(_, v) => v && setField('encryption', v)} size="sm">
-                    <Option value="WPA">WPA / WPA2 / WPA3</Option>
-                    <Option value="WEP">WEP</Option>
-                    <Option value="nopass">None (open)</Option>
+                    <Option value="WPA">{t`WPA / WPA2 / WPA3`}</Option>
+                    <Option value="WEP">{t`WEP`}</Option>
+                    <Option value="nopass">{t`None (open)`}</Option>
                   </Select>
                 </FormControl>
                 <Checkbox
                   size="sm"
-                  label="Hidden network"
+                  label={t`Hidden network`}
                   checked={fields.hidden === 'true'}
                   onChange={(e) => setField('hidden', e.target.checked ? 'true' : 'false')}
                 />
@@ -207,9 +205,7 @@ export default function QrCodePage() {
                       fontSize: '0.65rem',
                       mb: 1.5,
                     }}
-                  >
-                    Colors
-                  </Typography>
+                  ><Trans>Colors</Trans></Typography>
                   <Box sx={{ display: 'flex', gap: 1.5 }}>
                     <Box
                       sx={{
@@ -239,9 +235,7 @@ export default function QrCodePage() {
                         }}
                       />
                       <Box>
-                        <Typography level="body-xs" sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.2 }}>
-                          Foreground
-                        </Typography>
+                        <Typography level="body-xs" sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.2 }}><Trans>Foreground</Trans></Typography>
                         <Typography level="body-xs" sx={{ fontFamily: 'monospace', color: 'text.tertiary', fontSize: '0.65rem' }}>
                           {fgColor}
                         </Typography>
@@ -275,9 +269,7 @@ export default function QrCodePage() {
                         }}
                       />
                       <Box>
-                        <Typography level="body-xs" sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.2 }}>
-                          Background
-                        </Typography>
+                        <Typography level="body-xs" sx={{ fontWeight: 600, color: 'text.secondary', lineHeight: 1.2 }}><Trans>Background</Trans></Typography>
                         <Typography level="body-xs" sx={{ fontFamily: 'monospace', color: 'text.tertiary', fontSize: '0.65rem' }}>
                           {bgColor}
                         </Typography>
@@ -299,26 +291,24 @@ export default function QrCodePage() {
                       fontSize: '0.65rem',
                       mb: 1.5,
                     }}
-                  >
-                    Code
-                  </Typography>
+                  ><Trans>Code</Trans></Typography>
                   <Box sx={{ display: 'flex', gap: 2 }}>
                     <FormControl sx={{ flex: 1 }}>
-                      <FormLabel sx={{ fontSize: 'xs' }}>Error correction</FormLabel>
+                      <FormLabel sx={{ fontSize: 'xs' }}><Trans>Error correction</Trans></FormLabel>
                       <Select value={errorCorrection} onChange={(_, v) => v && setErrorCorrection(v)} size="sm">
-                        <Option value="L">Low (7%)</Option>
-                        <Option value="M">Medium (15%)</Option>
-                        <Option value="Q">Quartile (25%)</Option>
-                        <Option value="H">High (30%)</Option>
+                        <Option value="L">{t`Low (7%)`}</Option>
+                        <Option value="M">{t`Medium (15%)`}</Option>
+                        <Option value="Q">{t`Quartile (25%)`}</Option>
+                        <Option value="H">{t`High (30%)`}</Option>
                       </Select>
                     </FormControl>
                     <FormControl sx={{ flex: 1 }}>
-                      <FormLabel sx={{ fontSize: 'xs' }}>Size (px)</FormLabel>
+                      <FormLabel sx={{ fontSize: 'xs' }}><Trans>Size (px)</Trans></FormLabel>
                       <Select value={String(size)} onChange={(_, v) => v && setSize(Number(v))} size="sm">
-                        <Option value="256">256</Option>
-                        <Option value="512">512</Option>
-                        <Option value="1024">1024</Option>
-                        <Option value="2048">2048</Option>
+                        <Option value="256">{t`256`}</Option>
+                        <Option value="512">{t`512`}</Option>
+                        <Option value="1024">{t`1024`}</Option>
+                        <Option value="2048">{t`2048`}</Option>
                       </Select>
                     </FormControl>
                   </Box>
@@ -337,23 +327,21 @@ export default function QrCodePage() {
                       fontSize: '0.65rem',
                       mb: 1.5,
                     }}
-                  >
-                    Style
-                  </Typography>
+                  ><Trans>Style</Trans></Typography>
                   <Box sx={{ display: 'flex', gap: 2 }}>
                     <FormControl sx={{ flex: 1 }}>
-                      <FormLabel sx={{ fontSize: 'xs' }}>Dot shape</FormLabel>
+                      <FormLabel sx={{ fontSize: 'xs' }}><Trans>Dot shape</Trans></FormLabel>
                       <Select value={dotShape} onChange={(_, v) => v && setDotShape(v)} size="sm">
-                        <Option value="square">Square</Option>
-                        <Option value="circle">Circle</Option>
-                        <Option value="liquid">Liquid</Option>
+                        <Option value="square">{t`Square`}</Option>
+                        <Option value="circle">{t`Circle`}</Option>
+                        <Option value="liquid">{t`Liquid`}</Option>
                       </Select>
                     </FormControl>
                     <FormControl sx={{ flex: 1 }}>
-                      <FormLabel sx={{ fontSize: 'xs' }}>Eye shape</FormLabel>
+                      <FormLabel sx={{ fontSize: 'xs' }}><Trans>Eye shape</Trans></FormLabel>
                       <Select value={eyeShape} onChange={(_, v) => v && setEyeShape(v)} size="sm">
-                        <Option value="square">Square</Option>
-                        <Option value="rounded">Rounded</Option>
+                        <Option value="square">{t`Square`}</Option>
+                        <Option value="rounded">{t`Rounded`}</Option>
                       </Select>
                     </FormControl>
                   </Box>
@@ -373,9 +361,7 @@ export default function QrCodePage() {
             onClick={handleGenerate}
             disabled={!valid}
             sx={{ width: '100%' }}
-          >
-            Generate QR Code
-          </Button>
+          ><Trans>Generate QR Code</Trans></Button>
         </>
       ) : (
         <Box>
@@ -397,32 +383,32 @@ export default function QrCodePage() {
       )}
       <ToolSEOContent
         howTo={{
-          title: 'How to generate a QR code online',
+          title: t`How to generate a QR code online`,
           steps: [
-            'Choose the QR type — URL/Text or WiFi credentials.',
-            'Enter your content (text, URL, or WiFi network details).',
-            'Optionally customize colors, dot/eye shapes, error correction, and size.',
-            'Click "Generate QR Code" and download the PNG image.',
+            t`Choose the QR type — URL/Text or WiFi credentials.`,
+            t`Enter your content (text, URL, or WiFi network details).`,
+            t`Optionally customize colors, dot/eye shapes, error correction, and size.`,
+            t`Click "Generate QR Code" and download the PNG image.`,
           ],
         }}
         features={[
-          { icon: <QrCodeOutlinedIcon />, title: 'URL, Text & WiFi', description: 'Generate QR codes for plain text, URLs, or WiFi network credentials with SSID, password, and encryption type.' },
-          { icon: <PaletteOutlinedIcon />, title: 'Custom Colors & Styles', description: 'Set foreground and background colors, choose dot shapes (square, circle, liquid), and eye shapes (square, rounded).' },
-          { icon: <SettingsOutlinedIcon />, title: 'Error Correction Levels', description: 'Select Low (7%), Medium (15%), Quartile (25%), or High (30%) error correction to balance density and resilience.' },
-          { icon: <BoltOutlinedIcon />, title: 'High-Resolution Output', description: 'Generate QR codes up to 2048 x 2048 pixels, suitable for print and large displays.' },
-          { icon: <SecurityOutlinedIcon />, title: 'Privacy First', description: 'QR codes are generated server-side in isolated memory and deleted immediately after download.' },
+          { icon: <QrCodeOutlinedIcon />, title: t`URL, Text & WiFi`, description: t`Generate QR codes for plain text, URLs, or WiFi network credentials with SSID, password, and encryption type.` },
+          { icon: <PaletteOutlinedIcon />, title: t`Custom Colors & Styles`, description: t`Set foreground and background colors, choose dot shapes (square, circle, liquid), and eye shapes (square, rounded).` },
+          { icon: <SettingsOutlinedIcon />, title: t`Error Correction Levels`, description: t`Select Low (7%), Medium (15%), Quartile (25%), or High (30%) error correction to balance density and resilience.` },
+          { icon: <BoltOutlinedIcon />, title: t`High-Resolution Output`, description: t`Generate QR codes up to 2048 x 2048 pixels, suitable for print and large displays.` },
+          { icon: <SecurityOutlinedIcon />, title: t`Privacy First`, description: t`QR codes are generated server-side in isolated memory and deleted immediately after download.` },
         ]}
         faq={[
-          { question: 'What can I encode in a QR code?', answer: 'You can encode any text or URL (up to 4,096 characters) or WiFi network credentials including SSID, password, encryption type, and hidden network flag.' },
-          { question: 'What image format is the output?', answer: 'QR codes are generated as PNG images. You can choose sizes from 256 to 2,048 pixels.' },
-          { question: 'What does error correction do?', answer: 'Error correction allows the QR code to remain scannable even if part of it is damaged or obscured. Higher levels add more redundancy but increase code density.' },
-          { question: 'Can I customize the appearance?', answer: 'Yes. You can change foreground/background colors, dot shape (square, circle, liquid), and eye shape (square, rounded).' },
+          { question: t`What can I encode in a QR code?`, answer: t`You can encode any text or URL (up to 4,096 characters) or WiFi network credentials including SSID, password, encryption type, and hidden network flag.` },
+          { question: t`What image format is the output?`, answer: t`QR codes are generated as PNG images. You can choose sizes from 256 to 2,048 pixels.` },
+          { question: t`What does error correction do?`, answer: t`Error correction allows the QR code to remain scannable even if part of it is damaged or obscured. Higher levels add more redundancy but increase code density.` },
+          { question: t`Can I customize the appearance?`, answer: t`Yes. You can change foreground/background colors, dot shape (square, circle, liquid), and eye shape (square, rounded).` },
         ]}
         relatedTools={[
-          { label: 'Password Generator', href: '/generate/password' },
-          { label: 'PDF Compress', href: '/compress/pdf' },
-          { label: 'Certificate Inspector', href: '/inspect/certificate' },
-          { label: 'Ebook Converter', href: '/convert/ebook' },
+          { label: t`Password Generator`, href: '/generate/password' },
+          { label: t`PDF Compress`, href: '/compress/pdf' },
+          { label: t`Certificate Inspector`, href: '/inspect/certificate' },
+          { label: t`Ebook Converter`, href: '/convert/ebook' },
         ]}
       />
     </Box>
