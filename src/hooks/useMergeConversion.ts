@@ -141,22 +141,21 @@ export function useMergeConversion(endpoint: string) {
     }
   }, [endpoint, reset, pollStatus]);
 
+  // Serve from the in-memory blob only. The server download is single-use
+  // (consumed by fetchResult), so falling back to the URL would 404. Keep the
+  // blob so re-taps re-save; reset happens via "New"/onRetry.
   const download = useCallback(() => {
-    if (blobRef.current) {
-      const url = URL.createObjectURL(blobRef.current.blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = blobRef.current.name;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 500);
-    } else if (state.downloadUrl) {
-      window.location.href = state.downloadUrl;
-    }
-    setTimeout(reset, 1000);
-  }, [state.downloadUrl, reset]);
+    if (!blobRef.current) return;
+    const url = URL.createObjectURL(blobRef.current.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = blobRef.current.name;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 500);
+  }, []);
 
   useEffect(() => {
     return () => {
