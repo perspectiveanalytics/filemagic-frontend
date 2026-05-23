@@ -41,11 +41,12 @@ function fileExtName(name: string): string {
   return ext ? `.${ext}` : 'this file type';
 }
 
-/** Native input accept: prefer MIME tokens so Android's picker doesn't gray out files */
-function pickerAccept(accept: string): string {
-  const tokens = accept.split(',').map(t => t.trim()).filter(Boolean);
-  const mimeTokens = tokens.filter(t => t.includes('/'));
-  return mimeTokens.length > 0 ? mimeTokens.join(',') : accept;
+/** Native input accept: Android routes media accept (video/*, image/*...) to the
+ *  gallery-only Photo Picker, hiding files in Downloads/other folders. Drop accept
+ *  there so the full file chooser opens; validateFile still enforces the type. */
+function pickerAccept(accept: string): string | undefined {
+  if (typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)) return undefined;
+  return accept;
 }
 
 export default function FileDropZone({
