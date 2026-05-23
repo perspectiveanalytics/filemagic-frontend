@@ -41,6 +41,13 @@ function fileExtName(name: string): string {
   return ext ? `.${ext}` : 'this file type';
 }
 
+/** Native input accept: prefer MIME tokens so Android's picker doesn't gray out files */
+function pickerAccept(accept: string): string {
+  const tokens = accept.split(',').map(t => t.trim()).filter(Boolean);
+  const mimeTokens = tokens.filter(t => t.includes('/'));
+  return mimeTokens.length > 0 ? mimeTokens.join(',') : accept;
+}
+
 export default function FileDropZone({
   onFileSelect,
   accept,
@@ -204,7 +211,7 @@ export default function FileDropZone({
       <input
         ref={inputRef}
         type="file"
-        accept={accept}
+        accept={pickerAccept(accept)}
         onChange={handleInputChange}
         style={{ display: 'none' }}
       />
