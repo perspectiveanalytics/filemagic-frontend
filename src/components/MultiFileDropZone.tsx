@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect, useId } from 'react';
 import { Box, Typography, IconButton } from '@mui/joy';
 import { useLingui } from '@lingui/react/macro';
 import { Trans } from '@lingui/react/macro';
@@ -41,6 +41,8 @@ export default function MultiFileDropZone({
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const hintId = useId();
+  const errorId = useId();
 
   const previewFile = previewIndex !== null ? files[previewIndex] : null;
   const isPdf = previewFile?.type === 'application/pdf';
@@ -145,9 +147,22 @@ export default function MultiFileDropZone({
     e.target.value = '';
   }, [addFiles]);
 
+  useEffect(() => {
+    if (previewIndex === null) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPreviewIndex(null);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [previewIndex]);
+
   return (
     <Box>
       <Box
+        component="button"
+        type="button"
+        disabled={disabled}
+        aria-describedby={error ? `${hintId} ${errorId}` : hintId}
         onClick={handleClick}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -160,6 +175,7 @@ export default function MultiFileDropZone({
               ? 'primary.400'
               : 'neutral.outlinedBorder',
           borderRadius: 'lg',
+          width: '100%',
           py: files.length > 0 ? 4 : 7,
           px: 4,
           display: 'flex',
@@ -168,9 +184,15 @@ export default function MultiFileDropZone({
           justifyContent: 'center',
           gap: 1.5,
           cursor: disabled ? 'not-allowed' : 'pointer',
+          font: 'inherit',
           bgcolor: isDragging ? 'rgba(37, 99, 235, 0.06)' : 'transparent',
           transition: 'all 0.25s ease',
           opacity: disabled ? 0.5 : 1,
+          '&:focus-visible': {
+            outline: '3px solid',
+            outlineColor: 'primary.300',
+            outlineOffset: 3,
+          },
           '&:hover': disabled ? {} : {
             borderColor: 'primary.600',
             bgcolor: 'rgba(37, 99, 235, 0.04)',
@@ -187,6 +209,7 @@ export default function MultiFileDropZone({
           accept={accept !== '*' ? accept : undefined}
           multiple
           onChange={handleInputChange}
+          disabled={disabled}
           style={{ display: 'none' }}
         />
         <CloudUploadOutlinedIcon
@@ -201,11 +224,11 @@ export default function MultiFileDropZone({
         <Typography level="body-md" sx={{ color: isDragging ? 'primary.softColor' : 'text.secondary', fontWeight: 500 }}>
           {isDragging ? <Trans>Drop files here</Trans> : files.length > 0 ? <Trans>Drop more files or click to add</Trans> : <Trans>Drop files here or click to browse</Trans>}
         </Typography>
-        <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
+        <Typography id={hintId} level="body-xs" sx={{ color: 'text.tertiary' }}>
           {t`Max ${Math.round(maxSize / 1024 / 1024)}MB per file, up to ${maxFiles} files`}
         </Typography>
         {error && (
-          <Typography level="body-sm" sx={{ color: 'danger.500', mt: 0.5 }}>
+          <Typography id={errorId} role="alert" level="body-sm" sx={{ color: 'danger.500', mt: 0.5 }}>
             {error}
           </Typography>
         )}
@@ -239,6 +262,7 @@ export default function MultiFileDropZone({
               <Box sx={{ display: 'flex', gap: 0.25, flexShrink: 0 }}>
                 {allowPreview && (
                   <IconButton
+                    aria-label={t`Preview ${file.name}`}
                     size="sm"
                     variant="plain"
                     color="neutral"
@@ -249,6 +273,7 @@ export default function MultiFileDropZone({
                   </IconButton>
                 )}
                 <IconButton
+                  aria-label={t`Move ${file.name} up`}
                   size="sm"
                   variant="plain"
                   color="neutral"
@@ -259,6 +284,7 @@ export default function MultiFileDropZone({
                   <KeyboardArrowUpIcon sx={{ fontSize: 18 }} />
                 </IconButton>
                 <IconButton
+                  aria-label={t`Move ${file.name} down`}
                   size="sm"
                   variant="plain"
                   color="neutral"
@@ -269,6 +295,7 @@ export default function MultiFileDropZone({
                   <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
                 </IconButton>
                 <IconButton
+                  aria-label={t`Remove ${file.name}`}
                   size="sm"
                   variant="plain"
                   color="danger"
@@ -289,6 +316,10 @@ export default function MultiFileDropZone({
 
       {previewIndex !== null && previewUrl && (
         <Box
+          role="dialog"
+          aria-modal="true"
+          aria-label={previewFile ? t`Preview ${previewFile.name}` : t`File preview`}
+          tabIndex={-1}
           onClick={() => setPreviewIndex(null)}
           sx={{
             position: 'fixed',
@@ -311,6 +342,7 @@ export default function MultiFileDropZone({
               {previewFile?.name}
             </Typography>
             <IconButton
+              aria-label={t`Close preview`}
               size="sm"
               variant="plain"
               onClick={() => setPreviewIndex(null)}

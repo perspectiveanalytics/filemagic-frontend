@@ -17,18 +17,21 @@ function notify() {
 }
 
 function getHasUploaded() {
+  if (typeof localStorage === 'undefined') return false;
   return localStorage.getItem(UPLOADED_KEY) === '1';
 }
 function getHasThanked() {
+  if (typeof localStorage === 'undefined') return false;
   return localStorage.getItem(THANKED_KEY) === '1';
 }
 
 export function useThanks() {
-  const hasUploaded = useSyncExternalStore(subscribe, getHasUploaded);
-  const hasThanked = useSyncExternalStore(subscribe, getHasThanked);
+  const hasUploaded = useSyncExternalStore(subscribe, getHasUploaded, () => false);
+  const hasThanked = useSyncExternalStore(subscribe, getHasThanked, () => false);
   const [sending, setSending] = useState(false);
 
   const markUploaded = useCallback(() => {
+    if (typeof localStorage === 'undefined') return;
     if (localStorage.getItem(UPLOADED_KEY) !== '1') {
       localStorage.setItem(UPLOADED_KEY, '1');
       notify();
@@ -36,6 +39,7 @@ export function useThanks() {
   }, []);
 
   const markThanked = useCallback(async () => {
+    if (typeof localStorage === 'undefined') return;
     if (localStorage.getItem(THANKED_KEY) === '1') return;
     localStorage.setItem(THANKED_KEY, '1');
     notify();

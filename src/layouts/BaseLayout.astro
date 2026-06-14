@@ -1,0 +1,1206 @@
+---
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import { SITE, locales, type Locale, localizePath, canonicalPath } from '../content/site';
+import { navGroups, routes, pageTitle, canonicalUrl, webApplicationSchema, categoryLabel, routeSearchText, type RouteEntry } from '../content/routes';
+import { staticSeoSection } from '../content/seoSections';
+
+interface Props {
+  route: RouteEntry;
+  locale: Locale;
+  robots?: string;
+  loadTurnstile?: boolean;
+  showLocaleSwitch?: boolean;
+}
+
+const {
+  route,
+  locale,
+  robots = 'index, follow, max-snippet:-1, max-image-preview:large',
+  loadTurnstile = true,
+  showLocaleSwitch,
+} = Astro.props;
+const isIndexable = !robots.toLowerCase().includes('noindex');
+const shouldShowLocaleSwitch = showLocaleSwitch ?? isIndexable;
+const copy = route.copy[locale];
+const title = pageTitle(route, locale);
+const canonical = canonicalUrl(route, locale);
+const localizedPath = localizePath(route.path, locale);
+const companyRoutes = routes.filter((item) => item.category === 'Company');
+const toolRoutes = routes.filter((item) => navGroups.some((group) => group === item.category));
+const searchId = `tool-search-${locale}`;
+const searchResultsId = `tool-search-results-${locale}`;
+const mobileSearchId = `mobile-tool-search-${locale}`;
+const mobileSearchResultsId = `mobile-tool-search-results-${locale}`;
+const searchLabel = locale === 'fr' ? 'Rechercher un outil' : 'Search tools';
+const searchPlaceholder = locale === 'fr' ? 'Rechercher un outil...' : 'Search tools...';
+const noSearchResults = locale === 'fr' ? 'Aucun outil trouvé' : 'No tools found';
+const hrefLangs: Record<Locale, string> = {
+  en: 'en-US',
+  fr: 'fr-FR',
+};
+const credits = [
+  { name: 'Cloudflare', url: 'https://cloudflare.com' },
+  { name: 'FFmpeg', url: 'https://ffmpeg.org' },
+  { name: 'libvips', url: 'https://www.libvips.org' },
+  { name: 'ImageMagick', url: 'https://imagemagick.org' },
+  { name: 'Ghostscript', url: 'https://ghostscript.com' },
+  { name: 'Tesseract', url: 'https://github.com/tesseract-ocr/tesseract' },
+  { name: 'Pandoc', url: 'https://pandoc.org' },
+  { name: 'ExifTool', url: 'https://exiftool.org' },
+  { name: 'OpenSSL', url: 'https://openssl.org' },
+  { name: 'QPDF', url: 'https://qpdf.sourceforge.io' },
+  { name: 'Calibre', url: 'https://calibre-ebook.com' },
+  { name: '7-Zip', url: 'https://7-zip.org' },
+  { name: 'nsjail', url: 'https://nsjail.dev' },
+];
+const staticContent = isIndexable ? staticSeoSection(route, locale) : null;
+const schema = isIndexable
+  ? [
+      webApplicationSchema(route, locale),
+      route.path === '/'
+        ? null
+        : {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: locale === 'fr' ? 'Accueil' : 'Home', item: `${SITE.url}${canonicalPath('/', locale)}` },
+              { '@type': 'ListItem', position: 2, name: copy.title, item: canonical },
+            ],
+          },
+    ].filter(Boolean)
+  : [];
+---
+
+<!doctype html>
+<html lang={locale} data-joy-color-scheme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>{title}</title>
+    <meta name="description" content={copy.description} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {isIndexable && <link rel="canonical" href={canonical} />}
+    {isIndexable && locales.map((item) => <link rel="alternate" hreflang={hrefLangs[item]} href={`${SITE.url}${canonicalPath(route.path, item)}`} />)}
+    {isIndexable && <link rel="alternate" hreflang="x-default" href={`${SITE.url}${canonicalPath(route.path, 'en')}`} />}
+    {loadTurnstile && <link rel="preconnect" href="https://challenges.cloudflare.com" />}
+    {loadTurnstile && <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={copy.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={SITE.ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={copy.description} />
+    <meta name="twitter:image" content={SITE.ogImage} />
+    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />}
+    {loadTurnstile && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer is:inline></script>}
+  </head>
+  <body data-path={localizedPath}>
+    <div class="credits-banner">
+      <nav class="credits-inner" aria-label={locale === 'fr' ? 'Remerciements' : 'Credits'}>
+        <span class="credits-label">{locale === 'fr' ? 'Merci à' : 'Special thanks to'}</span>
+        <ul class="credits-list">
+          {credits.map((credit) => (
+            <li>
+              <a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.name}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+    <div id="maintenance-banner" class="maintenance-banner" hidden>
+      <span aria-hidden="true">!</span>
+      <span>{locale === 'fr' ? 'Maintenance planifiée en cours, le service peut être brièvement indisponible' : 'Scheduled maintenance in progress, service may be briefly unavailable'}</span>
+    </div>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation" data-tool-search-scope>
+        <a class="brand" href={canonicalPath('/', locale)} aria-label="FileMagic home">
+          <img src="/favicon.svg" alt="" width="24" height="24" />
+          <span>FileMagic</span>
+        </a>
+        <p class="privacy-line">{locale === 'fr' ? 'Outils privés, gratuits, sans compte.' : 'Private, free tools. No account required.'}</p>
+        <div class="sidebar-search" role="search">
+          <label class="sr-only" for={searchId}>{searchLabel}</label>
+          <input
+            id={searchId}
+            type="search"
+            placeholder={searchPlaceholder}
+            autocomplete="off"
+            spellcheck="false"
+            aria-controls={searchResultsId}
+            aria-expanded="false"
+            data-tool-search
+          />
+        </div>
+        <nav class="nav-search-results" id={searchResultsId} aria-label={searchLabel} data-tool-search-results hidden>
+          {toolRoutes.map((item) => (
+            <a
+              href={canonicalPath(item.path, locale)}
+              aria-current={item.path === route.path ? 'page' : undefined}
+              data-tool-result
+              data-search={routeSearchText(item, locale)}
+              hidden
+            >
+              {item.copy[locale].navLabel}
+            </a>
+          ))}
+          <p class="nav-search-empty" data-tool-search-empty hidden>{noSearchResults}</p>
+        </nav>
+        <p class="search-status sr-only" aria-live="polite" data-tool-search-status></p>
+        <nav class="nav-groups" data-tool-nav-groups>
+          {navGroups.map((group) => (
+            <section class="nav-group">
+              <h2>{categoryLabel(group, locale)}</h2>
+              {routes.filter((item) => item.category === group).map((item) => (
+                <a
+                  href={canonicalPath(item.path, locale)}
+                  aria-current={item.path === route.path ? 'page' : undefined}
+                >
+                  {item.copy[locale].navLabel}
+                </a>
+              ))}
+            </section>
+          ))}
+        </nav>
+        <nav class="company-links" aria-label="Company pages">
+          {companyRoutes.map((item) => (
+            <a href={canonicalPath(item.path, locale)} aria-current={item.path === route.path ? 'page' : undefined}>
+              {item.copy[locale].navLabel}
+            </a>
+          ))}
+        </nav>
+        {shouldShowLocaleSwitch && (
+          <div class="locale-switch" aria-label="Language">
+            {locales.map((item) => (
+              <a href={canonicalPath(route.path, item)} aria-current={item === locale ? 'true' : undefined}>{item.toUpperCase()}</a>
+            ))}
+          </div>
+        )}
+      </aside>
+      <header class="mobile-header">
+        <a class="mobile-brand" href={canonicalPath('/', locale)}>
+          <img src="/favicon.svg" alt="" width="22" height="22" />
+          <span>FileMagic</span>
+        </a>
+        <div class="mobile-actions">
+          <details class="mobile-menu">
+            <summary>{locale === 'fr' ? 'Outils' : 'Tools'}</summary>
+            <nav aria-label={locale === 'fr' ? 'Navigation mobile' : 'Mobile navigation'} data-tool-search-scope>
+              <div class="mobile-search" role="search">
+                <label class="sr-only" for={mobileSearchId}>{searchLabel}</label>
+                <input
+                  id={mobileSearchId}
+                  type="search"
+                  placeholder={searchPlaceholder}
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-controls={mobileSearchResultsId}
+                  aria-expanded="false"
+                  data-tool-search
+                />
+              </div>
+              <div class="nav-search-results" id={mobileSearchResultsId} aria-label={searchLabel} data-tool-search-results hidden>
+                {toolRoutes.map((item) => (
+                  <a
+                    href={canonicalPath(item.path, locale)}
+                    aria-current={item.path === route.path ? 'page' : undefined}
+                    data-tool-result
+                    data-search={routeSearchText(item, locale)}
+                    hidden
+                  >
+                    {item.copy[locale].navLabel}
+                  </a>
+                ))}
+                <p class="nav-search-empty" data-tool-search-empty hidden>{noSearchResults}</p>
+              </div>
+              <p class="search-status sr-only" aria-live="polite" data-tool-search-status></p>
+              <div class="mobile-menu-groups" data-tool-nav-groups>
+                {navGroups.map((group) => (
+                  <section>
+                    <h2>{categoryLabel(group, locale)}</h2>
+                    {routes.filter((item) => item.category === group).map((item) => (
+                      <a
+                        href={canonicalPath(item.path, locale)}
+                        aria-current={item.path === route.path ? 'page' : undefined}
+                      >
+                        {item.copy[locale].navLabel}
+                      </a>
+                    ))}
+                  </section>
+                ))}
+                <section>
+                  <h2>{categoryLabel('Company', locale)}</h2>
+                  {companyRoutes.map((item) => (
+                    <a href={canonicalPath(item.path, locale)} aria-current={item.path === route.path ? 'page' : undefined}>
+                      {item.copy[locale].navLabel}
+                    </a>
+                  ))}
+                </section>
+              </div>
+            </nav>
+          </details>
+          {shouldShowLocaleSwitch && (
+            <a class="mobile-locale" href={canonicalPath(route.path, locale === 'fr' ? 'en' : 'fr')}>
+              {locale === 'fr' ? 'EN' : 'FR'}
+            </a>
+          )}
+        </div>
+      </header>
+      <main class="main-content">
+        <section class="page-intro" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">{categoryLabel(route.category, locale)}</p>
+            <h1 id="page-title">{copy.title}</h1>
+            <p class="lede">{copy.description}</p>
+          </div>
+          <div class="trust-strip" aria-label={locale === 'fr' ? 'Garanties de confiance' : 'Trust signals'}>
+            <span>{locale === 'fr' ? 'Sans compte' : 'No account'}</span>
+            <span>{locale === 'fr' ? 'Sans publicité' : 'No ads'}</span>
+            <a href={canonicalPath('/security', locale)}>{locale === 'fr' ? 'Sécurité' : 'Security'}</a>
+            <a href={canonicalPath('/privacy', locale)}>{locale === 'fr' ? 'Confidentialité' : 'Privacy'}</a>
+          </div>
+        </section>
+        <slot />
+        {staticContent && (
+          <aside class="static-seo" aria-label={locale === 'fr' ? 'Informations sur l’outil' : 'Tool information'}>
+            <section class="static-seo-section">
+              <h2>{staticContent.howTo.title}</h2>
+              <ol class="how-to-list">
+                {staticContent.howTo.steps.map((step) => <li>{step}</li>)}
+              </ol>
+            </section>
+
+            <section class="static-seo-section">
+              <h2>{locale === 'fr' ? 'Points clés' : 'Key points'}</h2>
+              <div class="feature-grid">
+                {staticContent.features.map((feature) => (
+                  <article>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section class="static-seo-section">
+              <h2>{locale === 'fr' ? 'Questions fréquentes' : 'Frequently asked questions'}</h2>
+              <div class="faq-list">
+                {staticContent.faq.map((item) => (
+                  <details>
+                    <summary>{item.question}</summary>
+                    <p>{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+
+            {staticContent.relatedTools.length > 0 && (
+              <nav class="related-tools" aria-label={locale === 'fr' ? 'Outils liés' : 'Related tools'}>
+                <h2>{locale === 'fr' ? 'Outils liés' : 'Related tools'}</h2>
+                <div>
+                  {staticContent.relatedTools.map((tool) => <a href={tool.href}>{tool.label}</a>)}
+                </div>
+              </nav>
+            )}
+          </aside>
+        )}
+      </main>
+    </div>
+    <script is:inline>
+      (() => {
+        const shell = window.__fileMagicShell ??= {};
+
+        shell.updateMaintenanceBanner = () => {
+          const banner = document.getElementById('maintenance-banner');
+          if (!banner) return;
+          const now = new Date();
+          banner.hidden = !(now.getUTCHours() === 5 && now.getUTCMinutes() < 20);
+        };
+
+        shell.initToolSearch = () => {
+          const resultLabel = document.documentElement.lang === 'fr' ? ['résultat', 'résultats'] : ['result', 'results'];
+          const normalizeSearch = (value) =>
+            value
+              .toLocaleLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .trim();
+
+          document.querySelectorAll('[data-tool-search-scope]').forEach((scope) => {
+            if (scope.dataset.toolSearchReady === 'true') return;
+            scope.dataset.toolSearchReady = 'true';
+
+            const searchInput = scope.querySelector('[data-tool-search]');
+            const navGroupsElement = scope.querySelector('[data-tool-nav-groups]');
+            const searchResultsElement = scope.querySelector('[data-tool-search-results]');
+            const emptySearchElement = scope.querySelector('[data-tool-search-empty]');
+            const searchStatusElement = scope.querySelector('[data-tool-search-status]');
+            const searchResultLinks = Array.from(scope.querySelectorAll('[data-tool-result]'));
+            const updateToolSearch = () => {
+              if (!searchInput || !navGroupsElement || !searchResultsElement) return;
+              const query = normalizeSearch(searchInput.value);
+              searchInput.setAttribute('aria-expanded', query ? 'true' : 'false');
+              if (!query) {
+                searchResultsElement.hidden = true;
+                navGroupsElement.hidden = false;
+                searchResultLinks.forEach((link) => {
+                  link.hidden = true;
+                });
+                if (emptySearchElement) emptySearchElement.hidden = true;
+                if (searchStatusElement) searchStatusElement.textContent = '';
+                return;
+              }
+
+              let visibleCount = 0;
+              searchResultsElement.hidden = false;
+              navGroupsElement.hidden = true;
+              searchResultLinks.forEach((link) => {
+                const haystack = normalizeSearch(link.getAttribute('data-search') || link.textContent || '');
+                const isMatch = haystack.includes(query);
+                link.hidden = !isMatch;
+                if (isMatch) visibleCount += 1;
+              });
+              if (emptySearchElement) emptySearchElement.hidden = visibleCount > 0;
+              if (searchStatusElement) {
+                searchStatusElement.textContent = `${visibleCount} ${visibleCount === 1 ? resultLabel[0] : resultLabel[1]}`;
+              }
+            };
+
+            if (searchInput) {
+              searchInput.addEventListener('input', updateToolSearch);
+              searchInput.addEventListener('search', updateToolSearch);
+              searchInput.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape') return;
+                searchInput.value = '';
+                updateToolSearch();
+              });
+            }
+            searchResultLinks.forEach((link) => {
+              link.addEventListener('click', () => {
+                if (!searchInput) return;
+                searchInput.value = '';
+                updateToolSearch();
+              });
+            });
+          });
+        };
+
+        shell.updateMaintenanceBanner();
+        shell.initToolSearch();
+
+        if (!shell.isListening) {
+          shell.isListening = true;
+          window.setInterval(() => shell.updateMaintenanceBanner(), 30000);
+          document.addEventListener('astro:page-load', () => {
+            shell.updateMaintenanceBanner();
+            shell.initToolSearch();
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b1120;
+    --surface: #131c2e;
+    --surface-subtle: #1a2540;
+    --border: #24324e;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --faint: #64748b;
+    --accent: #60a5fa;
+    --accent-soft: #12254d;
+  }
+
+  :global(*),
+  :global(*::before),
+  :global(*::after) {
+    box-sizing: border-box;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  html {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background: var(--bg);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .credits-banner {
+    position: relative;
+    z-index: 12;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 26%),
+      color-mix(in srgb, var(--surface) 92%, var(--surface-subtle));
+  }
+
+  .credits-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    row-gap: 6px;
+    width: min(1180px, 100%);
+    min-height: 38px;
+    margin: 0 auto;
+    padding: 6px 18px;
+    overflow: visible;
+  }
+
+  .credits-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    min-height: 24px;
+    padding-left: 13px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .credits-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent);
+    transform: translateY(-50%);
+  }
+
+  .credits-list {
+    display: flex;
+    align-items: center;
+    flex: 1 1 520px;
+    flex-wrap: wrap;
+    gap: 5px;
+    min-width: 0;
+    margin: 0;
+    padding: 1px 0;
+    overflow-x: visible;
+    list-style: none;
+    scroll-padding-inline-end: 0;
+    scrollbar-width: none;
+  }
+
+  .credits-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .credits-list li {
+    flex: 0 0 auto;
+  }
+
+  .credits-list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 4px 8px;
+    border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+    border-radius: 8px;
+    color: color-mix(in srgb, var(--text) 78%, var(--muted));
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      color 0.16s ease,
+      border-color 0.16s ease,
+      background-color 0.16s ease,
+      transform 0.16s ease;
+  }
+
+  .credits-list a:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+    background: color-mix(in srgb, var(--accent-soft) 72%, var(--surface));
+    transform: translateY(-1px);
+  }
+
+  .credits-list a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .maintenance-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    color: #fde68a;
+    background: #78350f;
+    border-bottom: 1px solid #92400e;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .maintenance-banner[hidden] {
+    display: none;
+  }
+
+  .app-shell {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 22px 18px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+  }
+
+  .brand,
+  .mobile-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent);
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: 0;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .privacy-line {
+    margin: 10px 0 14px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+    .sidebar-search,
+    .mobile-search {
+      margin: 0 0 18px;
+    }
+
+  .sidebar-search input,
+  .mobile-search input {
+    width: 100%;
+    min-height: 36px;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    color: var(--text);
+    background: var(--surface-subtle);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  .sidebar-search input::placeholder,
+  .mobile-search input::placeholder {
+    color: var(--faint);
+  }
+
+  .sidebar-search input:hover,
+  .mobile-search input:hover {
+    border-color: var(--border);
+  }
+
+  .sidebar-search input:focus,
+  .mobile-search input:focus {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .nav-groups {
+    display: grid;
+    gap: 20px;
+  }
+
+  .nav-search-results {
+    display: grid;
+    gap: 4px;
+  }
+
+  .nav-group h2 {
+    margin: 0 0 8px;
+    color: var(--faint);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .nav-group a,
+  .nav-search-results a,
+  .company-links a,
+  .locale-switch a {
+    display: flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nav-group a:hover,
+  .nav-search-results a:hover,
+  .company-links a:hover,
+  .locale-switch a:hover {
+    color: var(--text);
+    background: var(--surface-subtle);
+  }
+
+  .nav-group a[aria-current="page"],
+  .nav-search-results a[aria-current="page"],
+  .company-links a[aria-current="page"],
+  .locale-switch a[aria-current="true"] {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .nav-search-empty {
+    margin: 8px 0 0;
+    padding: 12px 10px;
+    color: var(--faint);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .company-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+
+  .company-links a {
+    flex: 1 1 44%;
+    min-height: 30px;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .locale-switch {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .locale-switch a {
+    flex: 1;
+    justify-content: center;
+    min-height: 30px;
+    font-size: 12px;
+  }
+
+  .mobile-header {
+    display: none;
+  }
+
+  .main-content {
+    width: 100%;
+    min-width: 0;
+    padding: 0 24px 56px;
+  }
+
+  .page-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: end;
+    width: min(960px, 100%);
+    margin: 0 auto;
+    padding: 38px 0 4px;
+  }
+
+  .eyebrow {
+    margin: 0 0 10px;
+    color: var(--faint);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .page-intro h1 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  .lede {
+    max-width: 720px;
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    max-width: 320px;
+  }
+
+  .trust-strip span,
+  .trust-strip a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    background: var(--surface);
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .trust-strip a:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+
+  :global(.tool-runtime) {
+    width: min(960px, 100%);
+    min-height: clamp(520px, 58vh, 680px);
+    margin: 0 auto;
+  }
+
+  :global(.tool-runtime-fallback) {
+    position: relative;
+    min-height: clamp(520px, 58vh, 680px);
+  }
+
+  :global(.tool-runtime-fallback-panel) {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 18px;
+    min-height: 360px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--surface) 84%, transparent);
+  }
+
+  :global(.tool-runtime-fallback-bar),
+  :global(.tool-runtime-fallback-drop),
+  :global(.tool-runtime-fallback-grid span) {
+    border-radius: 8px;
+    background:
+      linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 8%, transparent), transparent),
+      var(--surface-subtle);
+  }
+
+  :global(.tool-runtime-fallback-bar) {
+    width: min(420px, 74%);
+    height: 38px;
+  }
+
+  :global(.tool-runtime-fallback-drop) {
+    height: 176px;
+  }
+
+  :global(.tool-runtime-fallback-grid) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  :global(.tool-runtime-fallback-grid span) {
+    min-height: 74px;
+  }
+
+  :global(.tool-runtime h1),
+  :global(.tool-runtime h1 + p) {
+    display: none !important;
+  }
+
+  :global(.tool-runtime [aria-label="Tool information"]) {
+    display: none !important;
+  }
+
+  .static-seo {
+    width: min(960px, 100%);
+    margin: 48px auto 0;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
+  }
+
+  .static-seo-section {
+    margin-bottom: 34px;
+  }
+
+  .static-seo h2 {
+    margin: 0 0 16px;
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  .static-seo h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  .static-seo p,
+  .static-seo li {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .how-to-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding-left: 22px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .feature-grid article {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-grid p,
+  .faq-list p {
+    margin: 0;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .faq-list details {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .faq-list details p {
+    padding: 0 16px 16px;
+  }
+
+  .related-tools {
+    margin-top: 6px;
+  }
+
+  .related-tools div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .related-tools a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    background: var(--surface);
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .related-tools a:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+
+  @media (max-width: 899px) {
+    .credits-banner {
+      background: color-mix(in srgb, var(--surface) 94%, var(--surface-subtle));
+    }
+
+    .credits-inner {
+      gap: 10px;
+      min-height: 40px;
+      padding: 7px 14px;
+    }
+
+    .credits-label {
+      font-size: 10px;
+      min-height: 25px;
+    }
+
+    .credits-list a {
+      min-height: 25px;
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+
+    :global(.tool-runtime),
+    :global(.tool-runtime-fallback) {
+      min-height: 540px;
+    }
+
+    :global(.tool-runtime-fallback-panel) {
+      top: 28px;
+      min-height: 340px;
+      padding: 18px;
+    }
+
+    :global(.tool-runtime-fallback-grid) {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.tool-runtime-fallback-grid span) {
+      min-height: 52px;
+    }
+
+    .app-shell {
+      display: block;
+      min-height: auto;
+    }
+
+    .sidebar {
+      display: none;
+    }
+
+    .mobile-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .mobile-brand {
+      font-size: 18px;
+    }
+
+    .mobile-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mobile-menu summary,
+    .mobile-locale {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      min-height: 32px;
+      border-radius: 8px;
+      color: var(--muted);
+      background: var(--surface-subtle);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .mobile-menu {
+      position: relative;
+    }
+
+    .mobile-menu summary {
+      padding: 0 10px;
+      color: var(--accent);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .mobile-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-menu[open] summary {
+      color: var(--text);
+      background: var(--accent-soft);
+    }
+
+    .mobile-menu nav {
+      position: fixed;
+      top: 57px;
+      right: 12px;
+      left: 12px;
+      z-index: 20;
+      max-height: min(72vh, 620px);
+      overflow-y: auto;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    }
+
+    .mobile-search {
+      margin-bottom: 14px;
+    }
+
+    .mobile-menu-groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mobile-menu .nav-search-results {
+      gap: 4px;
+    }
+
+    .mobile-menu h2 {
+      margin: 0 0 7px;
+      color: var(--faint);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .mobile-menu a[aria-current="page"],
+    .mobile-menu a:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .main-content {
+      padding: 0 16px 40px;
+    }
+
+    .page-intro {
+      display: block;
+      padding: 28px 0 0;
+    }
+
+    .page-intro h1 {
+      font-size: 30px;
+    }
+
+    .lede {
+      font-size: 15px;
+    }
+
+    .trust-strip {
+      justify-content: flex-start;
+      margin-top: 16px;
+      max-width: none;
+    }
+
+    .static-seo {
+      margin-top: 36px;
+      padding-top: 28px;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .mobile-menu-groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

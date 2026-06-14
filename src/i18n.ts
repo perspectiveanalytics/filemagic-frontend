@@ -19,7 +19,9 @@ function resolveLocale(raw: string | null): Locale {
   return 'en';
 }
 
-const detected = detect(fromStorage(STORAGE_KEY), fromNavigator());
+const detected = typeof window === 'undefined'
+  ? 'en'
+  : detect(fromStorage(STORAGE_KEY), fromNavigator());
 const initialLocale = resolveLocale(detected);
 
 i18n.activate(initialLocale);

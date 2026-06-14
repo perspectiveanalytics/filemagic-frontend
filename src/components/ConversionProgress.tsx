@@ -58,6 +58,9 @@ export default function ConversionProgress({
 
   return (
     <Box
+      role={status === 'error' ? 'alert' : 'status'}
+      aria-live={status === 'error' ? 'assertive' : 'polite'}
+      aria-busy={status === 'uploading' || status === 'queued' || status === 'processing'}
       sx={{
         p: 4,
         borderRadius: 'lg',

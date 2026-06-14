@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { RouteEntry } from '../content/routes';
+
+const route: RouteEntry = {
+  key: 'not-found',
+  path: '/404',
+  category: 'FileMagic',
+  priority: 0,
+  copy: {
+    en: {
+      title: 'Page not found',
+      navLabel: 'Not found',
+      description: 'This FileMagic page could not be found. Choose a file tool from the navigation or return home.',
+    },
+    fr: {
+      title: 'Page introuvable',
+      navLabel: 'Introuvable',
+      description: 'Cette page FileMagic est introuvable. Choisissez un outil dans la navigation ou revenez a l’accueil.',
+    },
+  },
+};
+---
+
+<BaseLayout route={route} locale="en" robots="noindex, follow" loadTurnstile={false} showLocaleSwitch={false}>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <p class="status">404</p>
+    <h2 id="not-found-title">Page not found</h2>
+    <p>The page you requested does not exist or has moved.</p>
+    <a href="/">Back to FileMagic</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    width: min(640px, 100%);
+    margin: 48px auto 0;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .status {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0 0 18px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #fff;
+    background: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

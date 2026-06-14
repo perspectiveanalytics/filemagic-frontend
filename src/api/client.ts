@@ -2,7 +2,9 @@ import type { SubmitResponse, JobStatusResponse, ApiError, ConversionOptions, Ce
 import { getTurnstileToken } from '../turnstile';
 
 class ApiClient {
-  private baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+  private baseUrl = import.meta.env.PUBLIC_API_BASE_URL
+    || import.meta.env.VITE_API_BASE_URL
+    || (import.meta.env.DEV ? '/api' : 'https://api.filemagic.app/api');
 
   async submitConversion(
     endpoint: string,
@@ -358,7 +360,7 @@ class ApiClient {
       case 'QUEUE_FULL':
         return 'Server is busy. Please try again in a moment.';
       case 'FILE_TOO_LARGE':
-        return 'File is too large. Maximum size is 20MB.';
+        return error.error || 'File is too large.';
       case 'VALIDATION_ERROR':
         return error.error || 'Invalid file or options.';
       case 'RATE_LIMITED':

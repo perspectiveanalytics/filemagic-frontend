@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /privacy
-Disallow: /terms
-Disallow: /legal
 
-Sitemap: https://filemagic.app/sitemap.xml
+Sitemap: https://filemagic.app/sitemap-index.xml

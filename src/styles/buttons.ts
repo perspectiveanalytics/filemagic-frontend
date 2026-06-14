@@ -14,4 +14,9 @@ export const actionBtnBase = {
   border: 'none',
   outline: 'none',
   userSelect: 'none' as const,
+  '&:focus-visible': {
+    outline: '3px solid',
+    outlineColor: 'primary.300',
+    outlineOffset: 2,
+  },
 } as const;

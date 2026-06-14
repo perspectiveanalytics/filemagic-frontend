@@ -8,6 +8,7 @@ import FolderZipRoundedIcon from '@mui/icons-material/FolderZipRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import type { ConversionStatus, FileManifestEntry } from '../types/api';
 import { actionBtnBase } from '../styles/buttons';
+import { useLingui } from '@lingui/react/macro';
 
 interface MultiFileResultProps {
   status: ConversionStatus;
@@ -38,12 +39,17 @@ export default function MultiFileResult({
   renderThumbnail,
   onFilePreview,
 }: MultiFileResultProps) {
+  const { t } = useLingui();
+
   if (status === 'idle') {
     return null;
   }
 
   return (
     <Box
+      role={status === 'error' ? 'alert' : 'status'}
+      aria-live={status === 'error' ? 'assertive' : 'polite'}
+      aria-busy={status === 'uploading' || status === 'queued' || status === 'processing'}
       sx={{
         p: 4,
         borderRadius: 'lg',
@@ -139,6 +145,7 @@ export default function MultiFileResult({
                   {onFilePreview && (
                     <Box
                       component="button"
+                      aria-label={t`Preview ${file.name}`}
                       onClick={() => onFilePreview(file, url)}
                       sx={{
                         display: 'flex',
@@ -152,6 +159,11 @@ export default function MultiFileResult({
                         border: 'none',
                         bgcolor: 'transparent',
                         '&:hover': { color: 'primary.500', bgcolor: 'background.surface' },
+                        '&:focus-visible': {
+                          outline: '3px solid',
+                          outlineColor: 'primary.300',
+                          outlineOffset: 2,
+                        },
                       }}
                     >
                       <ZoomInRoundedIcon sx={{ fontSize: 18 }} />
@@ -159,6 +171,7 @@ export default function MultiFileResult({
                   )}
                   <Box
                     component="a"
+                    aria-label={t`Download ${file.name}`}
                     href={url}
                     download={file.name}
                     sx={{
@@ -172,6 +185,11 @@ export default function MultiFileResult({
                       flexShrink: 0,
                       textDecoration: 'none',
                       '&:hover': { color: 'primary.500', bgcolor: 'background.surface' },
+                      '&:focus-visible': {
+                        outline: '3px solid',
+                        outlineColor: 'primary.300',
+                        outlineOffset: 2,
+                      },
                     }}
                   >
                     <DownloadRoundedIcon sx={{ fontSize: 18 }} />

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CompanyContent from '../components/CompanyContent.astro';
+import ToolIsland from '../components/ToolIsland';
+import TurnstileMount from '../components/TurnstileMount';
+import { defaultLocale, locales, type Locale, localizePath } from '../content/site';
+import { routes, getRoute, isBrowserOnlyRoute, type RouteEntry } from '../content/routes';
+
+interface Props {
+  route: RouteEntry;
+  locale: Locale;
+}
+
+export function getStaticPaths() {
+  return routes.flatMap((route) =>
+    locales.map((locale) => {
+      const localized = localizePath(route.path, locale);
+      return {
+        params: {
+          slug: localized === '/' ? undefined : localized.replace(/^\//, ''),
+        },
+        props: {
+          route,
+          locale,
+        },
+      };
+    }),
+  );
+}
+
+const { route, locale } = Astro.props as Props;
+const resolvedRoute = getRoute(route.path) ?? routes[0];
+const resolvedLocale = locale ?? defaultLocale;
+const needsTurnstile = (resolvedRoute.path !== '/' && resolvedRoute.category !== 'Company' && !isBrowserOnlyRoute(resolvedRoute))
+  || ['privacy', 'terms', 'legal'].includes(resolvedRoute.key);
+const hasTurnstileSiteKey = Boolean(import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || import.meta.env.VITE_TURNSTILE_SITE_KEY);
+const shouldLoadTurnstile = needsTurnstile && hasTurnstileSiteKey;
+---
+
+<BaseLayout route={resolvedRoute} locale={resolvedLocale} loadTurnstile={shouldLoadTurnstile}>
+  {resolvedRoute.category === 'Company' ? (
+    <>
+      {shouldLoadTurnstile && <TurnstileMount client:only="react" />}
+      <CompanyContent route={resolvedRoute} locale={resolvedLocale} />
+    </>
+  ) : (
+    <div class="tool-runtime">
+      <ToolIsland tool={resolvedRoute.key} locale={resolvedLocale} loadTurnstile={shouldLoadTurnstile} client:only="react">
+        <div slot="fallback" class="tool-runtime-fallback" aria-hidden="true">
+          <div class="tool-runtime-fallback-panel">
+            <div class="tool-runtime-fallback-bar"></div>
+            <div class="tool-runtime-fallback-drop"></div>
+            <div class="tool-runtime-fallback-grid">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </ToolIsland>
+    </div>
+  )}
+</BaseLayout>

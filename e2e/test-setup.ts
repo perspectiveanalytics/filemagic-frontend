@@ -3,7 +3,7 @@ import { test as base } from '@playwright/test';
 /**
  * Custom test fixture that rewrites API calls and blocks Turnstile.
  *
- * The production build hardcodes VITE_API_BASE_URL=https://api.filemagic.app/api
+ * The production build may set PUBLIC_API_BASE_URL=https://api.filemagic.app/api
  * and loads the Turnstile widget from Cloudflare. In test environments, we:
  * 1. Monkey-patch fetch() to rewrite API URLs to relative /api paths
  *    (handled by Nginx proxy in the frontend Docker container)

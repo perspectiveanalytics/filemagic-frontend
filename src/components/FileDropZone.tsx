@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect, useId } from 'react';
 import { Box, Typography } from '@mui/joy';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import ContentPasteRoundedIcon from '@mui/icons-material/ContentPasteRounded';
@@ -61,6 +61,8 @@ export default function FileDropZone({
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const errorTimerRef = useRef<number | null>(null);
+  const hintId = useId();
+  const errorId = useId();
 
   // Auto-dismiss errors after 6 seconds
   const setErrorWithDismiss = useCallback((msg: string) => {
@@ -164,6 +166,10 @@ export default function FileDropZone({
 
   return (
     <Box
+      component="button"
+      type="button"
+      disabled={disabled}
+      aria-describedby={error ? `${hintId} ${errorId}` : hintId}
       onClick={handleClick}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
@@ -176,6 +182,7 @@ export default function FileDropZone({
             ? 'primary.400'
             : 'neutral.outlinedBorder',
         borderRadius: 'lg',
+        width: '100%',
         py: 7,
         px: 4,
         display: 'flex',
@@ -184,11 +191,17 @@ export default function FileDropZone({
         justifyContent: 'center',
         gap: 1.5,
         cursor: disabled ? 'not-allowed' : 'pointer',
+        font: 'inherit',
         bgcolor: error
           ? 'rgba(220, 38, 38, 0.04)'
           : isDragging ? 'rgba(37, 99, 235, 0.06)' : 'transparent',
         transition: 'all 0.25s ease',
         opacity: disabled ? 0.5 : 1,
+        '&:focus-visible': {
+          outline: '3px solid',
+          outlineColor: 'primary.300',
+          outlineOffset: 3,
+        },
         ...(error ? {
           animation: 'shake 0.35s ease-in-out',
           '@keyframes shake': {
@@ -214,6 +227,7 @@ export default function FileDropZone({
         type="file"
         accept={pickerAccept(accept)}
         onChange={handleInputChange}
+        disabled={disabled}
         style={{ display: 'none' }}
       />
       <CloudUploadOutlinedIcon
@@ -236,11 +250,13 @@ export default function FileDropZone({
           </Typography>
         </Box>
       )}
-      <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
+      <Typography id={hintId} level="body-xs" sx={{ color: 'text.tertiary' }}>
         <Trans>Max {formatSize(maxSize)}</Trans>
       </Typography>
       {error && (
         <Box
+          id={errorId}
+          role="alert"
           sx={{
             display: 'flex',
             alignItems: 'center',

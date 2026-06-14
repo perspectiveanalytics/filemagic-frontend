@@ -20,7 +20,7 @@ interface TurnstileOptions {
   'refresh-expired'?: 'auto' | 'manual' | 'never';
 }
 
-const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
+const SITE_KEY = (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || import.meta.env.VITE_TURNSTILE_SITE_KEY) as string | undefined;
 
 let widgetId: string | null = null;
 let widgetContainer: HTMLElement | null = null;

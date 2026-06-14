@@ -7,9 +7,8 @@ COPY dist /usr/share/nginx/html
 # Copy custom nginx config
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy IP allowlist (provided by CI, falls back to empty file for local builds)
+# Local builds use an empty allowlist; deployments can replace this file if needed.
 RUN touch /etc/nginx/allowed_ips.conf
-COPY docker/allowed_ips.con[f] /etc/nginx/allowed_ips.conf
 
 # Expose port 8080 (non-privileged port)
 EXPOSE 8080

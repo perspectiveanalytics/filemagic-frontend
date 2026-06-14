@@ -1,0 +1,308 @@
+---
+import ProtectedEmailIsland from './ProtectedEmailIsland';
+import { canonicalPath, type Locale } from '../content/site';
+import type { RouteEntry } from '../content/routes';
+
+interface Props {
+  route: RouteEntry;
+  locale: Locale;
+}
+
+const { route, locale } = Astro.props;
+const privacyHref = canonicalPath('/privacy', locale);
+const termsHref = canonicalPath('/terms', locale);
+const legalHref = canonicalPath('/legal', locale);
+const securityHref = canonicalPath('/security', locale);
+---
+
+<div class="company-content">
+  {route.key === 'security' && (
+    locale === 'fr' ? (
+      <>
+        <p class="updated">Dernière mise à jour : 16 février 2026</p>
+        <section>
+          <h2>Approche de sécurité</h2>
+          <p>FileMagic limite l’exposition des fichiers en séparant les tâches, en réduisant la durée de traitement et en évitant les comptes utilisateur. Les outils côté serveur sont conçus pour traiter un fichier uniquement le temps de produire le résultat demandé.</p>
+        </section>
+        <section>
+          <h2>Cycle d’un fichier</h2>
+          <ol>
+            <li>Le fichier est transmis en HTTPS via Cloudflare et notre origine.</li>
+            <li>La tâche est placée dans une file limitée afin de protéger le service contre les abus.</li>
+            <li>Le traitement s’exécute dans un worker isolé avec limites de ressources adaptées à l’outil.</li>
+            <li>Le résultat est rendu disponible au téléchargement pendant une durée courte.</li>
+            <li>Les données temporaires sont nettoyées automatiquement après téléchargement ou expiration.</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Mesures techniques</h2>
+          <div class="measure-grid">
+            <article><h3>Stockage temporaire</h3><p>Les jobs sont orientés vers du stockage de travail volatile ou éphémère, avec nettoyage automatique.</p></article>
+            <article><h3>Isolation</h3><p>Les conversions serveur utilisent des workers isolés et des limites de processus, mémoire et temps CPU.</p></article>
+            <article><h3>Réseau</h3><p>Les convertisseurs sont conçus pour réduire l’accès réseau nécessaire pendant le traitement.</p></article>
+            <article><h3>Transport</h3><p>Le trafic est chiffré en transit entre le navigateur, Cloudflare et l’origine.</p></article>
+          </div>
+        </section>
+        <section>
+          <h2>Limites</h2>
+          <p>FileMagic ne remplace pas un environnement d’audit ou un service de traitement réglementé. Évitez d’envoyer des fichiers que vous n’avez pas le droit de traiter, et vérifiez le résultat avant de l’utiliser dans un contexte sensible.</p>
+          <p>Pour les détails sur les données, les durées et vos droits, consultez la <a href={privacyHref}>politique de confidentialité</a>.</p>
+        </section>
+      </>
+    ) : (
+      <>
+        <p class="updated">Last updated: February 16, 2026</p>
+        <section>
+          <h2>Security approach</h2>
+          <p>FileMagic reduces file exposure by separating jobs, keeping processing short-lived, and avoiding user accounts. Server-side tools are designed to handle a file only for the operation requested by the user.</p>
+        </section>
+        <section>
+          <h2>File lifecycle</h2>
+          <ol>
+            <li>The file is sent over HTTPS through Cloudflare and our origin.</li>
+            <li>The job enters a rate-limited queue to protect service availability.</li>
+            <li>Processing runs in an isolated worker with resource limits suited to the tool.</li>
+            <li>The result is made available for download for a short period.</li>
+            <li>Temporary data is cleaned up automatically after download or expiry.</li>
+          </ol>
+        </section>
+        <section>
+          <h2>Technical measures</h2>
+          <div class="measure-grid">
+            <article><h3>Temporary working storage</h3><p>Jobs are oriented toward volatile or short-lived working storage with automatic cleanup.</p></article>
+            <article><h3>Isolation</h3><p>Server conversions use isolated workers and process, memory, and CPU-time limits.</p></article>
+            <article><h3>Network surface</h3><p>Converters are designed to reduce the network access needed during processing.</p></article>
+            <article><h3>Transport</h3><p>Traffic is encrypted in transit between the browser, Cloudflare, and the origin.</p></article>
+          </div>
+        </section>
+        <section>
+          <h2>Limitations</h2>
+          <p>FileMagic is not a substitute for a regulated processing environment or a formal security audit. Do not upload files you are not allowed to process, and review outputs before using them in sensitive workflows.</p>
+          <p>For details about data handling, retention, and your rights, read the <a href={privacyHref}>privacy policy</a>.</p>
+        </section>
+      </>
+    )
+  )}
+
+  {route.key === 'privacy' && (
+    locale === 'fr' ? (
+      <>
+        <p class="updated">Dernière mise à jour : 16 février 2026</p>
+        <section>
+          <h2>Responsable du traitement</h2>
+          <p>FileMagic est exploité par Perspective Analytics SAS, RCS Saint-Nazaire 988 270 757, 2 rue du Général de Gaulle, 44290 Guémené-Penfao, France.</p>
+          <p>Pour toute demande liée aux données personnelles, contactez-nous à <ProtectedEmailIsland client:only="react" />.</p>
+        </section>
+        <section>
+          <h2>Données traitées</h2>
+          <ul>
+            <li>Les fichiers nécessaires aux outils serveur, traités uniquement pour produire le résultat demandé.</li>
+            <li>Les données techniques nécessaires à la sécurité, à la limitation d’abus et au bon fonctionnement du service.</li>
+            <li>Des métriques agrégées de fonctionnement, sans analytics publicitaires ni suivi comportemental.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Cookies et services tiers</h2>
+          <p>FileMagic n’utilise pas de cookies publicitaires ni d’analytics de suivi. Cloudflare peut déposer des cookies techniques strictement nécessaires à la sécurité et à la protection contre les abus, notamment via Turnstile sur les points d’entrée sensibles.</p>
+        </section>
+        <section>
+          <h2>Durées et partage</h2>
+          <p>Les fichiers de travail sont conçus pour rester temporaires et être nettoyés automatiquement après traitement ou expiration. Les métriques opérationnelles agrégées peuvent être conservées jusqu’à un an pour suivre la fiabilité du service.</p>
+          <p>Cloudflare agit comme proxy/CDN et peut traiter des métadonnées de requête avant que celles-ci atteignent notre infrastructure. Les fichiers de conversion sont traités sur notre infrastructure applicative.</p>
+        </section>
+        <section>
+          <h2>Vos droits</h2>
+          <p>Vous pouvez exercer vos droits d’accès, de rectification ou de suppression en nous contactant à <ProtectedEmailIsland client:only="react" />. Vous pouvez également saisir la CNIL si vous estimez que vos droits ne sont pas respectés.</p>
+        </section>
+      </>
+    ) : (
+      <>
+        <p class="updated">Last updated: February 16, 2026</p>
+        <section>
+          <h2>Data controller</h2>
+          <p>FileMagic is operated by Perspective Analytics SAS, registered with the Saint-Nazaire Trade and Companies Register under number 988 270 757, at 2 rue du Général de Gaulle, 44290 Guémené-Penfao, France.</p>
+          <p>For privacy requests, contact us at <ProtectedEmailIsland client:only="react" />.</p>
+        </section>
+        <section>
+          <h2>Data handled</h2>
+          <ul>
+            <li>Files needed by server-side tools, processed only to produce the result requested.</li>
+            <li>Technical data needed for security, rate limiting, and service operation.</li>
+            <li>Aggregated operational metrics, without advertising analytics or behavioral tracking.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Cookies and third parties</h2>
+          <p>FileMagic does not use advertising cookies or tracking analytics. Cloudflare may set strictly necessary technical cookies for security and abuse protection, including Turnstile on sensitive endpoints.</p>
+        </section>
+        <section>
+          <h2>Retention and sharing</h2>
+          <p>Working files are designed to remain temporary and be cleaned up automatically after processing or expiry. Aggregated operational metrics may be kept for up to one year to monitor service reliability.</p>
+          <p>Cloudflare acts as a proxy and CDN and may process request metadata before it reaches our infrastructure. Conversion files are handled on our application infrastructure.</p>
+        </section>
+        <section>
+          <h2>Your rights</h2>
+          <p>You can request access, correction, or deletion by contacting <ProtectedEmailIsland client:only="react" />. You may also contact the French CNIL if you believe your rights are not respected.</p>
+        </section>
+      </>
+    )
+  )}
+
+  {route.key === 'terms' && (
+    locale === 'fr' ? (
+      <>
+        <p class="updated">Dernière mise à jour : 16 février 2026</p>
+        <section><h2>Acceptation</h2><p>En utilisant FileMagic, vous acceptez ces conditions. Si vous ne les acceptez pas, n’utilisez pas le service.</p></section>
+        <section><h2>Service</h2><p>FileMagic fournit des outils gratuits de conversion et de traitement de fichiers. Certains outils fonctionnent côté navigateur; d’autres envoient le fichier à notre infrastructure pour réaliser l’opération demandée.</p></section>
+        <section><h2>Utilisation autorisée</h2><p>Vous devez disposer des droits nécessaires sur les fichiers traités. Il est interdit d’utiliser le service pour du contenu illégal, malveillant, contrefaisant, automatisé de manière abusive ou destiné à contourner les mesures de sécurité.</p></section>
+        <section><h2>Disponibilité et garanties</h2><p>Le service est fourni gratuitement, sans garantie de disponibilité permanente ni d’adéquation à un usage particulier. Vérifiez les résultats avant toute utilisation importante.</p></section>
+        <section><h2>Données et contact</h2><p>L’utilisation du service est aussi régie par notre <a href={privacyHref}>politique de confidentialité</a>. Pour toute question, contactez <ProtectedEmailIsland client:only="react" />.</p></section>
+      </>
+    ) : (
+      <>
+        <p class="updated">Last updated: February 16, 2026</p>
+        <section><h2>Acceptance</h2><p>By using FileMagic, you agree to these terms. If you do not agree, do not use the service.</p></section>
+        <section><h2>Service</h2><p>FileMagic provides free file conversion and processing tools. Some tools run in the browser; others send the file to our infrastructure to perform the requested operation.</p></section>
+        <section><h2>Acceptable use</h2><p>You must have the right to process the files you submit. Do not use the service for illegal, malicious, infringing, abusive automated, or security-bypassing activity.</p></section>
+        <section><h2>Availability and warranty</h2><p>The service is provided free of charge, without a guarantee of uninterrupted availability or suitability for a particular purpose. Review outputs before relying on them.</p></section>
+        <section><h2>Data and contact</h2><p>Your use of the service is also governed by our <a href={privacyHref}>privacy policy</a>. For questions, contact <ProtectedEmailIsland client:only="react" />.</p></section>
+      </>
+    )
+  )}
+
+  {route.key === 'legal' && (
+    locale === 'fr' ? (
+      <>
+        <section><h2>Éditeur</h2><p>Perspective Analytics SAS, au capital social de 210 000 €, RCS Saint-Nazaire 988 270 757.</p><p>Siège social : 2 rue du Général de Gaulle, 44290 Guémené-Penfao, France.</p><p>Email : <ProtectedEmailIsland client:only="react" /></p></section>
+        <section><h2>Hébergement</h2><p>Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis.</p><p>OVHcloud SAS, 2 rue Kellermann, 59100 Roubaix, France.</p></section>
+        <section><h2>Propriété intellectuelle</h2><p>La structure, le design et les contenus du site FileMagic appartiennent à l’éditeur, sauf mention contraire. Toute reproduction non autorisée est interdite.</p></section>
+        <section><h2>Données personnelles et conditions</h2><p>Consultez la <a href={privacyHref}>politique de confidentialité</a> et les <a href={termsHref}>conditions d’utilisation</a> pour les règles applicables au service.</p></section>
+      </>
+    ) : (
+      <>
+        <section><h2>Publisher</h2><p>Perspective Analytics SAS, share capital EUR 210,000, registered with the Saint-Nazaire Trade and Companies Register under number 988 270 757.</p><p>Registered office: 2 rue du Général de Gaulle, 44290 Guémené-Penfao, France.</p><p>Email: <ProtectedEmailIsland client:only="react" /></p></section>
+        <section><h2>Hosting</h2><p>Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, United States.</p><p>OVHcloud SAS, 2 rue Kellermann, 59100 Roubaix, France.</p></section>
+        <section><h2>Intellectual property</h2><p>The structure, design, and content of the FileMagic website belong to the publisher unless stated otherwise. Unauthorized reproduction is prohibited.</p></section>
+        <section><h2>Personal data and terms</h2><p>Read the <a href={privacyHref}>privacy policy</a> and <a href={termsHref}>terms of service</a> for the rules that apply to the service.</p></section>
+      </>
+    )
+  )}
+
+  <nav class="company-links-inline" aria-label={locale === 'fr' ? 'Pages société' : 'Company pages'}>
+    <a href={securityHref}>{locale === 'fr' ? 'Sécurité' : 'Security'}</a>
+    <a href={privacyHref}>{locale === 'fr' ? 'Confidentialité' : 'Privacy'}</a>
+    <a href={termsHref}>{locale === 'fr' ? 'Conditions' : 'Terms'}</a>
+    <a href={legalHref}>{locale === 'fr' ? 'Mentions légales' : 'Legal'}</a>
+  </nav>
+</div>
+
+<style>
+  .company-content {
+    width: min(760px, 100%);
+    margin: 34px auto 0;
+  }
+
+  .updated {
+    margin: 0 0 24px;
+    color: var(--faint);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  section {
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 20px;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  p,
+  li {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  ul,
+  ol {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 22px;
+  }
+
+  a {
+    color: var(--accent);
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .measure-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .measure-grid article {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .company-links-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .company-links-inline a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    background: var(--surface);
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .company-links-inline a:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    text-decoration: none;
+  }
+
+  @media (max-width: 699px) {
+    .measure-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
