@@ -56,6 +56,10 @@ test.describe('Smoke Tests', () => {
     await search.fill('compress');
     await expect(sidebar.locator('[data-tool-result]:visible').first()).toHaveText(/Compress/);
 
+    // Keyword-only matches surface tools whose name does not contain the query.
+    await search.fill('music');
+    await expect(sidebar.locator('[data-tool-result]:visible').filter({ hasText: 'Audio Convert' })).toHaveCount(1);
+
     await search.fill('zzzz-no-tool');
     await expect(sidebar.locator('[data-tool-search-empty]')).toBeVisible();
 
