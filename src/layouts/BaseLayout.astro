@@ -4,7 +4,7 @@ import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
 import { SITE, locales, type Locale, localizePath, canonicalPath } from '../content/site';
-import { navGroups, routes, pageTitle, canonicalUrl, webApplicationSchema, categoryLabel, routeSearchText, type RouteEntry } from '../content/routes';
+import { navGroups, routes, pageTitle, canonicalUrl, webApplicationSchema, categoryLabel, routeSearchText, routeSearchPrimary, type RouteEntry } from '../content/routes';
 import { staticSeoSection } from '../content/seoSections';
 
 interface Props {
@@ -123,7 +123,7 @@ const schema = isIndexable
       <span aria-hidden="true">!</span>
       <span>{locale === 'fr' ? 'Maintenance planifiée en cours, le service peut être brièvement indisponible' : 'Scheduled maintenance in progress, service may be briefly unavailable'}</span>
     </div>
-    <div class="app-shell">
+    <div class="app-shell" data-mobile-drawer>
       <aside class="sidebar" aria-label="Primary navigation" data-tool-search-scope>
         <a class="brand" href={canonicalPath('/', locale)} aria-label="FileMagic home">
           <img src="/favicon.svg" alt="" width="24" height="24" />
@@ -150,6 +150,7 @@ const schema = isIndexable
               aria-current={item.path === route.path ? 'page' : undefined}
               data-tool-result
               data-search={routeSearchText(item, locale)}
+              data-search-primary={routeSearchPrimary(item, locale)}
               hidden
             >
               {item.copy[locale].navLabel}
@@ -195,60 +196,14 @@ const schema = isIndexable
         </a>
         <div class="mobile-actions">
           <details class="mobile-menu">
-            <summary>{locale === 'fr' ? 'Outils' : 'Tools'}</summary>
-            <nav aria-label={locale === 'fr' ? 'Navigation mobile' : 'Mobile navigation'} data-tool-search-scope>
-              <div class="mobile-search" role="search">
-                <label class="sr-only" for={mobileSearchId}>{searchLabel}</label>
-                <input
-                  id={mobileSearchId}
-                  type="search"
-                  placeholder={searchPlaceholder}
-                  autocomplete="off"
-                  spellcheck="false"
-                  aria-controls={mobileSearchResultsId}
-                  aria-expanded="false"
-                  data-tool-search
-                />
-              </div>
-              <div class="nav-search-results" id={mobileSearchResultsId} aria-label={searchLabel} data-tool-search-results hidden>
-                {toolRoutes.map((item) => (
-                  <a
-                    href={canonicalPath(item.path, locale)}
-                    aria-current={item.path === route.path ? 'page' : undefined}
-                    data-tool-result
-                    data-search={routeSearchText(item, locale)}
-                    hidden
-                  >
-                    {item.copy[locale].navLabel}
-                  </a>
-                ))}
-                <p class="nav-search-empty" data-tool-search-empty hidden>{noSearchResults}</p>
-              </div>
-              <p class="search-status sr-only" aria-live="polite" data-tool-search-status></p>
-              <div class="mobile-menu-groups" data-tool-nav-groups>
-                {navGroups.map((group) => (
-                  <section>
-                    <h2>{categoryLabel(group, locale)}</h2>
-                    {routes.filter((item) => item.category === group).map((item) => (
-                      <a
-                        href={canonicalPath(item.path, locale)}
-                        aria-current={item.path === route.path ? 'page' : undefined}
-                      >
-                        {item.copy[locale].navLabel}
-                      </a>
-                    ))}
-                  </section>
-                ))}
-                <section>
-                  <h2>{categoryLabel('Company', locale)}</h2>
-                  {companyRoutes.map((item) => (
-                    <a href={canonicalPath(item.path, locale)} aria-current={item.path === route.path ? 'page' : undefined}>
-                      {item.copy[locale].navLabel}
-                    </a>
-                  ))}
-                </section>
-              </div>
-            </nav>
+            <summary class="mobile-menu-trigger">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <line x1="2.5" y1="4.5" x2="13.5" y2="4.5" />
+                <line x1="2.5" y1="8" x2="13.5" y2="8" />
+                <line x1="2.5" y1="11.5" x2="13.5" y2="11.5" />
+              </svg>
+              <span>{locale === 'fr' ? 'Outils' : 'Tools'}</span>
+            </summary>
           </details>
           {shouldShowLocaleSwitch && (
             <a class="mobile-locale" href={canonicalPath(route.path, locale === 'fr' ? 'en' : 'fr')}>
@@ -257,6 +212,67 @@ const schema = isIndexable
           )}
         </div>
       </header>
+      <div class="mobile-drawer-backdrop" data-drawer-backdrop></div>
+      <aside class="mobile-drawer" aria-label={locale === 'fr' ? 'Navigation mobile' : 'Mobile navigation'} data-tool-search-scope>
+          <button type="button" class="mobile-drawer-close" data-drawer-close aria-label={locale === 'fr' ? 'Fermer' : 'Close'}>
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <line x1="4.5" y1="4.5" x2="13.5" y2="13.5" />
+              <line x1="13.5" y1="4.5" x2="4.5" y2="13.5" />
+            </svg>
+          </button>
+          <div class="mobile-search" role="search">
+            <label class="sr-only" for={mobileSearchId}>{searchLabel}</label>
+            <input
+              id={mobileSearchId}
+              type="search"
+              placeholder={searchPlaceholder}
+              autocomplete="off"
+              spellcheck="false"
+              aria-controls={mobileSearchResultsId}
+              aria-expanded="false"
+              data-tool-search
+            />
+          </div>
+          <nav class="nav-search-results" id={mobileSearchResultsId} aria-label={searchLabel} data-tool-search-results hidden>
+            {toolRoutes.map((item) => (
+              <a
+                href={canonicalPath(item.path, locale)}
+                aria-current={item.path === route.path ? 'page' : undefined}
+                data-tool-result
+                data-search={routeSearchText(item, locale)}
+                data-search-primary={routeSearchPrimary(item, locale)}
+                hidden
+              >
+                {item.copy[locale].navLabel}
+              </a>
+            ))}
+            <p class="nav-search-empty" data-tool-search-empty hidden>{noSearchResults}</p>
+          </nav>
+          <p class="search-status sr-only" aria-live="polite" data-tool-search-status></p>
+          <nav class="mobile-menu-groups" data-tool-nav-groups>
+            {navGroups.map((group) => (
+              <section>
+                <h2>{categoryLabel(group, locale)}</h2>
+                {routes.filter((item) => item.category === group).map((item) => (
+                  <a
+                    href={canonicalPath(item.path, locale)}
+                    aria-current={item.path === route.path ? 'page' : undefined}
+                  >
+                    {item.copy[locale].navLabel}
+                  </a>
+                ))}
+              </section>
+            ))}
+            <section>
+              <h2>{categoryLabel('Company', locale)}</h2>
+              {companyRoutes.map((item) => (
+                <a href={canonicalPath(item.path, locale)} aria-current={item.path === route.path ? 'page' : undefined}>
+                  {item.copy[locale].navLabel}
+                </a>
+              ))}
+            </section>
+          </nav>
+        </aside>
       <main class="main-content">
         <section class="page-intro" aria-labelledby="page-title">
           <div>
@@ -336,6 +352,18 @@ const schema = isIndexable
               .normalize('NFD')
               .replace(/[\u0300-\u036f]/g, '')
               .trim();
+          const wordPrefixMatch = (haystack, query) =>
+            haystack.split(' ').some((word) => word.startsWith(query));
+          const scoreLink = (link, query) => {
+            const primary = normalizeSearch(link.getAttribute('data-search-primary') || '');
+            const full = normalizeSearch(link.getAttribute('data-search') || link.textContent || '');
+            if (!full.includes(query)) return 0;
+            if (primary === query) return 100;
+            if (primary.startsWith(query)) return 80;
+            if (wordPrefixMatch(primary, query)) return 60;
+            if (primary.includes(query)) return 40;
+            return 20;
+          };
 
           document.querySelectorAll('[data-tool-search-scope]').forEach((scope) => {
             if (scope.dataset.toolSearchReady === 'true') return;
@@ -359,21 +387,27 @@ const schema = isIndexable
                 });
                 if (emptySearchElement) emptySearchElement.hidden = true;
                 if (searchStatusElement) searchStatusElement.textContent = '';
+                searchResultsElement.dataset.topResult = '';
                 return;
               }
 
-              let visibleCount = 0;
               searchResultsElement.hidden = false;
               navGroupsElement.hidden = true;
-              searchResultLinks.forEach((link) => {
-                const haystack = normalizeSearch(link.getAttribute('data-search') || link.textContent || '');
-                const isMatch = haystack.includes(query);
-                link.hidden = !isMatch;
-                if (isMatch) visibleCount += 1;
+              const matches = [];
+              searchResultLinks.forEach((link, index) => {
+                const score = scoreLink(link, query);
+                link.hidden = score === 0;
+                if (score > 0) matches.push({ link, score, index });
               });
-              if (emptySearchElement) emptySearchElement.hidden = visibleCount > 0;
+              matches.sort((a, b) => (b.score - a.score) || (a.index - b.index));
+              matches.forEach(({ link }) => searchResultsElement.appendChild(link));
+              if (emptySearchElement) {
+                searchResultsElement.appendChild(emptySearchElement);
+                emptySearchElement.hidden = matches.length > 0;
+              }
+              searchResultsElement.dataset.topResult = matches.length ? (matches[0].link.getAttribute('href') || '') : '';
               if (searchStatusElement) {
-                searchStatusElement.textContent = `${visibleCount} ${visibleCount === 1 ? resultLabel[0] : resultLabel[1]}`;
+                searchStatusElement.textContent = `${matches.length} ${matches.length === 1 ? resultLabel[0] : resultLabel[1]}`;
               }
             };
 
@@ -381,9 +415,21 @@ const schema = isIndexable
               searchInput.addEventListener('input', updateToolSearch);
               searchInput.addEventListener('search', updateToolSearch);
               searchInput.addEventListener('keydown', (event) => {
+                if (event.isComposing) return;
+                if (event.key === 'Enter') {
+                  const href = searchResultsElement ? searchResultsElement.dataset.topResult : '';
+                  if (href) {
+                    event.preventDefault();
+                    window.location.href = href;
+                  }
+                  return;
+                }
                 if (event.key !== 'Escape') return;
-                searchInput.value = '';
-                updateToolSearch();
+                if (searchInput.value) {
+                  searchInput.value = '';
+                  updateToolSearch();
+                  event.stopPropagation();
+                }
               });
             }
             searchResultLinks.forEach((link) => {
@@ -396,15 +442,75 @@ const schema = isIndexable
           });
         };
 
+        shell.initMobileDrawer = () => {
+          document.querySelectorAll('[data-mobile-drawer]').forEach((root) => {
+            if (root.dataset.drawerReady === 'true') return;
+            root.dataset.drawerReady = 'true';
+
+            const details = root.querySelector('details.mobile-menu');
+            if (!details) return;
+            const summary = details.querySelector('summary');
+            const backdrop = root.querySelector('[data-drawer-backdrop]');
+            const drawer = root.querySelector('.mobile-drawer');
+            const searchInput = drawer ? drawer.querySelector('[data-tool-search]') : null;
+            const closeButton = drawer ? drawer.querySelector('[data-drawer-close]') : null;
+            const close = () => {
+              if (details.open) details.open = false;
+            };
+            const focusSearch = () => {
+              if (!details.open || !searchInput) return;
+              // flush the visibility:hidden -> visible change so focus() isn't a no-op
+              searchInput.getBoundingClientRect();
+              searchInput.focus();
+            };
+
+            details.addEventListener('toggle', () => {
+              document.body.classList.toggle('drawer-open', details.open);
+              if (details.open) {
+                // rAF: let the <summary>'s own click-focus settle first, then move focus into the search field
+                window.requestAnimationFrame(focusSearch);
+              } else if (summary) {
+                summary.focus();
+              }
+            });
+
+            if (backdrop) backdrop.addEventListener('click', close);
+            if (closeButton) closeButton.addEventListener('click', close);
+            if (drawer) {
+              drawer.querySelectorAll('a[href]').forEach((link) => {
+                link.addEventListener('click', close);
+              });
+            }
+            document.addEventListener('keydown', (event) => {
+              if (event.key === 'Escape' && details.open) close();
+            });
+          });
+
+          if (!shell.drawerMediaBound) {
+            shell.drawerMediaBound = true;
+            window.matchMedia('(min-width: 900px)').addEventListener('change', (event) => {
+              if (!event.matches) return;
+              document.querySelectorAll('details.mobile-menu[open]').forEach((details) => {
+                details.open = false;
+              });
+              document.body.classList.remove('drawer-open');
+            });
+          }
+        };
+
+        document.body.classList.remove('drawer-open');
         shell.updateMaintenanceBanner();
         shell.initToolSearch();
+        shell.initMobileDrawer();
 
         if (!shell.isListening) {
           shell.isListening = true;
           window.setInterval(() => shell.updateMaintenanceBanner(), 30000);
           document.addEventListener('astro:page-load', () => {
+            document.body.classList.remove('drawer-open');
             shell.updateMaintenanceBanner();
             shell.initToolSearch();
+            shell.initMobileDrawer();
           });
         }
       })();
@@ -434,6 +540,10 @@ const schema = isIndexable
 
   [hidden] {
     display: none !important;
+  }
+
+  :global(body.drawer-open) {
+    overflow: hidden;
   }
 
   .sr-only {
@@ -752,7 +862,9 @@ const schema = isIndexable
     font-size: 12px;
   }
 
-  .mobile-header {
+  .mobile-header,
+  .mobile-drawer,
+  .mobile-drawer-backdrop {
     display: none;
   }
 
@@ -1074,13 +1186,12 @@ const schema = isIndexable
       gap: 8px;
     }
 
-    .mobile-menu summary,
     .mobile-locale {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-width: 40px;
-      min-height: 32px;
+      min-height: 36px;
       border-radius: 8px;
       color: var(--muted);
       background: var(--surface-subtle);
@@ -1093,35 +1204,96 @@ const schema = isIndexable
       position: relative;
     }
 
-    .mobile-menu summary {
-      padding: 0 10px;
+    .mobile-menu-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 8px;
       color: var(--accent);
-      cursor: pointer;
+      background: var(--surface-subtle);
+      font-size: 13px;
+      font-weight: 800;
       list-style: none;
+      cursor: pointer;
     }
 
-    .mobile-menu summary::-webkit-details-marker {
+    .mobile-menu-trigger::-webkit-details-marker {
       display: none;
     }
 
-    .mobile-menu[open] summary {
+    .mobile-menu[open] .mobile-menu-trigger {
       color: var(--text);
       background: var(--accent-soft);
     }
 
-    .mobile-menu nav {
+    .mobile-drawer-backdrop {
+      display: block;
       position: fixed;
-      top: 57px;
-      right: 12px;
-      left: 12px;
-      z-index: 20;
-      max-height: min(72vh, 620px);
+      inset: 0;
+      z-index: 30;
+      background: rgba(2, 6, 23, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .app-shell:has(.mobile-menu[open]) .mobile-drawer-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 31;
+      display: flex;
+      flex-direction: column;
+      width: min(86vw, 360px);
+      padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
       overflow-y: auto;
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
       background: var(--surface);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      border-right: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(2, 6, 23, 0.45);
+      transform: translateX(-100%);
+      visibility: hidden;
+      transition: transform 0.22s ease, visibility 0.22s ease;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .app-shell:has(.mobile-menu[open]) .mobile-drawer {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    .mobile-drawer-close {
+      align-self: flex-end;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      margin: -4px -4px 6px 0;
+      border: none;
+      border-radius: 8px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .mobile-drawer-close:hover {
+      color: var(--text);
+      background: var(--surface-subtle);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mobile-drawer,
+      .mobile-drawer-backdrop {
+        transition: none;
+      }
     }
 
     .mobile-search {
@@ -1130,15 +1302,14 @@ const schema = isIndexable
 
     .mobile-menu-groups {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
 
-    .mobile-menu .nav-search-results {
+    .mobile-drawer .nav-search-results {
       gap: 4px;
     }
 
-    .mobile-menu h2 {
+    .mobile-drawer h2 {
       margin: 0 0 7px;
       color: var(--faint);
       font-size: 11px;
@@ -1147,20 +1318,20 @@ const schema = isIndexable
       text-transform: uppercase;
     }
 
-    .mobile-menu a {
+    .mobile-drawer a {
       display: flex;
       align-items: center;
-      min-height: 32px;
-      padding: 6px 8px;
+      min-height: 40px;
+      padding: 8px 10px;
       border-radius: 8px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       text-decoration: none;
     }
 
-    .mobile-menu a[aria-current="page"],
-    .mobile-menu a:hover {
+    .mobile-drawer a[aria-current="page"],
+    .mobile-drawer a:hover {
       color: var(--accent);
       background: var(--accent-soft);
     }
@@ -1194,12 +1365,6 @@ const schema = isIndexable
     }
 
     .feature-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .mobile-menu-groups {
       grid-template-columns: 1fr;
     }
   }

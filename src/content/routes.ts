@@ -724,6 +724,10 @@ export function routeSearchText(route: RouteEntry, locale: Locale) {
     .join(' ');
 }
 
+export function routeSearchPrimary(route: RouteEntry, locale: Locale) {
+  return [route.copy[locale].navLabel, route.copy[locale].title].filter(Boolean).join(' ');
+}
+
 export function getRoute(path: string) {
   return routeByPath.get(path);
 }
