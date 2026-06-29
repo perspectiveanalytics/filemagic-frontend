@@ -40,6 +40,7 @@ export function useConversion(endpoint: string) {
   const pollStartRef = useRef<number>(0);
   const pollDelayRef = useRef<number>(POLL_INTERVAL);
   const blobRef = useRef<{ blob: Blob; name: string } | null>(null);
+  const runIdRef = useRef(0);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -49,6 +50,7 @@ export function useConversion(endpoint: string) {
   }, []);
 
   const reset = useCallback(() => {
+    runIdRef.current += 1;
     stopPolling();
     if (state.previewUrl) {
       URL.revokeObjectURL(state.previewUrl);
@@ -57,10 +59,10 @@ export function useConversion(endpoint: string) {
     setState(initialState);
   }, [stopPolling, state.previewUrl]);
 
-  const fetchResult = useCallback(async (url: string) => {
+  const fetchResult = useCallback(async (url: string, runId: number) => {
     try {
       const resp = await fetch(url);
-      if (!resp.ok) return;
+      if (!resp.ok) return false;
 
       const contentDisposition = resp.headers.get('Content-Disposition');
       let name = 'download';
@@ -70,24 +72,42 @@ export function useConversion(endpoint: string) {
       }
 
       const blob = await resp.blob();
+      if (runIdRef.current !== runId) return false;
+
       blobRef.current = { blob, name };
 
-      if (blob.type.startsWith('image/') && blob.type !== 'image/tiff') {
-        const previewUrl = URL.createObjectURL(blob);
-        setState(prev => ({ ...prev, previewUrl }));
-      } else if (blob.type.startsWith('text/') || name.endsWith('.txt')) {
-        const text = await blob.text();
-        setState(prev => ({ ...prev, textContent: text }));
+      try {
+        if (blob.type.startsWith('image/') && blob.type !== 'image/tiff') {
+          const previewUrl = URL.createObjectURL(blob);
+          if (runIdRef.current !== runId) {
+            URL.revokeObjectURL(previewUrl);
+            return false;
+          }
+          setState(prev => ({ ...prev, previewUrl }));
+        } else if (blob.type.startsWith('text/') || name.endsWith('.txt')) {
+          const text = await blob.text();
+          if (runIdRef.current !== runId) return false;
+          setState(prev => ({ ...prev, textContent: text }));
+        }
+      } catch {
+        if (blob.type.startsWith('text/') || name.endsWith('.txt')) {
+          if (runIdRef.current !== runId) return false;
+          setState(prev => ({ ...prev, textContent: '' }));
+        }
       }
+      return true;
     } catch {
-      // Preview/text fetch failed — set textContent so OCR page doesn't stay on "Loading..."
+      if (runIdRef.current !== runId) return false;
       setState(prev => prev.textContent === null && prev.previewUrl === null
         ? { ...prev, textContent: '' }
         : prev);
+      return false;
     }
   }, []);
 
-  const pollStatus = useCallback(async (jobId: string) => {
+  const pollStatus = useCallback(async (jobId: string, runId: number) => {
+    if (runIdRef.current !== runId) return;
+
     if (Date.now() - pollStartRef.current > POLL_TIMEOUT) {
       stopPolling();
       setState(prev => ({
@@ -100,10 +120,22 @@ export function useConversion(endpoint: string) {
 
     try {
       const response: JobStatusResponse = await apiClient.pollJobStatus(jobId);
+      if (runIdRef.current !== runId) return;
 
       if (response.status === 'done') {
         stopPolling();
         const downloadUrl = apiClient.getDownloadUrl(jobId);
+        const resultReady = await fetchResult(downloadUrl, runId);
+        if (runIdRef.current !== runId) return;
+
+        if (!resultReady) {
+          setState(prev => ({
+            ...prev,
+            status: 'error',
+            error: 'Download failed. Please try again.',
+          }));
+          return;
+        }
         setState(prev => ({
           ...prev,
           status: 'done',
@@ -112,7 +144,6 @@ export function useConversion(endpoint: string) {
           outputSize: response.outputSize || null,
           metadata: response.metadata || null,
         }));
-        fetchResult(downloadUrl);
       } else if (response.status === 'error') {
         stopPolling();
         setState(prev => ({
@@ -126,10 +157,11 @@ export function useConversion(endpoint: string) {
           status: response.status === 'processing' ? 'processing' : 'queued',
           position: response.position,
         }));
-        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId), pollDelayRef.current);
+        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId, runId), pollDelayRef.current);
         pollDelayRef.current = Math.min(pollDelayRef.current * POLL_BACKOFF, POLL_INTERVAL_MAX);
       }
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -141,10 +173,12 @@ export function useConversion(endpoint: string) {
 
   const startConversion = useCallback(async (file: File, options: ConversionOptions, endpointOverride?: string) => {
     reset();
+    const runId = runIdRef.current;
     setState(prev => ({ ...prev, status: 'uploading' }));
 
     try {
       const response = await apiClient.submitConversion(endpointOverride || endpoint, file, options);
+      if (runIdRef.current !== runId) return;
 
       setState(prev => ({
         ...prev,
@@ -155,8 +189,9 @@ export function useConversion(endpoint: string) {
 
       pollStartRef.current = Date.now();
       pollDelayRef.current = POLL_INTERVAL;
-      pollStatus(response.jobId);
+      pollStatus(response.jobId, runId);
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -183,6 +218,7 @@ export function useConversion(endpoint: string) {
 
   useEffect(() => {
     return () => {
+      runIdRef.current += 1;
       stopPolling();
     };
   }, [stopPolling]);

@@ -34,6 +34,7 @@ export function useTextConversion(endpoint: string) {
   const pollStartRef = useRef<number>(0);
   const pollDelayRef = useRef<number>(POLL_INTERVAL);
   const blobRef = useRef<{ blob: Blob; name: string } | null>(null);
+  const runIdRef = useRef(0);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -43,6 +44,7 @@ export function useTextConversion(endpoint: string) {
   }, []);
 
   const reset = useCallback(() => {
+    runIdRef.current += 1;
     stopPolling();
     if (state.previewUrl) {
       URL.revokeObjectURL(state.previewUrl);
@@ -51,10 +53,10 @@ export function useTextConversion(endpoint: string) {
     setState(initialState);
   }, [stopPolling, state.previewUrl]);
 
-  const fetchResult = useCallback(async (url: string) => {
+  const fetchResult = useCallback(async (url: string, runId: number) => {
     try {
       const resp = await fetch(url);
-      if (!resp.ok) return;
+      if (!resp.ok) return false;
 
       const contentDisposition = resp.headers.get('Content-Disposition');
       let name = 'download';
@@ -64,18 +66,32 @@ export function useTextConversion(endpoint: string) {
       }
 
       const blob = await resp.blob();
+      if (runIdRef.current !== runId) return false;
+
       blobRef.current = { blob, name };
 
-      if (blob.type.startsWith('image/')) {
-        const previewUrl = URL.createObjectURL(blob);
-        setState(prev => ({ ...prev, previewUrl }));
+      try {
+        if (blob.type.startsWith('image/')) {
+          const previewUrl = URL.createObjectURL(blob);
+          if (runIdRef.current !== runId) {
+            URL.revokeObjectURL(previewUrl);
+            return false;
+          }
+          setState(prev => ({ ...prev, previewUrl }));
+        }
+      } catch {
+        // Preview is optional; the blob is still ready for download.
       }
+      return true;
     } catch {
-      // Preview failed silently
+      if (runIdRef.current !== runId) return false;
+      return false;
     }
   }, []);
 
-  const pollStatus = useCallback(async (jobId: string) => {
+  const pollStatus = useCallback(async (jobId: string, runId: number) => {
+    if (runIdRef.current !== runId) return;
+
     if (Date.now() - pollStartRef.current > POLL_TIMEOUT) {
       stopPolling();
       setState(prev => ({
@@ -88,17 +104,28 @@ export function useTextConversion(endpoint: string) {
 
     try {
       const response: JobStatusResponse = await apiClient.pollJobStatus(jobId);
+      if (runIdRef.current !== runId) return;
 
       if (response.status === 'done') {
         stopPolling();
         const downloadUrl = apiClient.getDownloadUrl(jobId);
+        const resultReady = await fetchResult(downloadUrl, runId);
+        if (runIdRef.current !== runId) return;
+
+        if (!resultReady) {
+          setState(prev => ({
+            ...prev,
+            status: 'error',
+            error: 'Download failed. Please try again.',
+          }));
+          return;
+        }
         setState(prev => ({
           ...prev,
           status: 'done',
           downloadUrl,
           outputSize: response.outputSize || null,
         }));
-        fetchResult(downloadUrl);
       } else if (response.status === 'error') {
         stopPolling();
         setState(prev => ({
@@ -112,10 +139,11 @@ export function useTextConversion(endpoint: string) {
           status: response.status === 'processing' ? 'processing' : 'queued',
           position: response.position,
         }));
-        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId), pollDelayRef.current);
+        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId, runId), pollDelayRef.current);
         pollDelayRef.current = Math.min(pollDelayRef.current * POLL_BACKOFF, POLL_INTERVAL_MAX);
       }
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -127,10 +155,12 @@ export function useTextConversion(endpoint: string) {
 
   const generate = useCallback(async (text: string, options?: Record<string, unknown>) => {
     reset();
+    const runId = runIdRef.current;
     setState(prev => ({ ...prev, status: 'processing' }));
 
     try {
       const response = await apiClient.submitText(endpoint, text, options);
+      if (runIdRef.current !== runId) return;
 
       setState(prev => ({
         ...prev,
@@ -141,8 +171,9 @@ export function useTextConversion(endpoint: string) {
 
       pollStartRef.current = Date.now();
       pollDelayRef.current = POLL_INTERVAL;
-      pollStatus(response.jobId);
+      pollStatus(response.jobId, runId);
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -152,24 +183,21 @@ export function useTextConversion(endpoint: string) {
   }, [endpoint, reset, pollStatus]);
 
   const download = useCallback(() => {
-    if (blobRef.current) {
-      const url = URL.createObjectURL(blobRef.current.blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = blobRef.current.name;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 500);
-    } else if (state.downloadUrl) {
-      window.location.href = state.downloadUrl;
-    }
-    setTimeout(reset, 1000);
-  }, [state.downloadUrl, reset]);
+    if (!blobRef.current) return;
+    const url = URL.createObjectURL(blobRef.current.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = blobRef.current.name;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 500);
+  }, []);
 
   useEffect(() => {
     return () => {
+      runIdRef.current += 1;
       stopPolling();
     };
   }, [stopPolling]);

@@ -34,6 +34,7 @@ export function useCertConversion(endpoint: string) {
   const pollStartRef = useRef<number>(0);
   const pollDelayRef = useRef<number>(POLL_INTERVAL);
   const blobRef = useRef<{ blob: Blob; name: string } | null>(null);
+  const runIdRef = useRef(0);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -43,15 +44,16 @@ export function useCertConversion(endpoint: string) {
   }, []);
 
   const reset = useCallback(() => {
+    runIdRef.current += 1;
     stopPolling();
     blobRef.current = null;
     setState(initialState);
   }, [stopPolling]);
 
-  const fetchResult = useCallback(async (url: string) => {
+  const fetchResult = useCallback(async (url: string, runId: number) => {
     try {
       const resp = await fetch(url);
-      if (!resp.ok) return;
+      if (!resp.ok) return false;
 
       const contentDisposition = resp.headers.get('Content-Disposition');
       let name = 'download';
@@ -61,13 +63,19 @@ export function useCertConversion(endpoint: string) {
       }
 
       const blob = await resp.blob();
+      if (runIdRef.current !== runId) return false;
+
       blobRef.current = { blob, name };
+      return true;
     } catch {
-      // Download will still work via URL fallback
+      if (runIdRef.current !== runId) return false;
+      return false;
     }
   }, []);
 
-  const pollStatus = useCallback(async (jobId: string) => {
+  const pollStatus = useCallback(async (jobId: string, runId: number) => {
+    if (runIdRef.current !== runId) return;
+
     if (Date.now() - pollStartRef.current > POLL_TIMEOUT) {
       stopPolling();
       setState(prev => ({
@@ -80,10 +88,22 @@ export function useCertConversion(endpoint: string) {
 
     try {
       const response: JobStatusResponse = await apiClient.pollJobStatus(jobId);
+      if (runIdRef.current !== runId) return;
 
       if (response.status === 'done') {
         stopPolling();
         const downloadUrl = apiClient.getDownloadUrl(jobId);
+        const resultReady = await fetchResult(downloadUrl, runId);
+        if (runIdRef.current !== runId) return;
+
+        if (!resultReady) {
+          setState(prev => ({
+            ...prev,
+            status: 'error',
+            error: 'Download failed. Please try again.',
+          }));
+          return;
+        }
         setState(prev => ({
           ...prev,
           status: 'done',
@@ -91,7 +111,6 @@ export function useCertConversion(endpoint: string) {
           inputSize: response.inputSize || null,
           outputSize: response.outputSize || null,
         }));
-        fetchResult(downloadUrl);
       } else if (response.status === 'error') {
         stopPolling();
         setState(prev => ({
@@ -105,10 +124,11 @@ export function useCertConversion(endpoint: string) {
           status: response.status === 'processing' ? 'processing' : 'queued',
           position: response.position,
         }));
-        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId), pollDelayRef.current);
+        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId, runId), pollDelayRef.current);
         pollDelayRef.current = Math.min(pollDelayRef.current * POLL_BACKOFF, POLL_INTERVAL_MAX);
       }
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -125,10 +145,12 @@ export function useCertConversion(endpoint: string) {
     outputPassword?: string
   ) => {
     reset();
+    const runId = runIdRef.current;
     setState(prev => ({ ...prev, status: 'uploading' }));
 
     try {
       const response = await apiClient.submitCertConversion(endpoint, file, targetFormat, password, outputPassword);
+      if (runIdRef.current !== runId) return;
 
       setState(prev => ({
         ...prev,
@@ -139,8 +161,9 @@ export function useCertConversion(endpoint: string) {
 
       pollStartRef.current = Date.now();
       pollDelayRef.current = POLL_INTERVAL;
-      pollStatus(response.jobId);
+      pollStatus(response.jobId, runId);
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -167,6 +190,7 @@ export function useCertConversion(endpoint: string) {
 
   useEffect(() => {
     return () => {
+      runIdRef.current += 1;
       stopPolling();
     };
   }, [stopPolling]);
