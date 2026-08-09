@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/joy';
-import { Link } from 'react-router-dom';
 import { apiClient } from '../api/client';
+import { canonicalPath } from '../content/site';
 import SEO from '../components/SEO';
 import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import SwapHorizOutlinedIcon from '@mui/icons-material/SwapHorizOutlined';
@@ -51,7 +51,8 @@ function formatCount(n: number): string {
 }
 
 export default function HomePage() {
-  const { t } = useLingui();
+  const { t, i18n } = useLingui();
+  const locale = i18n.locale === 'fr' ? 'fr' : 'en';
   const [stats, setStats] = useState<{ filesProcessed: number; thanks: number } | null>(null);
 
   useEffect(() => {
@@ -185,8 +186,8 @@ export default function HomePage() {
 
         <Box sx={{ display: 'flex', gap: 1.5, mt: 2.5, flexWrap: 'wrap' }}>
           <Box
-            component={Link}
-            to="/security"
+            component="a"
+            href={canonicalPath('/security', locale)}
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -254,8 +255,8 @@ export default function HomePage() {
         {tools.map((tool) => (
           <Box
             key={tool.path}
-            component={Link}
-            to={tool.path}
+            component="a"
+            href={canonicalPath(tool.path, locale)}
             sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -318,11 +319,11 @@ export default function HomePage() {
 
       <Box sx={{ mt: 5, display: 'flex', gap: 1.5 }}>
         <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
-          <Link to="/privacy" style={{ color: 'inherit' }}><Trans>Privacy</Trans></Link>
+          <a href={canonicalPath('/privacy', locale)} style={{ color: 'inherit' }}><Trans>Privacy</Trans></a>
           {' · '}
-          <Link to="/terms" style={{ color: 'inherit' }}><Trans>Terms</Trans></Link>
+          <a href={canonicalPath('/terms', locale)} style={{ color: 'inherit' }}><Trans>Terms</Trans></a>
           {' · '}
-          <Link to="/legal" style={{ color: 'inherit' }}><Trans>Legal</Trans></Link>
+          <a href={canonicalPath('/legal', locale)} style={{ color: 'inherit' }}><Trans>Legal</Trans></a>
           {' · '}
           <a href="https://github.com/perspectiveanalytics/filemagic-backend" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>GitHub</a>
         </Typography>

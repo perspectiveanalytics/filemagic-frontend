@@ -1,11 +1,12 @@
-import { lazy, Suspense, useEffect, useRef, type ComponentType, type LazyExoticComponent, type MouseEvent } from 'react';
-import { BrowserRouter, useLocation } from 'react-router-dom';
+import { Component, lazy, Suspense, useState, type ComponentType, type LazyExoticComponent, type ReactNode } from 'react';
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import { I18nProvider } from '@lingui/react';
 import { i18n } from '../i18n';
 import theme from '../theme';
-import { canonicalPath, defaultLocale, type Locale } from '../content/site';
+import type { Locale } from '../content/site';
 import type { ToolKey } from '../content/routes';
 import TurnstileMount from './TurnstileMount';
 
@@ -19,7 +20,28 @@ type PageComponent = ComponentType<Record<string, never>>;
 type LazyPage = LazyExoticComponent<PageComponent>;
 type PageModule = { default: PageComponent };
 
-const page = (loader: () => Promise<{ default: PageComponent }>): LazyPage => lazy(loader);
+const reloadMarker = (tool: string) => `filemagic:chunk-reload:${tool}`;
+
+function clearReloadMarker(tool: string) {
+  try {
+    window.sessionStorage.removeItem(reloadMarker(tool));
+  } catch {
+    return;
+  }
+}
+
+function scheduleReload(tool: string) {
+  try {
+    const marker = Number(window.sessionStorage.getItem(reloadMarker(tool)));
+    if (Number.isFinite(marker) && Date.now() - marker < 30_000) return false;
+    window.sessionStorage.setItem(reloadMarker(tool), String(Date.now()));
+  } catch {
+    return false;
+  }
+
+  window.setTimeout(() => window.location.reload(), 500);
+  return true;
+}
 
 const pagePaths: Record<Exclude<ToolKey, 'privacy' | 'terms' | 'legal' | 'security' | 'not-found'>, string> = {
   home: '../react-pages/HomePage.tsx',
@@ -60,54 +82,57 @@ const pagePaths: Record<Exclude<ToolKey, 'privacy' | 'terms' | 'legal' | 'securi
 
 const lazyModules = import.meta.glob<PageModule>('../react-pages/*Page.tsx');
 
+function lazyPage(tool: string, path: string): LazyPage {
+  const loader = lazyModules[path] ?? lazyModules[pagePaths.home];
+  return lazy(() => loader().then((module) => {
+    clearReloadMarker(tool);
+    return module;
+  }).catch((error: unknown) => {
+    if (scheduleReload(tool)) return new Promise<PageModule>(() => undefined);
+    throw error;
+  }));
+}
+
+const pages = Object.fromEntries(
+  Object.entries(pagePaths).map(([tool, path]) => [tool, lazyPage(tool, path)]),
+) as Record<keyof typeof pagePaths, LazyPage>;
+
 function pageForTool(tool: ToolKey): LazyPage {
-  const path = pagePaths[tool as keyof typeof pagePaths] ?? pagePaths.home;
-  return page((lazyModules[path] as () => Promise<PageModule>) ?? (lazyModules[pagePaths.home] as () => Promise<PageModule>));
+  return pages[tool as keyof typeof pages] ?? pages.home;
 }
 
-function pathForLocale(pathname: string, locale: Locale) {
-  if (locale === defaultLocale) {
-    return pathname.endsWith('/') ? pathname : `${pathname}/`;
+interface ToolRuntimeBoundaryProps {
+  children: ReactNode;
+  locale: Locale;
+  tool: ToolKey;
+}
+
+class ToolRuntimeBoundary extends Component<ToolRuntimeBoundaryProps, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
   }
 
-  if (pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)) {
-    return pathname.endsWith('/') ? pathname : `${pathname}/`;
+  retry = () => {
+    clearReloadMarker(this.props.tool);
+    window.location.reload();
+  };
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+
+    const french = this.props.locale === 'fr';
+    return (
+      <div className="tool-runtime-error" role="alert">
+        <div className="tool-runtime-error-panel">
+          <h2>{french ? 'L’outil n’a pas pu être chargé' : 'The tool could not be loaded'}</h2>
+          <p>{french ? 'Vérifiez votre connexion, puis réessayez.' : 'Check your connection, then try again.'}</p>
+          <button type="button" onClick={this.retry}>{french ? 'Réessayer' : 'Try again'}</button>
+        </div>
+      </div>
+    );
   }
-
-  return canonicalPath(pathname, locale);
-}
-
-function NavigationReload({ locale }: { locale: Locale }) {
-  const location = useLocation();
-  const mounted = useRef(false);
-
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-
-    const nextPath = pathForLocale(location.pathname, locale);
-    window.location.assign(`${nextPath}${location.search}${location.hash}`);
-  }, [locale, location.hash, location.pathname, location.search]);
-
-  return null;
-}
-
-function handleIslandClick(event: MouseEvent<HTMLDivElement>, locale: Locale) {
-  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-
-  const target = event.target instanceof HTMLElement ? event.target : null;
-  const anchor = target?.closest('a[href]');
-  if (!(anchor instanceof HTMLAnchorElement)) return;
-  if (anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
-
-  const url = new URL(anchor.href, window.location.href);
-  if (url.origin !== window.location.origin) return;
-
-  event.preventDefault();
-  event.stopPropagation();
-  window.location.assign(`${pathForLocale(url.pathname, locale)}${url.search}${url.hash}`);
 }
 
 function ToolRuntimeFallback() {
@@ -128,31 +153,31 @@ function ToolRuntimeFallback() {
 
 export default function ToolIsland({ tool, locale, loadTurnstile = true }: ToolIslandProps) {
   i18n.activate(locale);
+  const [emotionCache] = useState(() => createCache({ key: 'filemagic' }));
   const Page = pageForTool(tool);
   const content = (
-    <CssVarsProvider
-      theme={theme}
-      defaultMode="dark"
-      modeStorageKey="filemagic-joy-mode"
-      colorSchemeStorageKey="filemagic-joy-color-scheme"
-      disableTransitionOnChange
-    >
-      <CssBaseline />
-      {loadTurnstile && <TurnstileMount />}
-      <Suspense fallback={<ToolRuntimeFallback />}>
-        <Page />
-      </Suspense>
-    </CssVarsProvider>
+    <ToolRuntimeBoundary locale={locale} tool={tool}>
+      <CacheProvider value={emotionCache}>
+        <CssVarsProvider
+          theme={theme}
+          defaultMode="dark"
+          modeStorageKey="filemagic-joy-mode"
+          colorSchemeStorageKey="filemagic-joy-color-scheme"
+          disableTransitionOnChange
+        >
+          <CssBaseline />
+          {loadTurnstile && <TurnstileMount />}
+          <Suspense fallback={<ToolRuntimeFallback />}>
+            <Page />
+          </Suspense>
+        </CssVarsProvider>
+      </CacheProvider>
+    </ToolRuntimeBoundary>
   );
 
   return (
     <I18nProvider i18n={i18n}>
-      <BrowserRouter>
-        <NavigationReload locale={locale} />
-        <div onClickCapture={(event) => handleIslandClick(event, locale)}>
-          {content}
-        </div>
-      </BrowserRouter>
+      {content}
     </I18nProvider>
   );
 }

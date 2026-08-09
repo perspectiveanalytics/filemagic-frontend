@@ -3,6 +3,7 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import '@fontsource/inter/latin-700.css';
+import { ClientRouter } from 'astro:transitions';
 import { SITE, locales, type Locale, localizePath, canonicalPath } from '../content/site';
 import { navGroups, routes, pageTitle, canonicalUrl, webApplicationSchema, categoryLabel, routeSearchText, routeSearchPrimary, type RouteEntry } from '../content/routes';
 import { staticSeoSection } from '../content/seoSections';
@@ -75,7 +76,7 @@ const schema = isIndexable
 ---
 
 <!doctype html>
-<html lang={locale} data-joy-color-scheme="dark">
+<html lang={locale} data-joy-color-scheme="dark" transition:name="root" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -84,6 +85,7 @@ const schema = isIndexable
     <meta name="description" content={copy.description} />
     <meta name="robots" content={robots} />
     <meta name="theme-color" content="#0F172A" />
+    <ClientRouter fallback="swap" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {isIndexable && <link rel="canonical" href={canonical} />}
     {isIndexable && locales.map((item) => <link rel="alternate" hreflang={hrefLangs[item]} href={`${SITE.url}${canonicalPath(route.path, item)}`} />)}
@@ -481,9 +483,6 @@ const schema = isIndexable
                 link.addEventListener('click', close);
               });
             }
-            document.addEventListener('keydown', (event) => {
-              if (event.key === 'Escape' && details.open) close();
-            });
           });
 
           if (!shell.drawerMediaBound) {
@@ -511,6 +510,21 @@ const schema = isIndexable
             shell.updateMaintenanceBanner();
             shell.initToolSearch();
             shell.initMobileDrawer();
+          });
+          document.addEventListener('astro:before-swap', () => {
+            const sidebar = document.querySelector('.sidebar');
+            shell.sidebarScrollTop = sidebar instanceof HTMLElement ? sidebar.scrollTop : 0;
+          });
+          document.addEventListener('astro:after-swap', () => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar instanceof HTMLElement && typeof shell.sidebarScrollTop === 'number') {
+              sidebar.scrollTop = shell.sidebarScrollTop;
+            }
+          });
+          document.addEventListener('keydown', (event) => {
+            if (event.key !== 'Escape') return;
+            const details = document.querySelector('details.mobile-menu[open]');
+            if (details instanceof HTMLDetailsElement) details.open = false;
           });
         }
       })();
@@ -946,17 +960,16 @@ const schema = isIndexable
 
   :global(.tool-runtime-fallback) {
     position: relative;
+    width: min(520px, 100%);
     min-height: clamp(520px, 58vh, 680px);
+    margin-inline: auto;
   }
 
   :global(.tool-runtime-fallback-panel) {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    left: 0;
     display: grid;
     gap: 18px;
     min-height: 360px;
+    margin-top: 32px;
     padding: 22px;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -989,6 +1002,58 @@ const schema = isIndexable
 
   :global(.tool-runtime-fallback-grid span) {
     min-height: 74px;
+  }
+
+  :global(.tool-runtime-error) {
+    display: grid;
+    width: min(520px, 100%);
+    min-height: clamp(520px, 58vh, 680px);
+    margin-inline: auto;
+    padding-top: 32px;
+  }
+
+  :global(.tool-runtime-error-panel) {
+    align-self: start;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    text-align: center;
+  }
+
+  :global(.tool-runtime-error-panel h2) {
+    margin: 0 0 10px;
+    color: var(--text);
+    font-size: 18px;
+  }
+
+  :global(.tool-runtime-error-panel p) {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  :global(.tool-runtime-error-panel button) {
+    min-height: 38px;
+    padding: 8px 16px;
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+    border-radius: 8px;
+    color: var(--text);
+    background: var(--accent-soft);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  :global(.tool-runtime-error-panel button:hover) {
+    border-color: var(--accent);
+  }
+
+  :global(.tool-runtime-error-panel button:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   :global(.tool-runtime h1),
@@ -1124,9 +1189,13 @@ const schema = isIndexable
     }
 
     :global(.tool-runtime-fallback-panel) {
-      top: 28px;
       min-height: 340px;
+      margin-top: 24px;
       padding: 18px;
+    }
+
+    :global(.tool-runtime-error) {
+      padding-top: 24px;
     }
 
     :global(.tool-runtime-fallback-grid) {
