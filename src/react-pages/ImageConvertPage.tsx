@@ -40,7 +40,7 @@ const chipSx = (active: boolean) => ({
   border: '1px solid',
   borderColor: active ? 'primary.500' : 'divider',
   bgcolor: active ? 'primary.softBg' : 'transparent',
-  color: active ? 'primary.plainColor' : 'text.secondary',
+  color: active ? 'primary.softColor' : 'text.secondary',
   transition: 'all 0.15s',
   outline: 'none',
   '&:hover': { borderColor: 'primary.400', bgcolor: 'primary.softBg' },
