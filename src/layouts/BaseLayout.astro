@@ -141,7 +141,6 @@ const schema = isIndexable
             autocomplete="off"
             spellcheck="false"
             aria-controls={searchResultsId}
-            aria-expanded="false"
             data-tool-search
           />
         </div>
@@ -380,7 +379,6 @@ const schema = isIndexable
             const updateToolSearch = () => {
               if (!searchInput || !navGroupsElement || !searchResultsElement) return;
               const query = normalizeSearch(searchInput.value);
-              searchInput.setAttribute('aria-expanded', query ? 'true' : 'false');
               if (!query) {
                 searchResultsElement.hidden = true;
                 navGroupsElement.hidden = false;
@@ -541,7 +539,7 @@ const schema = isIndexable
     --border: #24324e;
     --text: #f1f5f9;
     --muted: #94a3b8;
-    --faint: #64748b;
+    --faint: #a6b5cb;
     --accent: #60a5fa;
     --accent-soft: #12254d;
   }

@@ -28,13 +28,7 @@ type Tab = 'convert' | 'crop' | 'resize' | 'watermark' | 'favicon';
 type OutputFormat = 'jpg' | 'png' | 'webp' | 'tiff' | 'ico' | 'pdf';
 type WatermarkPosition = 'center' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
-  { id: 'convert', label: 'Convert', icon: <SwapHorizOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'crop', label: 'Crop', icon: <CropOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'resize', label: 'Resize', icon: <PhotoSizeSelectSmallOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'watermark', label: 'Watermark', icon: <TextFieldsOutlinedIcon sx={{ fontSize: 16 }} /> },
-  { id: 'favicon', label: 'Favicon', icon: <FavoriteOutlinedIcon sx={{ fontSize: 16 }} /> },
-];
+
 
 const chipSx = (active: boolean) => ({
   px: 2,
@@ -58,6 +52,13 @@ function isSvgFile(file: File): boolean {
 
 export default function ImageConvertPage() {
   const { t } = useLingui();
+  const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+    { id: 'convert', label: t`Convert`, icon: <SwapHorizOutlinedIcon sx={{ fontSize: 16 }} /> },
+    { id: 'crop', label: t`Crop`, icon: <CropOutlinedIcon sx={{ fontSize: 16 }} /> },
+    { id: 'resize', label: t`Resize`, icon: <PhotoSizeSelectSmallOutlinedIcon sx={{ fontSize: 16 }} /> },
+    { id: 'watermark', label: t`Watermark`, icon: <TextFieldsOutlinedIcon sx={{ fontSize: 16 }} /> },
+    { id: 'favicon', label: t`Favicon`, icon: <FavoriteOutlinedIcon sx={{ fontSize: 16 }} /> },
+  ];
   const [tab, setTab] = useState<Tab>('convert');
 
   const [file, setFile] = useState<File | null>(null);

@@ -8,7 +8,7 @@ import FolderZipRoundedIcon from '@mui/icons-material/FolderZipRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import type { ConversionStatus, FileManifestEntry } from '../types/api';
 import { actionBtnBase } from '../styles/buttons';
-import { useLingui } from '@lingui/react/macro';
+import { useLingui, Trans } from '@lingui/react/macro';
 
 interface MultiFileResultProps {
   status: ConversionStatus;
@@ -67,9 +67,9 @@ export default function MultiFileResult({
         <>
           <CircularProgress size="md" thickness={3} color="primary" />
           <Typography level="body-md" sx={{ color: 'text.secondary' }}>
-            {status === 'uploading' && 'Uploading...'}
-            {status === 'queued' && `Queue position: ${position}`}
-            {status === 'processing' && 'Processing...'}
+            {status === 'uploading' && t`Uploading...`}
+            {status === 'queued' && t`Queue position: ${position}`}
+            {status === 'processing' && t`Processing...`}
           </Typography>
         </>
       )}
@@ -77,7 +77,7 @@ export default function MultiFileResult({
       {status === 'done' && (
         <>
           <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
-            {files.length} file{files.length !== 1 ? 's' : ''} ready
+            <Trans>Files ready: {files.length}</Trans>
           </Typography>
 
           <Box
@@ -101,7 +101,7 @@ export default function MultiFileResult({
             }}
           >
             <FolderZipRoundedIcon sx={{ fontSize: 18 }} />
-            Download All as ZIP
+            <Trans>Download All as ZIP</Trans>
           </Box>
 
           <Box
@@ -220,7 +220,7 @@ export default function MultiFileResult({
             }}
           >
             <AddRoundedIcon sx={{ fontSize: 18 }} />
-            New
+            <Trans>New</Trans>
           </Box>
         </>
       )}
@@ -229,7 +229,7 @@ export default function MultiFileResult({
         <>
           <ErrorOutlineIcon sx={{ fontSize: 36, color: 'danger.500' }} />
           <Typography level="body-md" sx={{ color: 'danger.500', textAlign: 'center' }}>
-            {error || 'Processing failed'}
+            {error || t`Processing failed`}
           </Typography>
           <Box
             component="button"
@@ -252,7 +252,7 @@ export default function MultiFileResult({
             }}
           >
             <ReplayRoundedIcon sx={{ fontSize: 18 }} />
-            Try again
+            <Trans>Try again</Trans>
           </Box>
         </>
       )}

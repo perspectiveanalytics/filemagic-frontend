@@ -88,37 +88,37 @@ export default function WordCounterPage() {
         }}
       >
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.words.toLocaleString()}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Words</Trans></Typography>
         </Box>
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.characters.toLocaleString()}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Characters</Trans></Typography>
         </Box>
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.charactersNoSpaces.toLocaleString()}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>No spaces</Trans></Typography>
         </Box>
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.sentences.toLocaleString()}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Sentences</Trans></Typography>
         </Box>
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.paragraphs.toLocaleString()}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Paragraphs</Trans></Typography>
         </Box>
         <Box sx={statCard}>
-          <Typography level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
+          <Typography component="p" level="h3" sx={{ fontWeight: 700, color: 'primary.plainColor' }}>
             {stats.readingTime}
           </Typography>
           <Typography level="body-xs" sx={{ color: 'text.tertiary', mt: 0.5 }}><Trans>Reading time</Trans></Typography>

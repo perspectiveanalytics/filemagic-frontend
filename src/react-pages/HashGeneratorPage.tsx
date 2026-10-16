@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Box, Typography, Button, Textarea, Sheet, Chip, IconButton, Tooltip, LinearProgress } from '@mui/joy';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
@@ -13,152 +13,8 @@ import LaptopOutlinedIcon from '@mui/icons-material/LaptopOutlined';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import { Trans, useLingui } from '@lingui/react/macro';
 
-// ---------------------------------------------------------------------------
-// Minimal MD5 implementation (RFC 1321) — operates on ArrayBuffer
-// ---------------------------------------------------------------------------
-
-function md5(buffer: ArrayBuffer): string {
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.length;
-
-  // Pre-computed sine table (first 64 entries of |sin(i+1)| * 2^32)
-  const T: number[] = [];
-  for (let i = 0; i < 64; i++) {
-    T[i] = (Math.abs(Math.sin(i + 1)) * 0x100000000) >>> 0;
-  }
-
-  // Shift amounts
-  const S = [
-    7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
-    5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
-    4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
-    6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21,
-  ];
-
-  // Padding
-  const bitLen = len * 8;
-  const padLen = ((56 - ((len + 1) % 64)) + 64) % 64;
-  const padded = new Uint8Array(len + 1 + padLen + 8);
-  padded.set(bytes);
-  padded[len] = 0x80;
-  // Append original length in bits as 64-bit little-endian
-  for (let i = 0; i < 4; i++) padded[padded.length - 8 + i] = (bitLen >>> (i * 8)) & 0xff;
-  // For files > 512 MB the upper 32 bits matter; safe to leave zero for typical use
-
-  let a0 = 0x67452301;
-  let b0 = 0xefcdab89;
-  let c0 = 0x98badcfe;
-  let d0 = 0x10325476;
-
-  const view = new DataView(padded.buffer);
-  for (let offset = 0; offset < padded.length; offset += 64) {
-    const M: number[] = [];
-    for (let j = 0; j < 16; j++) M[j] = view.getUint32(offset + j * 4, true);
-
-    let A = a0, B = b0, C = c0, D = d0;
-    for (let i = 0; i < 64; i++) {
-      let F: number, g: number;
-      if (i < 16) {
-        F = (B & C) | (~B & D);
-        g = i;
-      } else if (i < 32) {
-        F = (D & B) | (~D & C);
-        g = (5 * i + 1) % 16;
-      } else if (i < 48) {
-        F = B ^ C ^ D;
-        g = (3 * i + 5) % 16;
-      } else {
-        F = C ^ (B | ~D);
-        g = (7 * i) % 16;
-      }
-      F = (F + A + T[i] + M[g]) >>> 0;
-      A = D;
-      D = C;
-      C = B;
-      B = (B + ((F << S[i]) | (F >>> (32 - S[i])))) >>> 0;
-    }
-    a0 = (a0 + A) >>> 0;
-    b0 = (b0 + B) >>> 0;
-    c0 = (c0 + C) >>> 0;
-    d0 = (d0 + D) >>> 0;
-  }
-
-  // Convert to hex (little-endian)
-  const hex = (n: number) =>
-    Array.from({ length: 4 }, (_, i) => ((n >>> (i * 8)) & 0xff).toString(16).padStart(2, '0')).join('');
-  return hex(a0) + hex(b0) + hex(c0) + hex(d0);
-}
-
-// ---------------------------------------------------------------------------
-// Hash computation helpers
-// ---------------------------------------------------------------------------
-
 type HashAlgorithm = 'MD5' | 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512';
-
 const ALGORITHMS: HashAlgorithm[] = ['MD5', 'SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'];
-
-function bufToHex(buf: ArrayBuffer): string {
-  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function computeWebCryptoHash(algorithm: string, data: ArrayBuffer): Promise<string> {
-  const digest = await crypto.subtle.digest(algorithm, data);
-  return bufToHex(digest);
-}
-
-const CHUNK_SIZE = 2 * 1024 * 1024; // 2 MB
-
-function readFileChunks(file: File, onProgress: (pct: number) => void): Promise<ArrayBuffer> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    const chunks: Uint8Array[] = [];
-    let offset = 0;
-
-    function readNext() {
-      const slice = file.slice(offset, offset + CHUNK_SIZE);
-      reader.readAsArrayBuffer(slice);
-    }
-
-    reader.onload = () => {
-      if (!reader.result) return;
-      chunks.push(new Uint8Array(reader.result as ArrayBuffer));
-      offset += CHUNK_SIZE;
-      onProgress(Math.min(offset / file.size, 1));
-      if (offset < file.size) {
-        readNext();
-      } else {
-        // Merge chunks into single buffer
-        const total = chunks.reduce((s, c) => s + c.length, 0);
-        const merged = new Uint8Array(total);
-        let pos = 0;
-        for (const c of chunks) {
-          merged.set(c, pos);
-          pos += c.length;
-        }
-        resolve(merged.buffer);
-      }
-    };
-    reader.onerror = () => reject(reader.error);
-    readNext();
-  });
-}
-
-async function computeAllHashes(
-  data: ArrayBuffer,
-  onAlgo: (name: HashAlgorithm) => void,
-): Promise<Record<HashAlgorithm, string>> {
-  const results = {} as Record<HashAlgorithm, string>;
-
-  onAlgo('MD5');
-  results['MD5'] = md5(data);
-
-  for (const algo of ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512'] as const) {
-    onAlgo(algo);
-    results[algo] = await computeWebCryptoHash(algo, data);
-  }
-
-  return results;
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -195,8 +51,12 @@ export default function HashGeneratorPage() {
   const [error, setError] = useState<string | null>(null);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const workerRef = useRef<Worker | null>(null);
+  useEffect(() => () => workerRef.current?.terminate(), []);
 
   const reset = useCallback(() => {
+    workerRef.current?.terminate();
+    workerRef.current = null;
     setFile(null);
     setText('');
     setResults(null);
@@ -213,47 +73,42 @@ export default function HashGeneratorPage() {
     reset();
   }, [reset]);
 
-  const compute = useCallback(async (data: ArrayBuffer) => {
+  const compute = useCallback((data: Blob) => {
+    workerRef.current?.terminate();
     setComputing(true);
     setResults(null);
     setError(null);
     setProgress(0);
-    try {
-      const hashes = await computeAllHashes(data, (algo) => setCurrentAlgo(algo));
-      setResults(hashes);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to compute hashes');
-    } finally {
+    const fail = () => {
+      setError(t`Could not read or hash this file. Please try again.`);
       setComputing(false);
-      setCurrentAlgo(null);
-      setProgress(1);
-    }
-  }, []);
+      workerRef.current?.terminate();
+      workerRef.current = null;
+    };
+    try {
+      const worker = new Worker(new URL('../workers/hash.ts', import.meta.url), { type: 'module' });
+      workerRef.current = worker;
+      worker.onerror = fail;
+      worker.onmessage = ({ data: message }) => {
+        if (workerRef.current !== worker) return;
+        if (message.error) { fail(); return; }
+        if (message.progress !== undefined) setProgress(message.progress);
+        if (message.results) {
+          setResults(message.results);
+          setComputing(false);
+          setProgress(1);
+          worker.terminate();
+          workerRef.current = null;
+        }
+      };
+      worker.postMessage(data);
+    } catch { fail(); }
+  }, [t]);
 
-  const handleFileSelect = useCallback(async (selectedFile: File) => {
+  const handleFileSelect = useCallback((selectedFile: File) => {
     setFile(selectedFile);
-    setResults(null);
-    setError(null);
-    setComputing(true);
-    setProgress(0);
-    try {
-      const buffer = await readFileChunks(selectedFile, (pct) => setProgress(pct * 0.5));
-      setProgress(0.5);
-      const hashes = await computeAllHashes(buffer, (algo) => {
-        setCurrentAlgo(algo);
-        // Distribute remaining 50% across 5 algorithms
-        const idx = ALGORITHMS.indexOf(algo);
-        setProgress(0.5 + ((idx + 1) / ALGORITHMS.length) * 0.5);
-      });
-      setResults(hashes);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to read file');
-    } finally {
-      setComputing(false);
-      setCurrentAlgo(null);
-      setProgress(1);
-    }
-  }, []);
+    compute(selectedFile);
+  }, [compute]);
 
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -274,9 +129,7 @@ export default function HashGeneratorPage() {
 
   const handleTextCompute = useCallback(() => {
     if (!text.trim()) return;
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
-    compute(data.buffer as ArrayBuffer);
+    compute(new Blob([text]));
   }, [text, compute]);
 
   const handleCopy = useCallback(async (algo: string, value: string) => {

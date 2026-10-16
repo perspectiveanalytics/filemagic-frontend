@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from '@mui/joy';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function RedactionCanvas({ file, pageIndex, rects, onRectsChange }: Props) {
+  const { t } = useLingui();
   const containerRef = useRef<HTMLDivElement>(null);
   const bgCanvasRef = useRef<HTMLCanvasElement>(null);
   const overlayCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -176,6 +178,7 @@ export default function RedactionCanvas({ file, pageIndex, rects, onRectsChange 
         onTouchStart={handleDown}
         onTouchMove={handleMove}
         onTouchEnd={handleUp}
+        onTouchCancel={() => { setDrawing(false); startRef.current = null; setCurrentRect(null); }}
         style={{
           position: 'absolute',
           top: 0,
@@ -204,11 +207,11 @@ export default function RedactionCanvas({ file, pageIndex, rects, onRectsChange 
           }}
         >
           <DeleteOutlineRoundedIcon sx={{ fontSize: 16 }} />
-          Delete
+          <Trans>Delete</Trans>
         </Box>
       )}
       <Typography level="body-xs" sx={{ position: 'absolute', bottom: 8, left: 8, color: 'text.tertiary', bgcolor: 'rgba(0,0,0,0.6)', px: 1, py: 0.25, borderRadius: 'sm' }}>
-        {pageRectCount > 0 ? `${pageRectCount} redaction${pageRectCount > 1 ? 's' : ''}` : 'Click and drag to redact'}
+        {pageRectCount > 0 ? t`Redactions: ${pageRectCount}` : t`Click and drag to redact`}
       </Typography>
     </Box>
   );

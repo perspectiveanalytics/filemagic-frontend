@@ -16,7 +16,7 @@ import { EditorState } from '@codemirror/state';
 import { basicSetup } from 'codemirror';
 import { json as jsonLang } from '@codemirror/lang-json';
 import { yaml as yamlLang } from '@codemirror/lang-yaml';
-import { oneDark } from '@codemirror/theme-one-dark';
+import { codeTheme } from '../styles/codeTheme';
 import { indentWithTab } from '@codemirror/commands';
 import yaml from 'js-yaml';
 import ToolDisclaimer from '../components/ToolDisclaimer';
@@ -56,19 +56,15 @@ features:
   - caching
 `;
 
-const BOOL_LIKE = new Set([
-  'y', 'Y', 'yes', 'Yes', 'YES',
-  'n', 'N', 'no', 'No', 'NO',
-  'on', 'On', 'ON',
-  'off', 'Off', 'OFF',
-]);
+
 
 const cmTheme = EditorView.theme({
   '&': { fontSize: '13px' },
   '.cm-scroller': {
     fontFamily: '"SF Mono", "Fira Code", "Fira Mono", "Consolas", monospace',
   },
-  '.cm-gutters': { border: 'none' },
+  '.cm-gutters': { border: 'none', color: '#abb2bf' },
+  '.cm-activeLineGutter': { color: '#e5e7eb' },
 }, { dark: true });
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -109,16 +105,6 @@ function detectCoercions(text: string): CoercionWarning[] {
     const commentIdx = rawValue.indexOf(' #');
     if (commentIdx > 0) rawValue = rawValue.substring(0, commentIdx).trim();
 
-    // Boolean coercion (yes/no/on/off/y/n — but not true/false which are obvious)
-    if (BOOL_LIKE.has(rawValue)) {
-      const truthy = ['y', 'Y', 'yes', 'Yes', 'YES', 'on', 'On', 'ON'].includes(rawValue);
-      warnings.push({
-        line: i + 1,
-        raw: rawValue,
-        coercedTo: truthy ? 'true (boolean)' : 'false (boolean)',
-      });
-    }
-
     // Date coercion (YYYY-MM-DD)
     if (/^\d{4}-\d{2}-\d{2}$/.test(rawValue)) {
       warnings.push({ line: i + 1, raw: rawValue, coercedTo: 'Date object' });
@@ -148,9 +134,10 @@ function parseYamlSafe(text: string): { data: unknown; docCount: number } | null
 // ── Sub-components ───────────────────────────────────────────────────────────
 
 function CopyBtn({ getText }: { getText: () => string }) {
+  const { t } = useLingui();
   const [copied, setCopied] = useState(false);
   return (
-    <Tooltip title={copied ? 'Copied!' : 'Copy'} size="sm">
+    <Tooltip title={copied ? t`Copied!` : t`Copy`} size="sm">
       <IconButton
         size="sm"
         variant="plain"
@@ -369,7 +356,7 @@ export default function YamlJsonPage() {
       basicSetup,
       lang,
       keymap.of([indentWithTab]),
-      oneDark,
+      codeTheme,
       cmTheme,
       EditorView.lineWrapping,
       EditorView.updateListener.of((update) => {
@@ -382,7 +369,7 @@ export default function YamlJsonPage() {
     const yv = new EditorView({
       state: EditorState.create({
         doc: '',
-        extensions: makeExtensions(yamlLang(), convertYamlToJson),
+        extensions: [...makeExtensions(yamlLang(), convertYamlToJson), EditorView.contentAttributes.of({ 'aria-label': 'YAML' })],
       }),
       parent: yamlContainerRef.current,
     });
@@ -390,11 +377,13 @@ export default function YamlJsonPage() {
     const jv = new EditorView({
       state: EditorState.create({
         doc: '',
-        extensions: makeExtensions(jsonLang(), convertJsonToYaml),
+        extensions: [...makeExtensions(jsonLang(), convertJsonToYaml), EditorView.contentAttributes.of({ 'aria-label': 'JSON' })],
       }),
       parent: jsonContainerRef.current,
     });
 
+    yv.scrollDOM.tabIndex = 0;
+    jv.scrollDOM.tabIndex = 0;
     yamlViewRef.current = yv;
     jsonViewRef.current = jv;
 
@@ -512,13 +501,13 @@ export default function YamlJsonPage() {
 
       <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap', alignItems: 'center' }}>
         <Box component="button" onClick={handleFormat} sx={toolBtn}>
-          Format
+          <Trans>Format</Trans>
         </Box>
         <Box component="button" onClick={handleMinify} sx={toolBtn}>
-          Minify
+          <Trans>Minify</Trans>
         </Box>
         <Box component="button" onClick={handleSort} sx={toolBtn}>
-          Sort keys
+          <Trans>Sort keys</Trans>
         </Box>
         <Box
           component="button"
@@ -529,11 +518,11 @@ export default function YamlJsonPage() {
             color: showTree ? 'primary.softColor' : 'text.secondary',
           }}
         >
-          Tree view
+          <Trans>Tree view</Trans>
         </Box>
         <Box sx={{ flex: 1 }} />
         <Box component="button" onClick={handleClear} sx={{ ...toolBtn, color: 'text.tertiary' }}>
-          Clear
+          <Trans>Clear</Trans>
         </Box>
       </Box>
 

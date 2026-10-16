@@ -117,7 +117,7 @@ const theme = extendTheme({
         text: {
           primary: '#F1F5F9',
           secondary: '#94A3B8',
-          tertiary: '#64748B',
+          tertiary: '#A6B5CB',
         },
         divider: '#1E293B',
         success: {

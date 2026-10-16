@@ -196,7 +196,7 @@ export default function HomePage() {
               py: 0.75,
               borderRadius: 'md',
               textDecoration: 'none',
-              color: 'primary.plainColor',
+              color: 'primary.softColor',
               bgcolor: 'primary.softBg',
               transition: 'all 0.2s ease',
               '&:hover': {

@@ -50,11 +50,11 @@ msgid "{saved}% smaller"
 msgstr "{saved}% smaller"
 
 #: src/react-pages/AsciiPage.tsx:410
-#: src/react-pages/CsvExcelPage.tsx:218
+#: src/react-pages/CsvExcelPage.tsx:216
 msgid "100% Client-side"
 msgstr "100% Client-side"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:527
+#: src/react-pages/PasswordGeneratorPage.tsx:530
 msgid "100% Client-Side"
 msgstr "100% Client-Side"
 
@@ -82,11 +82,11 @@ msgstr "512"
 msgid "7z and tar.zst generally offer the best compression ratios. ZIP offers the widest compatibility across operating systems."
 msgstr "7z and tar.zst generally offer the best compression ratios. ZIP offers the widest compatibility across operating systems."
 
-#: src/react-pages/HashGeneratorPage.tsx:549
+#: src/react-pages/HashGeneratorPage.tsx:402
 msgid "A hash is a fixed-length string computed from data using a mathematical function. The same input always produces the same hash, but even a tiny change produces a completely different result. This makes hashes useful for verifying file integrity."
 msgstr "A hash is a fixed-length string computed from data using a mathematical function. The same input always produces the same hash, but even a tiny change produces a completely different result. This makes hashes useful for verifying file integrity."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:532
+#: src/react-pages/PasswordGeneratorPage.tsx:535
 msgid "A passphrase is a sequence of random words joined by dashes (e.g. Flame-Brook-Tiger-Coral3). They are easier to remember than random characters while still providing strong security — 5 words gives about 55 bits of entropy."
 msgstr "A passphrase is a sequence of random words joined by dashes (e.g. Flame-Brook-Tiger-Coral3). They are easier to remember than random characters while still providing strong security — 5 words gives about 55 bits of entropy."
 
@@ -111,11 +111,11 @@ msgstr "Accuracy depends on image quality, font clarity, and contrast. Clean, hi
 msgid "Accurately counts words by splitting on whitespace, handling multiple spaces and line breaks correctly."
 msgstr "Accurately counts words by splitting on whitespace, handling multiple spaces and line breaks correctly."
 
-#: src/react-pages/PdfEditorPage.tsx:858
+#: src/react-pages/PdfEditorPage.tsx:877
 msgid "Add a watermark, page numbers, or redact sensitive content using the other tabs."
 msgstr "Add a watermark, page numbers, or redact sensitive content using the other tabs."
 
-#: src/react-pages/PdfEditorPage.tsx:865
+#: src/react-pages/PdfEditorPage.tsx:884
 msgid "Add custom text watermarks with adjustable font size, color, opacity, position, and rotation."
 msgstr "Add custom text watermarks with adjustable font size, color, opacity, position, and rotation."
 
@@ -147,7 +147,7 @@ msgstr "AES-256 Encryption"
 msgid "All embedded metadata is stripped, including EXIF data (camera model, settings, timestamps), GPS coordinates, IPTC captions, XMP data, ICC color profiles, and any other embedded metadata fields."
 msgstr "All embedded metadata is stripped, including EXIF data (camera model, settings, timestamps), GPS coordinates, IPTC captions, XMP data, ICC color profiles, and any other embedded metadata fields."
 
-#: src/react-pages/HashGeneratorPage.tsx:536
+#: src/react-pages/HashGeneratorPage.tsx:389
 msgid "All five hash algorithms run automatically — MD5, SHA-1, SHA-256, SHA-384, and SHA-512."
 msgstr "All five hash algorithms run automatically — MD5, SHA-1, SHA-256, SHA-384, and SHA-512."
 
@@ -159,7 +159,7 @@ msgstr "All hashing is performed entirely in your browser — your files and tex
 msgid "All statistics update instantly as you type or paste text, with zero delay."
 msgstr "All statistics update instantly as you type or paste text, with zero delay."
 
-#: src/react-pages/HomePage.tsx:77
+#: src/react-pages/HomePage.tsx:78
 msgid "Always free, no account needed"
 msgstr "Always free, no account needed"
 
@@ -187,7 +187,7 @@ msgstr "ANSSI (FR)"
 msgid "Any Audio Input"
 msgstr "Any Audio Input"
 
-#: src/react-pages/HashGeneratorPage.tsx:382
+#: src/react-pages/HashGeneratorPage.tsx:235
 msgid "Any file type, any size"
 msgstr "Any file type, any size"
 
@@ -199,7 +199,7 @@ msgstr "Any Video Input"
 msgid "Any-to-Any Conversion"
 msgstr "Any-to-Any Conversion"
 
-#: src/react-pages/HomePage.tsx:100
+#: src/react-pages/HomePage.tsx:101
 msgid "Archive decompression (ZIP, RAR, 7z, tar)"
 msgstr "Archive decompression (ZIP, RAR, 7z, tar)"
 
@@ -211,7 +211,7 @@ msgstr "Archive format"
 msgid "Archives are created server-side in seconds, even for larger files."
 msgstr "Archives are created server-side in seconds, even for larger files."
 
-#: src/react-pages/CsvExcelPage.tsx:225
+#: src/react-pages/CsvExcelPage.tsx:223
 msgid "Are formulas preserved when converting Excel to CSV?"
 msgstr "Are formulas preserved when converting Excel to CSV?"
 
@@ -233,18 +233,18 @@ msgstr "Are my files stored on the server?"
 msgid "Are my files stored on your servers?"
 msgstr "Are my files stored on your servers?"
 
-#: src/react-pages/HashGeneratorPage.tsx:551
+#: src/react-pages/HashGeneratorPage.tsx:404
 msgid "Are my files uploaded to a server?"
 msgstr "Are my files uploaded to a server?"
 
 #: src/react-pages/HeicConvertPage.tsx:109
 #: src/react-pages/ImageCompressPage.tsx:178
-#: src/react-pages/ImageConvertPage.tsx:889
+#: src/react-pages/ImageConvertPage.tsx:890
 #: src/react-pages/ImageToPdfPage.tsx:107
 msgid "Are my images stored on your servers?"
 msgstr "Are my images stored on your servers?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:531
+#: src/react-pages/PasswordGeneratorPage.tsx:534
 msgid "Are my passwords stored anywhere?"
 msgstr "Are my passwords stored anywhere?"
 
@@ -281,7 +281,7 @@ msgstr "Audio conversion may slightly alter quality depending on the target form
 msgid "Audio Convert"
 msgstr "Audio Convert"
 
-#: src/react-pages/HomePage.tsx:96
+#: src/react-pages/HomePage.tsx:97
 msgid "Audio extraction and conversion"
 msgstr "Audio extraction and conversion"
 
@@ -297,7 +297,7 @@ msgstr "Audio is extracted at the best available quality from the source video."
 msgid "Audio is transcoded at optimal bitrate and sample rate for the chosen format."
 msgstr "Audio is transcoded at optimal bitrate and sample rate for the chosen format."
 
-#: src/react-pages/ImageConvertPage.tsx:534
+#: src/react-pages/ImageConvertPage.tsx:535
 msgid "Auto (native size)"
 msgstr "Auto (native size)"
 
@@ -305,11 +305,11 @@ msgstr "Auto (native size)"
 msgid "Automatically finds and extracts up to 200 embedded raster images from your PDF document."
 msgstr "Automatically finds and extracts up to 200 embedded raster images from your PDF document."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:525
+#: src/react-pages/PasswordGeneratorPage.tsx:528
 msgid "Avoid letters and symbols that differ between QWERTY and AZERTY layouts (a/q, z/w, m, digits)."
 msgstr "Avoid letters and symbols that differ between QWERTY and AZERTY layouts (a/q, z/w, m, digits)."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:497
+#: src/react-pages/PasswordGeneratorPage.tsx:499
 msgid "Avoid QWERTY / AZERTY confusion (a↔q, z↔w, m, digits)"
 msgstr "Avoid QWERTY / AZERTY confusion (a↔q, z↔w, m, digits)"
 
@@ -318,28 +318,28 @@ msgid "Background"
 msgstr "Background"
 
 #: src/config/navigation.tsx:186
-#: src/react-pages/Base64Page.tsx:146
+#: src/react-pages/Base64Page.tsx:151
 msgid "Base64"
 msgstr "Base64"
 
-#: src/react-pages/Base64Page.tsx:206
+#: src/react-pages/Base64Page.tsx:211
 msgid "Base64 → Text"
 msgstr "Base64 → Text"
 
 #: src/react-pages/AsciiPage.tsx:423
-#: src/react-pages/Base64Page.tsx:141
-#: src/react-pages/Base64Page.tsx:144
-#: src/react-pages/JsonCsvPage.tsx:467
+#: src/react-pages/Base64Page.tsx:146
+#: src/react-pages/Base64Page.tsx:149
+#: src/react-pages/JsonCsvPage.tsx:473
 #: src/react-pages/WordCounterPage.tsx:153
-#: src/react-pages/YamlJsonPage.tsx:740
+#: src/react-pages/YamlJsonPage.tsx:729
 msgid "Base64 Encode / Decode"
 msgstr "Base64 Encode / Decode"
 
-#: src/react-pages/HashGeneratorPage.tsx:557
+#: src/react-pages/HashGeneratorPage.tsx:410
 msgid "Base64 Encode/Decode"
 msgstr "Base64 Encode/Decode"
 
-#: src/react-pages/Base64Page.tsx:364
+#: src/react-pages/Base64Page.tsx:369
 msgid "Base64 encoding increases data size by approximately 33% because it represents every 3 bytes of input as 4 ASCII characters. This is a trade-off for compatibility with text-based systems."
 msgstr "Base64 encoding increases data size by approximately 33% because it represents every 3 bytes of input as 4 ASCII characters. This is a trade-off for compatibility with text-based systems."
 
@@ -347,7 +347,7 @@ msgstr "Base64 encoding increases data size by approximately 33% because it repr
 msgid "Base64 encoding is not encryption — it provides no security. Do not use it to protect sensitive data. Encoded output is approximately 33% larger than the original."
 msgstr "Base64 encoding is not encryption — it provides no security. Do not use it to protect sensitive data. Encoded output is approximately 33% larger than the original."
 
-#: src/react-pages/Base64Page.tsx:362
+#: src/react-pages/Base64Page.tsx:367
 msgid "Base64 is a binary-to-text encoding scheme that represents binary data as ASCII characters. It is commonly used to embed images in HTML/CSS, transmit data in URLs, and encode email attachments."
 msgstr "Base64 is a binary-to-text encoding scheme that represents binary data as ASCII characters. It is commonly used to embed images in HTML/CSS, transmit data in URLs, and encode email attachments."
 
@@ -364,9 +364,9 @@ msgstr "Beta — detection accuracy may vary depending on image quality and lang
 msgid "Beta — works best with small files (under 50 MB)"
 msgstr "Beta — works best with small files (under 50 MB)"
 
-#: src/react-pages/CsvExcelPage.tsx:215
-#: src/react-pages/JsonCsvPage.tsx:451
-#: src/react-pages/YamlJsonPage.tsx:725
+#: src/react-pages/CsvExcelPage.tsx:213
+#: src/react-pages/JsonCsvPage.tsx:457
+#: src/react-pages/YamlJsonPage.tsx:714
 msgid "Bi-directional Conversion"
 msgstr "Bi-directional Conversion"
 
@@ -374,7 +374,7 @@ msgstr "Bi-directional Conversion"
 msgid "Bitwarden"
 msgstr "Bitwarden"
 
-#: src/react-pages/ImageConvertPage.tsx:689
+#: src/react-pages/ImageConvertPage.tsx:690
 msgid "Black"
 msgstr "Black"
 
@@ -383,18 +383,18 @@ msgid "Both are web font formats. WOFF2 uses Brotli compression and is typically
 msgstr "Both are web font formats. WOFF2 uses Brotli compression and is typically 30% smaller than WOFF, which uses gzip. WOFF2 is supported by all modern browsers."
 
 #: src/react-pages/CsvExcelPage.tsx:223
-msgid "Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format."
-msgstr "Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format."
+#~ msgid "Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format."
+#~ msgstr "Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format."
 
 #: src/react-pages/MovToMp4Page.tsx:88
 msgid "Both video and audio tracks are converted — nothing is stripped out."
 msgstr "Both video and audio tracks are converted — nothing is stripped out."
 
-#: src/react-pages/ImageConvertPage.tsx:662
+#: src/react-pages/ImageConvertPage.tsx:663
 msgid "Bottom left"
 msgstr "Bottom left"
 
-#: src/react-pages/ImageConvertPage.tsx:661
+#: src/react-pages/ImageConvertPage.tsx:662
 msgid "Bottom right"
 msgstr "Bottom right"
 
@@ -406,7 +406,7 @@ msgstr "Browse extracted images with thumbnails and a full-size lightbox viewer.
 msgid "Browse the extracted files and download them individually or as a ZIP."
 msgstr "Browse the extracted files and download them individually or as a ZIP."
 
-#: src/react-pages/ImageConvertPage.tsx:879
+#: src/react-pages/ImageConvertPage.tsx:880
 msgid "Built-in tools for precise cropping and resizing with aspect ratio lock."
 msgstr "Built-in tools for precise cropping and resizing with aspect ratio lock."
 
@@ -418,7 +418,7 @@ msgstr "Bundle up to 3 files into a single archive in one step."
 msgid "Calculates estimated reading time based on an average reading speed of 200 words per minute."
 msgstr "Calculates estimated reading time based on an average reading speed of 200 words per minute."
 
-#: src/react-pages/PdfEditorPage.tsx:874
+#: src/react-pages/PdfEditorPage.tsx:893
 msgid "Can I add both watermarks and page numbers?"
 msgstr "Can I add both watermarks and page numbers?"
 
@@ -438,11 +438,11 @@ msgstr "Can I convert a PDF to EPUB?"
 msgid "Can I convert other video formats to MP4?"
 msgstr "Can I convert other video formats to MP4?"
 
-#: src/react-pages/ImageConvertPage.tsx:890
+#: src/react-pages/ImageConvertPage.tsx:891
 msgid "Can I convert SVG files?"
 msgstr "Can I convert SVG files?"
 
-#: src/react-pages/CsvExcelPage.tsx:227
+#: src/react-pages/CsvExcelPage.tsx:225
 msgid "Can I convert TSV (tab-separated) files?"
 msgstr "Can I convert TSV (tab-separated) files?"
 
@@ -458,7 +458,7 @@ msgstr "Can I convert video files to audio?"
 msgid "Can I customize the appearance?"
 msgstr "Can I customize the appearance?"
 
-#: src/react-pages/Base64Page.tsx:365
+#: src/react-pages/Base64Page.tsx:370
 msgid "Can I decode Base64 images?"
 msgstr "Can I decode Base64 images?"
 
@@ -482,7 +482,7 @@ msgstr "Can I extract password-protected archives?"
 msgid "Can I extract text from a scanned PDF?"
 msgstr "Can I extract text from a scanned PDF?"
 
-#: src/react-pages/HashGeneratorPage.tsx:552
+#: src/react-pages/HashGeneratorPage.tsx:405
 msgid "Can I hash very large files?"
 msgstr "Can I hash very large files?"
 
@@ -510,11 +510,11 @@ msgstr "Can I remove a password if I forgot it?"
 msgid "Can I repair a password-protected PDF?"
 msgstr "Can I repair a password-protected PDF?"
 
-#: src/react-pages/YamlJsonPage.tsx:736
+#: src/react-pages/YamlJsonPage.tsx:725
 msgid "Can I sort keys alphabetically?"
 msgstr "Can I sort keys alphabetically?"
 
-#: src/react-pages/PdfEditorPage.tsx:872
+#: src/react-pages/PdfEditorPage.tsx:891
 msgid "Can I undo changes?"
 msgstr "Can I undo changes?"
 
@@ -522,7 +522,7 @@ msgstr "Can I undo changes?"
 msgid "Can I use the colored output in a terminal?"
 msgstr "Can I use the colored output in a terminal?"
 
-#: src/react-pages/ImageConvertPage.tsx:665
+#: src/react-pages/ImageConvertPage.tsx:666
 msgid "Center"
 msgstr "Center"
 
@@ -546,7 +546,7 @@ msgstr "Certificate Converter"
 #: src/react-pages/CertInspectPage.tsx:572
 #: src/react-pages/CertInspectPage.tsx:575
 #: src/react-pages/CertInspectPage.tsx:577
-#: src/react-pages/PasswordGeneratorPage.tsx:539
+#: src/react-pages/PasswordGeneratorPage.tsx:542
 #: src/react-pages/QrCodePage.tsx:410
 msgid "Certificate Inspector"
 msgstr "Certificate Inspector"
@@ -575,7 +575,7 @@ msgstr "Character Count"
 msgid "Character set"
 msgstr "Character set"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:464
+#: src/react-pages/PasswordGeneratorPage.tsx:466
 #: src/react-pages/WordCounterPage.tsx:100
 msgid "Characters"
 msgstr "Characters"
@@ -592,11 +592,11 @@ msgstr "Choose \"Protect\" to add a password or \"Remove password\" to unlock a 
 msgid "Choose a compression mode — quality preset or target file size."
 msgstr "Choose a compression mode — quality preset or target file size."
 
-#: src/react-pages/JsonCsvPage.tsx:443
+#: src/react-pages/JsonCsvPage.tsx:449
 msgid "Choose a direction: JSON to CSV or CSV to JSON using the toolbar buttons."
 msgstr "Choose a direction: JSON to CSV or CSV to JSON using the toolbar buttons."
 
-#: src/react-pages/ImageConvertPage.tsx:871
+#: src/react-pages/ImageConvertPage.tsx:872
 msgid "Choose a mode — Convert, Crop, Resize, or Favicon."
 msgstr "Choose a mode — Convert, Crop, Resize, or Favicon."
 
@@ -612,7 +612,7 @@ msgstr "Choose a target file size using the presets or enter a custom value in K
 msgid "Choose an archive format — ZIP, 7z, tar.gz, or tar.zst."
 msgstr "Choose an archive format — ZIP, 7z, tar.gz, or tar.zst."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:516
+#: src/react-pages/PasswordGeneratorPage.tsx:519
 msgid "Choose between Password mode (random characters) or Passphrase mode (memorable words)."
 msgstr "Choose between Password mode (random characters) or Passphrase mode (memorable words)."
 
@@ -628,7 +628,7 @@ msgstr "Choose between standard, detailed, block, and minimal character sets to 
 msgid "Choose between uploading a .md file or pasting markdown text directly."
 msgstr "Choose between uploading a .md file or pasting markdown text directly."
 
-#: src/react-pages/HashGeneratorPage.tsx:534
+#: src/react-pages/HashGeneratorPage.tsx:387
 msgid "Choose File mode to hash a file, or Text mode to hash a string."
 msgstr "Choose File mode to hash a file, or Text mode to hash a string."
 
@@ -664,7 +664,12 @@ msgstr "Circle"
 msgid "Clean PDF Output"
 msgstr "Clean PDF Output"
 
-#: src/react-pages/PdfEditorPage.tsx:859
+#: src/react-pages/JsonCsvPage.tsx:356
+#: src/react-pages/YamlJsonPage.tsx:525
+msgid "Clear"
+msgstr "Clear"
+
+#: src/react-pages/PdfEditorPage.tsx:878
 msgid "Click \"Apply & Download\" to save the edited PDF."
 msgstr "Click \"Apply & Download\" to save the edited PDF."
 
@@ -692,32 +697,36 @@ msgstr "Click \"Generate QR Code\" and download the PNG image."
 msgid "Click \"Merge\" to combine all files into a single PDF."
 msgstr "Click \"Merge\" to combine all files into a single PDF."
 
-#: src/react-pages/YamlJsonPage.tsx:692
+#: src/react-pages/YamlJsonPage.tsx:681
 msgid "Click a value to copy its path"
 msgstr "Click a value to copy its path"
 
-#: src/react-pages/PdfEditorPage.tsx:904
+#: src/react-pages/PdfEditorPage.tsx:923
 msgid "Click and drag to draw redaction rectangles"
 msgstr "Click and drag to draw redaction rectangles"
+
+#: src/components/RedactionCanvas.tsx:214
+msgid "Click and drag to redact"
+msgstr "Click and drag to redact"
 
 #: src/react-pages/CertInspectPage.tsx:783
 msgid "Click any value to copy it to your clipboard."
 msgstr "Click any value to copy it to your clipboard."
 
-#: src/react-pages/ImageConvertPage.tsx:874
+#: src/react-pages/ImageConvertPage.tsx:875
 msgid "Click Convert and download the result instantly."
 msgstr "Click Convert and download the result instantly."
 
-#: src/react-pages/HashGeneratorPage.tsx:537
+#: src/react-pages/HashGeneratorPage.tsx:390
 msgid "Click the copy button next to any hash to copy it to your clipboard."
 msgstr "Click the copy button next to any hash to copy it to your clipboard."
 
-#: src/react-pages/JsonCsvPage.tsx:446
-#: src/react-pages/YamlJsonPage.tsx:721
+#: src/react-pages/JsonCsvPage.tsx:452
+#: src/react-pages/YamlJsonPage.tsx:710
 msgid "Click the copy button on either panel to copy the result to your clipboard."
 msgstr "Click the copy button on either panel to copy the result to your clipboard."
 
-#: src/react-pages/Base64Page.tsx:350
+#: src/react-pages/Base64Page.tsx:355
 msgid "Click the copy button to copy the result to your clipboard."
 msgstr "Click the copy button to copy the result to your clipboard."
 
@@ -729,7 +738,7 @@ msgstr "Close"
 msgid "Close preview"
 msgstr "Close preview"
 
-#: src/react-pages/PdfEditorPage.tsx:905
+#: src/react-pages/PdfEditorPage.tsx:924
 msgid "Close redaction editor"
 msgstr "Close redaction editor"
 
@@ -741,9 +750,9 @@ msgstr "Code"
 msgid "Code Blocks"
 msgstr "Code Blocks"
 
-#: src/react-pages/ImageConvertPage.tsx:682
-#: src/react-pages/PdfEditorPage.tsx:698
-#: src/react-pages/PdfEditorPage.tsx:769
+#: src/react-pages/ImageConvertPage.tsx:683
+#: src/react-pages/PdfEditorPage.tsx:714
+#: src/react-pages/PdfEditorPage.tsx:785
 msgid "Color"
 msgstr "Color"
 
@@ -755,7 +764,7 @@ msgstr "Color Mode"
 msgid "Colors"
 msgstr "Colors"
 
-#: src/react-pages/CsvExcelPage.tsx:216
+#: src/react-pages/CsvExcelPage.tsx:214
 msgid "Column headers and data types are preserved accurately during conversion in both directions."
 msgstr "Column headers and data types are preserved accurately during conversion in both directions."
 
@@ -768,7 +777,7 @@ msgstr "Combine different file types — PDFs and images — in a single merge o
 msgid "Combine multiple PDF files and images into one PDF document for free. No signup, short-lived processing."
 msgstr "Combine multiple PDF files and images into one PDF document for free. No signup, short-lived processing."
 
-#: src/react-pages/HomePage.tsx:65
+#: src/react-pages/HomePage.tsx:66
 msgid "Combine multiple PDF files into one document"
 msgstr "Combine multiple PDF files into one document"
 
@@ -793,7 +802,7 @@ msgstr "Complete EXIF Stripping"
 #: src/react-pages/ArchivePage.tsx:71
 #: src/react-pages/DecompressPage.tsx:104
 #: src/react-pages/FontConvertPage.tsx:121
-#: src/react-pages/PasswordGeneratorPage.tsx:540
+#: src/react-pages/PasswordGeneratorPage.tsx:543
 msgid "Compress & Encrypt"
 msgstr "Compress & Encrypt"
 
@@ -851,19 +860,19 @@ msgstr "Compression mode"
 msgid "Compression reduces file size but may affect visual quality, especially for images and embedded fonts. Always keep a copy of your original PDF before compressing."
 msgstr "Compression reduces file size but may affect visual quality, especially for images and embedded fonts. Always keep a copy of your original PDF before compressing."
 
-#: src/react-pages/HashGeneratorPage.tsx:315
+#: src/react-pages/HashGeneratorPage.tsx:168
 msgid "Compute file and text checksums instantly in your browser"
 msgstr "Compute file and text checksums instantly in your browser"
 
-#: src/react-pages/HashGeneratorPage.tsx:414
+#: src/react-pages/HashGeneratorPage.tsx:267
 msgid "Compute Hashes"
 msgstr "Compute Hashes"
 
-#: src/react-pages/HashGeneratorPage.tsx:305
+#: src/react-pages/HashGeneratorPage.tsx:158
 msgid "Compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for files and text. Free, no signup, runs entirely in your browser."
 msgstr "Compute MD5, SHA-1, SHA-256, SHA-384 and SHA-512 hashes for files and text. Free, no signup, runs entirely in your browser."
 
-#: src/react-pages/HashGeneratorPage.tsx:553
+#: src/react-pages/HashGeneratorPage.tsx:406
 msgid "Compute the SHA-256 hash of your downloaded file and compare it with the hash published by the file distributor. If they match, the file has not been corrupted or tampered with during transfer."
 msgstr "Compute the SHA-256 hash of your downloaded file and compare it with the hash published by the file distributor. If they match, the file has not been corrupted or tampered with during transfer."
 
@@ -883,7 +892,7 @@ msgstr "Conversion between ebook formats may alter formatting, images, or table 
 msgid "Conversion between YAML and JSON may alter formatting such as comments (not supported in JSON) or key ordering. Always keep a copy of your original file."
 msgstr "Conversion between YAML and JSON may alter formatting such as comments (not supported in JSON) or key ordering. Always keep a copy of your original file."
 
-#: src/react-pages/CsvExcelPage.tsx:219
+#: src/react-pages/CsvExcelPage.tsx:217
 msgid "Conversion happens in milliseconds, even for large spreadsheets with thousands of rows."
 msgstr "Conversion happens in milliseconds, even for large spreadsheets with thousands of rows."
 
@@ -910,6 +919,10 @@ msgstr "Conversion quality may vary depending on the source format. SVG rasteriz
 #: src/components/ToolDisclaimer.tsx:27
 msgid "Conversion re-encodes the video which may slightly alter quality. Always keep a copy of your original MOV file."
 msgstr "Conversion re-encodes the video which may slightly alter quality. Always keep a copy of your original MOV file."
+
+#: src/react-pages/ImageConvertPage.tsx:56
+msgid "Convert"
+msgstr "Convert"
 
 #: src/react-pages/VideoGifPage.tsx:143
 msgid "Convert a video clip to an animated GIF"
@@ -939,7 +952,7 @@ msgstr "Convert Apple HEIC images to JPG, PNG, WebP, or TIFF for free. No signup
 msgid "Convert Apple HEIC photos so they open on Windows, Android, and any device."
 msgstr "Convert Apple HEIC photos so they open on Windows, Android, and any device."
 
-#: src/react-pages/HomePage.tsx:73
+#: src/react-pages/HomePage.tsx:74
 msgid "Convert Apple QuickTime videos to universal MP4"
 msgstr "Convert Apple QuickTime videos to universal MP4"
 
@@ -947,19 +960,19 @@ msgstr "Convert Apple QuickTime videos to universal MP4"
 msgid "Convert between certificate formats"
 msgstr "Convert between certificate formats"
 
-#: src/react-pages/CsvExcelPage.tsx:140
+#: src/react-pages/CsvExcelPage.tsx:138
 msgid "Convert between CSV and Excel — 100% client-side"
 msgstr "Convert between CSV and Excel — 100% client-side"
 
-#: src/react-pages/CsvExcelPage.tsx:138
+#: src/react-pages/CsvExcelPage.tsx:136
 msgid "Convert between CSV and Excel for free. 100% client-side, no upload."
 msgstr "Convert between CSV and Excel for free. 100% client-side, no upload."
 
-#: src/react-pages/JsonCsvPage.tsx:321
+#: src/react-pages/JsonCsvPage.tsx:327
 msgid "Convert between JSON arrays and CSV"
 msgstr "Convert between JSON arrays and CSV"
 
-#: src/react-pages/JsonCsvPage.tsx:311
+#: src/react-pages/JsonCsvPage.tsx:317
 msgid "Convert between JSON arrays and CSV. Free, runs entirely in your browser. No data leaves your device."
 msgstr "Convert between JSON arrays and CSV. Free, runs entirely in your browser. No data leaves your device."
 
@@ -984,7 +997,7 @@ msgstr "Convert between TrueType (.ttf), OpenType (.otf), WOFF (.woff), and WOFF
 msgid "Convert between TTF, OTF, WOFF and WOFF2"
 msgstr "Convert between TTF, OTF, WOFF and WOFF2"
 
-#: src/react-pages/YamlJsonPage.tsx:499
+#: src/react-pages/YamlJsonPage.tsx:488
 msgid "Convert between YAML and JSON, format, minify, validate, sort keys, and visualize with a tree view. Detect type coercion issues. Free, runs in your browser."
 msgstr "Convert between YAML and JSON, format, minify, validate, sort keys, and visualize with a tree view. Detect type coercion issues. Free, runs in your browser."
 
@@ -993,11 +1006,11 @@ msgstr "Convert between YAML and JSON, format, minify, validate, sort keys, and 
 msgid "Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required."
 msgstr "Convert certificates between PEM, DER, P12/PFX, and P7B formats. Free, no signup required."
 
-#: src/react-pages/CsvExcelPage.tsx:215
+#: src/react-pages/CsvExcelPage.tsx:213
 msgid "Convert CSV files to Excel (.xlsx) or Excel spreadsheets back to CSV with a single click."
 msgstr "Convert CSV files to Excel (.xlsx) or Excel spreadsheets back to CSV with a single click."
 
-#: src/react-pages/CsvExcelPage.tsx:138
+#: src/react-pages/CsvExcelPage.tsx:136
 msgid "Convert CSV to Excel and back."
 msgstr "Convert CSV to Excel and back."
 
@@ -1021,11 +1034,11 @@ msgstr "Convert fonts between TTF, OTF, WOFF and WOFF2 formats. Free, no signup 
 msgid "Convert from any supported format to any other — TTF to WOFF2, OTF to TTF, WOFF to OTF, and more."
 msgstr "Convert from any supported format to any other — TTF to WOFF2, OTF to TTF, WOFF to OTF, and more."
 
-#: src/react-pages/ImageConvertPage.tsx:878
+#: src/react-pages/ImageConvertPage.tsx:879
 msgid "Convert HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG images, with PDF and ICO export options."
 msgstr "Convert HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG images, with PDF and ICO export options."
 
-#: src/react-pages/ImageConvertPage.tsx:275
+#: src/react-pages/ImageConvertPage.tsx:276
 msgid "Convert HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG images. Crop, resize, export PDF or ICO, and generate favicon packages. Free, no signup."
 msgstr "Convert HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG images. Crop, resize, export PDF or ICO, and generate favicon packages. Free, no signup."
 
@@ -1041,11 +1054,11 @@ msgstr "Convert images to ASCII art. Free, client-side, no upload needed."
 msgid "Convert images to ASCII text art"
 msgstr "Convert images to ASCII text art"
 
-#: src/react-pages/HomePage.tsx:67
+#: src/react-pages/HomePage.tsx:68
 msgid "Convert iPhone HEIC photos to JPG, PNG or WebP"
 msgstr "Convert iPhone HEIC photos to JPG, PNG or WebP"
 
-#: src/react-pages/JsonCsvPage.tsx:451
+#: src/react-pages/JsonCsvPage.tsx:457
 msgid "Convert JSON arrays to CSV or CSV back to JSON arrays of objects with automatic header detection."
 msgstr "Convert JSON arrays to CSV or CSV back to JSON arrays of objects with automatic header detection."
 
@@ -1075,7 +1088,7 @@ msgstr "Convert one or multiple images into a single PDF document"
 msgid "Convert one or multiple images into a single PDF document for free. No signup, short-lived processing."
 msgstr "Convert one or multiple images into a single PDF document for free. No signup, short-lived processing."
 
-#: src/react-pages/Base64Page.tsx:354
+#: src/react-pages/Base64Page.tsx:359
 msgid "Convert plain text to Base64 encoding or decode Base64 strings back to readable text."
 msgstr "Convert plain text to Base64 encoding or decode Base64 strings back to readable text."
 
@@ -1107,19 +1120,19 @@ msgstr "Convert video clips to animated GIFs for free. Preview and trim before c
 msgid "Convert videos to GIF with preview."
 msgstr "Convert videos to GIF with preview."
 
-#: src/react-pages/ImageConvertPage.tsx:277
+#: src/react-pages/ImageConvertPage.tsx:278
 msgid "Convert, crop, resize images and generate favicon packages."
 msgstr "Convert, crop, resize images and generate favicon packages."
 
-#: src/react-pages/HomePage.tsx:64
+#: src/react-pages/HomePage.tsx:65
 msgid "Convert, crop, resize images. Generate favicons."
 msgstr "Convert, crop, resize images. Generate favicons."
 
-#: src/react-pages/YamlJsonPage.tsx:509
+#: src/react-pages/YamlJsonPage.tsx:498
 msgid "Convert, format, and validate — everything runs in your browser"
 msgstr "Convert, format, and validate — everything runs in your browser"
 
-#: src/react-pages/ImageConvertPage.tsx:888
+#: src/react-pages/ImageConvertPage.tsx:889
 msgid "Converting between lossless formats (PNG, TIFF, BMP) preserves full quality. Converting to lossy formats (JPG, WebP) applies compression. For the best quality, choose PNG or WebP."
 msgstr "Converting between lossless formats (PNG, TIFF, BMP) preserves full quality. Converting to lossy formats (JPG, WebP) applies compression. For the best quality, choose PNG or WebP."
 
@@ -1127,11 +1140,18 @@ msgstr "Converting between lossless formats (PNG, TIFF, BMP) preserves full qual
 msgid "Converting between lossy formats (MP3, AAC) may cause some quality loss. Converting to lossless (WAV, FLAC) preserves the current quality. For best results, start from the highest-quality source available."
 msgstr "Converting between lossy formats (MP3, AAC) may cause some quality loss. Converting to lossless (WAV, FLAC) preserves the current quality. For best results, start from the highest-quality source available."
 
-#: src/react-pages/CsvExcelPage.tsx:171
+#: src/react-pages/CsvExcelPage.tsx:169
 msgid "Converting..."
 msgstr "Converting..."
 
+#: src/react-pages/JsonCsvPage.tsx:68
+#: src/react-pages/YamlJsonPage.tsx:140
+msgid "Copied!"
+msgstr "Copied!"
+
+#: src/react-pages/JsonCsvPage.tsx:68
 #: src/react-pages/PasswordGeneratorPage.tsx:372
+#: src/react-pages/YamlJsonPage.tsx:140
 msgid "Copy"
 msgstr "Copy"
 
@@ -1139,7 +1159,7 @@ msgstr "Copy"
 msgid "Copy & Download"
 msgstr "Copy & Download"
 
-#: src/react-pages/HashGeneratorPage.tsx:544
+#: src/react-pages/HashGeneratorPage.tsx:397
 msgid "Copy any individual hash to your clipboard with one click."
 msgstr "Copy any individual hash to your clipboard with one click."
 
@@ -1155,9 +1175,13 @@ msgstr "Copy the ASCII art to your clipboard or download it as a .txt file."
 msgid "Copy the extracted text to your clipboard or download it as a .txt file."
 msgstr "Copy the extracted text to your clipboard or download it as a .txt file."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:518
+#: src/react-pages/PasswordGeneratorPage.tsx:521
 msgid "Copy the generated result or click the refresh button to generate a new one."
 msgstr "Copy the generated result or click the refresh button to generate a new one."
+
+#: src/react-pages/HashGeneratorPage.tsx:83
+msgid "Could not read or hash this file. Please try again."
+msgstr "Could not read or hash this file. Please try again."
 
 #: src/react-pages/WordCounterPage.tsx:64
 msgid "Count words, characters, sentences and estimate reading time"
@@ -1175,7 +1199,7 @@ msgstr "Count words, characters, sentences and paragraphs. Estimate reading time
 msgid "Create compressed or encrypted archives"
 msgstr "Create compressed or encrypted archives"
 
-#: src/react-pages/HomePage.tsx:71
+#: src/react-pages/HomePage.tsx:72
 msgid "Create password-protected ZIP, 7z or tar archives"
 msgstr "Create password-protected ZIP, 7z or tar archives"
 
@@ -1183,7 +1207,11 @@ msgstr "Create password-protected ZIP, 7z or tar archives"
 msgid "Create ZIP, 7z, tar.gz (gzip), or tar.zst (Zstandard) archives depending on your needs."
 msgstr "Create ZIP, 7z, tar.gz (gzip), or tar.zst (Zstandard) archives depending on your needs."
 
-#: src/react-pages/ImageConvertPage.tsx:879
+#: src/react-pages/ImageConvertPage.tsx:57
+msgid "Crop"
+msgstr "Crop"
+
+#: src/react-pages/ImageConvertPage.tsx:880
 msgid "Crop & Resize"
 msgstr "Crop & Resize"
 
@@ -1199,30 +1227,30 @@ msgstr "Cross-Platform Compatibility"
 msgid "Cross-Reference Repair"
 msgstr "Cross-Reference Repair"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:522
+#: src/react-pages/PasswordGeneratorPage.tsx:525
 msgid "Cryptographically Random"
 msgstr "Cryptographically Random"
 
 #: src/config/navigation.tsx:187
-#: src/react-pages/CsvExcelPage.tsx:138
-#: src/react-pages/CsvExcelPage.tsx:138
-#: src/react-pages/CsvExcelPage.tsx:139
+#: src/react-pages/CsvExcelPage.tsx:136
+#: src/react-pages/CsvExcelPage.tsx:136
+#: src/react-pages/CsvExcelPage.tsx:137
 msgid "CSV / Excel"
 msgstr "CSV / Excel"
 
-#: src/react-pages/JsonCsvPage.tsx:465
+#: src/react-pages/JsonCsvPage.tsx:471
 msgid "CSV / Excel Converter"
 msgstr "CSV / Excel Converter"
 
-#: src/react-pages/CsvExcelPage.tsx:153
+#: src/react-pages/CsvExcelPage.tsx:151
 msgid "CSV → Excel"
 msgstr "CSV → Excel"
 
-#: src/react-pages/JsonCsvPage.tsx:453
+#: src/react-pages/JsonCsvPage.tsx:459
 msgid "CSV headers become JSON object keys. Nested objects are flattened into dot-notation columns."
 msgstr "CSV headers become JSON object keys. Nested objects are flattened into dot-notation columns."
 
-#: src/react-pages/JsonCsvPage.tsx:452
+#: src/react-pages/JsonCsvPage.tsx:458
 msgid "CSV to JSON conversion automatically detects numbers, booleans, and null values instead of treating everything as strings."
 msgstr "CSV to JSON conversion automatically detects numbers, booleans, and null values instead of treating everything as strings."
 
@@ -1230,7 +1258,7 @@ msgstr "CSV to JSON conversion automatically detects numbers, booleans, and null
 msgid "Current password"
 msgstr "Current password"
 
-#: src/react-pages/CsvExcelPage.tsx:227
+#: src/react-pages/CsvExcelPage.tsx:225
 msgid "Currently only comma-separated CSV is supported. For TSV files, consider replacing tabs with commas first, or use the JSON/CSV converter as an intermediate step."
 msgstr "Currently only comma-separated CSV is supported. For TSV files, consider replacing tabs with commas first, or use the JSON/CSV converter as an intermediate step."
 
@@ -1242,13 +1270,13 @@ msgstr "Custom Colors & Styles"
 msgid "Custom target size (MB)"
 msgstr "Custom target size (MB)"
 
-#: src/react-pages/Base64Page.tsx:202
+#: src/react-pages/Base64Page.tsx:207
 msgid "Decode"
 msgstr "Decode"
 
 #: src/config/navigation.tsx:180
 #: src/react-pages/DecompressPage.tsx:38
-#: src/react-pages/HomePage.tsx:72
+#: src/react-pages/HomePage.tsx:73
 msgid "Decompress"
 msgstr "Decompress"
 
@@ -1267,8 +1295,12 @@ msgstr "Decompress password-protected ZIP, RAR, and 7z archives by entering the 
 msgid "Defaults to user password"
 msgstr "Defaults to user password"
 
+#: src/components/RedactionCanvas.tsx:210
+msgid "Delete"
+msgstr "Delete"
+
 #. placeholder {0}: page.pageNum
-#: src/react-pages/PdfEditorPage.tsx:593
+#: src/react-pages/PdfEditorPage.tsx:607
 msgid "Delete page {0}"
 msgstr "Delete page {0}"
 
@@ -1276,11 +1308,11 @@ msgstr "Delete page {0}"
 msgid "Detects sentences by punctuation marks and paragraphs by blank lines for structural analysis."
 msgstr "Detects sentences by punctuation marks and paragraphs by blank lines for structural analysis."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:480
+#: src/react-pages/PasswordGeneratorPage.tsx:482
 msgid "Digits (0-9)"
 msgstr "Digits (0-9)"
 
-#: src/react-pages/CsvExcelPage.tsx:145
+#: src/react-pages/CsvExcelPage.tsx:143
 msgid "Direction"
 msgstr "Direction"
 
@@ -1296,7 +1328,7 @@ msgstr "Displays total characters and characters excluding spaces, useful for so
 msgid "Do I need a password for P12/PFX files?"
 msgstr "Do I need a password for P12/PFX files?"
 
-#: src/react-pages/Base64Page.tsx:363
+#: src/react-pages/Base64Page.tsx:368
 msgid "Does Base64 encrypt my data?"
 msgstr "Does Base64 encrypt my data?"
 
@@ -1304,15 +1336,15 @@ msgstr "Does Base64 encrypt my data?"
 msgid "Does compression affect text quality?"
 msgstr "Does compression affect text quality?"
 
-#: src/react-pages/ImageConvertPage.tsx:888
+#: src/react-pages/ImageConvertPage.tsx:889
 msgid "Does converting images reduce quality?"
 msgstr "Does converting images reduce quality?"
 
-#: src/react-pages/JsonCsvPage.tsx:461
+#: src/react-pages/JsonCsvPage.tsx:467
 msgid "Does CSV to JSON preserve data types?"
 msgstr "Does CSV to JSON preserve data types?"
 
-#: src/react-pages/PdfEditorPage.tsx:875
+#: src/react-pages/PdfEditorPage.tsx:894
 msgid "Does editing affect text quality?"
 msgstr "Does editing affect text quality?"
 
@@ -1320,7 +1352,7 @@ msgstr "Does editing affect text quality?"
 msgid "Does extracting audio reduce quality?"
 msgstr "Does extracting audio reduce quality?"
 
-#: src/react-pages/CsvExcelPage.tsx:226
+#: src/react-pages/CsvExcelPage.tsx:224
 msgid "Does it handle multiple sheets?"
 msgstr "Does it handle multiple sheets?"
 
@@ -1340,7 +1372,7 @@ msgstr "Does the conversion affect image quality?"
 msgid "Does the order of files matter?"
 msgstr "Does the order of files matter?"
 
-#: src/react-pages/YamlJsonPage.tsx:733
+#: src/react-pages/YamlJsonPage.tsx:722
 msgid "Does this tool support multi-document YAML?"
 msgstr "Does this tool support multi-document YAML?"
 
@@ -1361,6 +1393,10 @@ msgstr "Download"
 msgid "Download {0}"
 msgstr "Download {0}"
 
+#: src/components/MultiFileResult.tsx:104
+msgid "Download All as ZIP"
+msgstr "Download All as ZIP"
+
 #: src/react-pages/PdfExtractImagesPage.tsx:117
 msgid "Download all extracted images at once in a convenient ZIP archive."
 msgstr "Download all extracted images at once in a convenient ZIP archive."
@@ -1373,12 +1409,12 @@ msgstr "Download extracted files one by one or grab everything as a single ZIP."
 msgid "Download images individually or all at once as a ZIP file."
 msgstr "Download images individually or all at once as a ZIP file."
 
-#: src/react-pages/PdfEditorPage.tsx:605
+#: src/react-pages/PdfEditorPage.tsx:621
 msgid "Download page"
 msgstr "Download page"
 
 #. placeholder {0}: page.pageNum
-#: src/react-pages/PdfEditorPage.tsx:605
+#: src/react-pages/PdfEditorPage.tsx:621
 msgid "Download page {0}"
 msgstr "Download page {0}"
 
@@ -1406,7 +1442,7 @@ msgstr "Download the converted certificate instantly."
 msgid "Download the converted ebook instantly."
 msgstr "Download the converted ebook instantly."
 
-#: src/react-pages/CsvExcelPage.tsx:211
+#: src/react-pages/CsvExcelPage.tsx:209
 msgid "Download the converted file with one click."
 msgstr "Download the converted file with one click."
 
@@ -1446,7 +1482,7 @@ msgstr "Download your converted image instantly."
 msgid "Download your PDF instantly."
 msgstr "Download your PDF instantly."
 
-#: src/react-pages/ImageConvertPage.tsx:744
+#: src/react-pages/ImageConvertPage.tsx:745
 msgid "Downloaded as a ZIP with all sizes ready for deployment."
 msgstr "Downloaded as a ZIP with all sizes ready for deployment."
 
@@ -1454,7 +1490,7 @@ msgstr "Downloaded as a ZIP with all sizes ready for deployment."
 msgid "Downsample images for smaller file size"
 msgstr "Downsample images for smaller file size"
 
-#: src/react-pages/PdfEditorPage.tsx:680
+#: src/react-pages/PdfEditorPage.tsx:696
 msgid "DRAFT, CONFIDENTIAL..."
 msgstr "DRAFT, CONFIDENTIAL..."
 
@@ -1474,11 +1510,11 @@ msgstr "Drag to reorder images if needed — each image becomes one page in the 
 msgid "Drag-to-Reorder"
 msgstr "Drag-to-Reorder"
 
-#: src/react-pages/HashGeneratorPage.tsx:381
+#: src/react-pages/HashGeneratorPage.tsx:234
 msgid "Drop a file here or click to browse"
 msgstr "Drop a file here or click to browse"
 
-#: src/react-pages/HomePage.tsx:129
+#: src/react-pages/HomePage.tsx:130
 msgid "Drop a file, pick a tool, get your result. No account to create, no ads, and privacy-first processing."
 msgstr "Drop a file, pick a tool, get your result. No account to create, no ads, and privacy-first processing."
 
@@ -1534,44 +1570,44 @@ msgstr "Ebook Converter"
 msgid "Ebooks are handled in an isolated worker and expire after processing."
 msgstr "Ebooks are handled in an isolated worker and expire after processing."
 
-#: src/react-pages/YamlJsonPage.tsx:725
+#: src/react-pages/YamlJsonPage.tsx:714
 msgid "Edit either side and the other updates instantly. Works from YAML to JSON and JSON to YAML."
 msgstr "Edit either side and the other updates instantly. Works from YAML to JSON and JSON to YAML."
 
-#: src/react-pages/PdfEditorPage.tsx:454
+#: src/react-pages/PdfEditorPage.tsx:468
 msgid "Edit PDF pages with rotate, reorder, watermark, page numbers and redaction."
 msgstr "Edit PDF pages with rotate, reorder, watermark, page numbers and redaction."
 
-#: src/react-pages/PdfEditorPage.tsx:452
+#: src/react-pages/PdfEditorPage.tsx:466
 msgid "Edit PDF pages: rotate, reorder, delete, extract, add watermarks, page numbers, and redact content. Free, private, no signup."
 msgstr "Edit PDF pages: rotate, reorder, delete, extract, add watermarks, page numbers, and redact content. Free, private, no signup."
 
-#: src/react-pages/Base64Page.tsx:182
+#: src/react-pages/Base64Page.tsx:187
 msgid "Encode"
 msgstr "Encode"
 
-#: src/react-pages/Base64Page.tsx:354
+#: src/react-pages/Base64Page.tsx:359
 msgid "Encode & Decode"
 msgstr "Encode & Decode"
 
-#: src/react-pages/Base64Page.tsx:144
+#: src/react-pages/Base64Page.tsx:149
 msgid "Encode and decode Base64 text or files."
 msgstr "Encode and decode Base64 text or files."
 
-#: src/react-pages/Base64Page.tsx:142
+#: src/react-pages/Base64Page.tsx:147
 msgid "Encode and decode Base64 text or files. Free, no signup, runs entirely in your browser."
 msgstr "Encode and decode Base64 text or files. Free, no signup, runs entirely in your browser."
 
-#: src/react-pages/Base64Page.tsx:356
+#: src/react-pages/Base64Page.tsx:361
 msgid "Encode any file (images, PDFs, documents) up to 5 MB directly to Base64 with one click."
 msgstr "Encode any file (images, PDFs, documents) up to 5 MB directly to Base64 with one click."
 
-#: src/react-pages/Base64Page.tsx:147
+#: src/react-pages/Base64Page.tsx:152
 msgid "Encode or decode Base64 text and files"
 msgstr "Encode or decode Base64 text and files"
 
 #: src/config/navigation.tsx:179
-#: src/react-pages/HomePage.tsx:71
+#: src/react-pages/HomePage.tsx:72
 msgid "Encrypt & Compress"
 msgstr "Encrypt & Compress"
 
@@ -1583,7 +1619,7 @@ msgstr "Encrypt with password (AES-256)"
 msgid "Encrypt your PDF with a user password so only authorized people can open it."
 msgstr "Encrypt your PDF with a user password so only authorized people can open it."
 
-#: src/react-pages/HomePage.tsx:99
+#: src/react-pages/HomePage.tsx:100
 msgid "Encrypted archive creation (ZIP, 7z, tar.gz, tar.zst)"
 msgstr "Encrypted archive creation (ZIP, 7z, tar.gz, tar.zst)"
 
@@ -1611,7 +1647,7 @@ msgstr "Enter encryption password"
 msgid "Enter password"
 msgstr "Enter password"
 
-#: src/react-pages/Base64Page.tsx:254
+#: src/react-pages/Base64Page.tsx:259
 msgid "Enter text to encode..."
 msgstr "Enter text to encode..."
 
@@ -1623,11 +1659,11 @@ msgstr "Enter the required password (a new password for protection, or the curre
 msgid "Enter your content (text, URL, or WiFi network details)."
 msgstr "Enter your content (text, URL, or WiFi network details)."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:526
+#: src/react-pages/PasswordGeneratorPage.tsx:529
 msgid "Entropy Indicator"
 msgstr "Entropy Indicator"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:535
+#: src/react-pages/PasswordGeneratorPage.tsx:538
 msgid "Entropy measures password strength in bits. It depends on both length and the size of the character pool. Higher entropy means more possible combinations and a harder password to crack."
 msgstr "Entropy measures password strength in bits. It depends on both length and the size of the character pool. Higher entropy means more possible combinations and a harder password to crack."
 
@@ -1643,20 +1679,24 @@ msgstr "Error correction allows the QR code to remain scannable even if part of 
 msgid "Error Correction Levels"
 msgstr "Error Correction Levels"
 
-#: src/react-pages/CsvExcelPage.tsx:156
+#: src/react-pages/CsvExcelPage.tsx:154
 msgid "Excel → CSV"
 msgstr "Excel → CSV"
+
+#: src/react-pages/CsvExcelPage.tsx:221
+msgid "Excel input and output use .xlsx (Excel 2007+). Save legacy .xls files as .xlsx before uploading them."
+msgstr "Excel input and output use .xlsx (Excel 2007+). Save legacy .xls files as .xlsx before uploading them."
 
 #: src/react-pages/CertInspectPage.tsx:334
 #: src/react-pages/CertInspectPage.tsx:404
 msgid "Expired"
 msgstr "Expired"
 
-#: src/react-pages/PdfEditorPage.tsx:525
+#: src/react-pages/PdfEditorPage.tsx:539
 msgid "Extract"
 msgstr "Extract"
 
-#: src/react-pages/PdfEditorPage.tsx:864
+#: src/react-pages/PdfEditorPage.tsx:883
 msgid "Extract & Delete Pages"
 msgstr "Extract & Delete Pages"
 
@@ -1701,7 +1741,7 @@ msgid "Extract embedded images from PDF files."
 msgstr "Extract embedded images from PDF files."
 
 #: src/config/navigation.tsx:170
-#: src/react-pages/PdfEditorPage.tsx:881
+#: src/react-pages/PdfEditorPage.tsx:900
 msgid "Extract Images"
 msgstr "Extract Images"
 
@@ -1720,7 +1760,7 @@ msgstr "Extract text from images and PDFs"
 msgid "Extract text from images and PDFs with OCR. Free, no signup, short-lived processing."
 msgstr "Extract text from images and PDFs with OCR. Free, no signup, short-lived processing."
 
-#: src/react-pages/HomePage.tsx:69
+#: src/react-pages/HomePage.tsx:70
 msgid "Extract text from images and scanned documents"
 msgstr "Extract text from images and scanned documents"
 
@@ -1740,7 +1780,7 @@ msgstr "Extract up to 200 embedded images from a PDF file"
 msgid "Extract up to 200 embedded images from a PDF file for free. Download individually or as ZIP."
 msgstr "Extract up to 200 embedded images from a PDF file for free. Download individually or as ZIP."
 
-#: src/react-pages/HomePage.tsx:72
+#: src/react-pages/HomePage.tsx:73
 msgid "Extract ZIP, RAR, 7z, tar and other archive formats"
 msgstr "Extract ZIP, RAR, 7z, tar and other archive formats"
 
@@ -1772,11 +1812,11 @@ msgstr "Extracted images reflect the resolution and quality stored in the PDF. S
 msgid "Eye shape"
 msgstr "Eye shape"
 
-#: src/react-pages/Base64Page.tsx:358
+#: src/react-pages/Base64Page.tsx:363
 msgid "Fast & Lightweight"
 msgstr "Fast & Lightweight"
 
-#: src/react-pages/HashGeneratorPage.tsx:546
+#: src/react-pages/HashGeneratorPage.tsx:399
 msgid "Fast & Offline"
 msgstr "Fast & Offline"
 
@@ -1804,15 +1844,19 @@ msgstr "Fast Extraction"
 msgid "Fast Processing"
 msgstr "Fast Processing"
 
-#: src/react-pages/HomePage.tsx:79
+#: src/react-pages/HomePage.tsx:80
 msgid "Fast tools, clear limits"
 msgstr "Fast tools, clear limits"
 
-#: src/react-pages/ImageConvertPage.tsx:880
+#: src/react-pages/ImageConvertPage.tsx:60
+msgid "Favicon"
+msgstr "Favicon"
+
+#: src/react-pages/ImageConvertPage.tsx:881
 msgid "Favicon Package"
 msgstr "Favicon Package"
 
-#: src/react-pages/HashGeneratorPage.tsx:543
+#: src/react-pages/HashGeneratorPage.tsx:396
 msgid "File & Text Input"
 msgstr "File & Text Input"
 
@@ -1820,15 +1864,15 @@ msgstr "File & Text Input"
 msgid "File preview"
 msgstr "File preview"
 
-#: src/react-pages/Base64Page.tsx:356
+#: src/react-pages/Base64Page.tsx:361
 msgid "File Support"
 msgstr "File Support"
 
-#: src/react-pages/HomePage.tsx:128
+#: src/react-pages/HomePage.tsx:129
 msgid "File tools that just work"
 msgstr "File tools that just work"
 
-#: src/react-pages/ImageConvertPage.tsx:886
+#: src/react-pages/ImageConvertPage.tsx:887
 msgid "FileMagic accepts HEIC, HEIF, PNG, JPG/JPEG, WebP, BMP, TIFF, and SVG inputs. You can export common image formats, PDF, or ICO/favicon files depending on the selected mode."
 msgstr "FileMagic accepts HEIC, HEIF, PNG, JPG/JPEG, WebP, BMP, TIFF, and SVG inputs. You can export common image formats, PDF, or ICO/favicon files depending on the selected mode."
 
@@ -1850,7 +1894,7 @@ msgstr "Files are handled in an isolated sandbox and expire after extraction."
 
 #: src/react-pages/HeicConvertPage.tsx:101
 #: src/react-pages/ImageCompressPage.tsx:170
-#: src/react-pages/ImageConvertPage.tsx:882
+#: src/react-pages/ImageConvertPage.tsx:883
 #: src/react-pages/ImageToPdfPage.tsx:99
 #: src/react-pages/MetadataRemovePage.tsx:379
 msgid "Files are handled in an isolated sandbox and expire after processing."
@@ -1863,7 +1907,7 @@ msgstr "Files are handled in an isolated sandbox and expire after processing."
 #: src/react-pages/MarkdownPdfPage.tsx:150
 #: src/react-pages/MovToMp4Page.tsx:90
 #: src/react-pages/PdfCompressPage.tsx:302
-#: src/react-pages/PdfEditorPage.tsx:868
+#: src/react-pages/PdfEditorPage.tsx:887
 #: src/react-pages/PdfExtractImagesPage.tsx:119
 #: src/react-pages/PdfMergePage.tsx:100
 #: src/react-pages/PdfRepairPage.tsx:86
@@ -1876,17 +1920,22 @@ msgstr "Files are handled in an isolated worker and expire after processing."
 msgid "Files are merged server-side in seconds, even with multiple large documents."
 msgstr "Files are merged server-side in seconds, even with multiple large documents."
 
-#: src/react-pages/HashGeneratorPage.tsx:545
+#: src/react-pages/HashGeneratorPage.tsx:398
 msgid "Files are read in 2 MB chunks so memory stays low even for multi-gigabyte files."
 msgstr "Files are read in 2 MB chunks so memory stays low even for multi-gigabyte files."
 
-#: src/react-pages/CsvExcelPage.tsx:218
+#: src/react-pages/CsvExcelPage.tsx:216
 msgid "Files never leave your device. All processing happens locally in your browser using WebAssembly."
 msgstr "Files never leave your device. All processing happens locally in your browser using WebAssembly."
 
-#: src/react-pages/HomePage.tsx:151
+#: src/react-pages/HomePage.tsx:152
 msgid "files processed"
 msgstr "files processed"
+
+#. placeholder {0}: files.length
+#: src/components/MultiFileResult.tsx:80
+msgid "Files ready: {0}"
+msgstr "Files ready: {0}"
 
 #: src/react-pages/AsciiPage.tsx:406
 msgid "Fine-grained Controls"
@@ -1900,7 +1949,7 @@ msgstr "Fine-tune output with High, Medium, or Low quality presets for different
 msgid "Fingerprint Verification"
 msgstr "Fingerprint Verification"
 
-#: src/react-pages/HashGeneratorPage.tsx:541
+#: src/react-pages/HashGeneratorPage.tsx:394
 msgid "Five Algorithms"
 msgstr "Five Algorithms"
 
@@ -1925,7 +1974,7 @@ msgstr "Flexible Options"
 msgid "Flexible Output"
 msgstr "Flexible Output"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:524
+#: src/react-pages/PasswordGeneratorPage.tsx:527
 msgid "Flexible Settings"
 msgstr "Flexible Settings"
 
@@ -1947,8 +1996,8 @@ msgstr "Font files convert in seconds, even for large font families."
 
 #. placeholder {0}: pageNumbers.fontSize
 #. placeholder {0}: watermark.fontSize
-#: src/react-pages/PdfEditorPage.tsx:691
-#: src/react-pages/PdfEditorPage.tsx:762
+#: src/react-pages/PdfEditorPage.tsx:707
+#: src/react-pages/PdfEditorPage.tsx:778
 msgid "Font Size ({0})"
 msgstr "Font Size ({0})"
 
@@ -1960,7 +2009,7 @@ msgstr "Fonts are handled in an isolated worker and expire after processing."
 msgid "For encrypted archives"
 msgstr "For encrypted archives"
 
-#: src/react-pages/HashGeneratorPage.tsx:550
+#: src/react-pages/HashGeneratorPage.tsx:403
 msgid "For file integrity verification, SHA-256 is the standard choice. MD5 and SHA-1 are faster but are considered cryptographically broken and should not be used for security purposes."
 msgstr "For file integrity verification, SHA-256 is the standard choice. MD5 and SHA-1 are faster but are considered cryptographically broken and should not be used for security purposes."
 
@@ -1968,7 +2017,7 @@ msgstr "For file integrity verification, SHA-256 is the standard choice. MD5 and
 msgid "For modern Kindle devices, AZW3 offers the best feature support. MOBI is compatible with older Kindle models."
 msgstr "For modern Kindle devices, AZW3 offers the best feature support. MOBI is compatible with older Kindle models."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:517
+#: src/react-pages/PasswordGeneratorPage.tsx:520
 msgid "For passwords: adjust length, character sets, and keyboard-safe mode. For passphrases: set the number of words (3-8)."
 msgstr "For passwords: adjust length, character sets, and keyboard-safe mode. For passphrases: set the number of words (3-8)."
 
@@ -1976,7 +2025,7 @@ msgstr "For passwords: adjust length, character sets, and keyboard-safe mode. Fo
 msgid "For quality mode, select High, Medium, or Low. For target size, pick a preset or enter a custom size in MB."
 msgstr "For quality mode, select High, Medium, or Low. For target size, pick a preset or enter a custom size in MB."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:534
+#: src/react-pages/PasswordGeneratorPage.tsx:537
 msgid "For random passwords, 16+ characters with mixed character sets (80+ bits of entropy) is considered strong. For passphrases, 5+ words is a good starting point."
 msgstr "For random passwords, 16+ characters with mixed character sets (80+ bits of entropy) is considered strong. For passphrases, 5+ words is a good starting point."
 
@@ -1984,11 +2033,12 @@ msgstr "For random passwords, 16+ characters with mixed character sets (80+ bits
 msgid "Foreground"
 msgstr "Foreground"
 
-#: src/react-pages/PdfEditorPage.tsx:749
+#: src/react-pages/PdfEditorPage.tsx:765
+#: src/react-pages/YamlJsonPage.tsx:504
 msgid "Format"
 msgstr "Format"
 
-#: src/react-pages/YamlJsonPage.tsx:728
+#: src/react-pages/YamlJsonPage.tsx:717
 msgid "Format, Minify & Sort"
 msgstr "Format, Minify & Sort"
 
@@ -2008,15 +2058,15 @@ msgstr "Four Output Formats"
 msgid "FPS & Width Settings"
 msgstr "FPS & Width Settings"
 
-#: src/react-pages/HomePage.tsx:113
+#: src/react-pages/HomePage.tsx:114
 msgid "Free Private File Conversion"
 msgstr "Free Private File Conversion"
 
-#: src/react-pages/HomePage.tsx:90
+#: src/react-pages/HomePage.tsx:91
 msgid "Free, private file conversion tools. Compress PDFs and videos, convert images, extract text with OCR, generate QR codes, and more. No signup, no ads, short-lived processing."
 msgstr "Free, private file conversion tools. Compress PDFs and videos, convert images, extract text with OCR, generate QR codes, and more. No signup, no ads, short-lived processing."
 
-#: src/react-pages/HomePage.tsx:115
+#: src/react-pages/HomePage.tsx:116
 msgid "Free, private file conversion tools. Compress PDFs and videos, convert images, generate QR codes, extract text with OCR, and more. No signup required."
 msgstr "Free, private file conversion tools. Compress PDFs and videos, convert images, generate QR codes, extract text with OCR, and more. No signup required."
 
@@ -2028,23 +2078,23 @@ msgstr "Full Audio Track"
 msgid "Full Certificate Details"
 msgstr "Full Certificate Details"
 
-#: src/react-pages/JsonCsvPage.tsx:454
+#: src/react-pages/JsonCsvPage.tsx:460
 msgid "Full CodeMirror editor with JSON syntax highlighting, line numbers, and bracket matching."
 msgstr "Full CodeMirror editor with JSON syntax highlighting, line numbers, and bracket matching."
 
-#: src/react-pages/YamlJsonPage.tsx:726
+#: src/react-pages/YamlJsonPage.tsx:715
 msgid "Full CodeMirror editors with syntax highlighting, line numbers, and bracket matching for both formats."
 msgstr "Full CodeMirror editors with syntax highlighting, line numbers, and bracket matching for both formats."
 
-#: src/react-pages/CsvExcelPage.tsx:217
+#: src/react-pages/CsvExcelPage.tsx:215
 msgid "Full Excel Support"
 msgstr "Full Excel Support"
 
-#: src/react-pages/ImageConvertPage.tsx:880
+#: src/react-pages/ImageConvertPage.tsx:881
 msgid "Generate all standard favicon sizes as a ready-to-deploy ZIP."
 msgstr "Generate all standard favicon sizes as a ready-to-deploy ZIP."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:523
+#: src/react-pages/PasswordGeneratorPage.tsx:526
 msgid "Generate memorable passphrases from a 1296-word list — easy to remember, hard to crack."
 msgstr "Generate memorable passphrases from a 1296-word list — easy to remember, hard to crack."
 
@@ -2065,7 +2115,7 @@ msgstr "Generate QR codes for URLs, text and WiFi networks"
 msgid "Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup."
 msgstr "Generate QR codes for URLs, text and WiFi networks. Customizable colors, shapes and error correction. Free, no signup."
 
-#: src/react-pages/HomePage.tsx:70
+#: src/react-pages/HomePage.tsx:71
 msgid "Generate QR codes for URLs, WiFi, contacts and more"
 msgstr "Generate QR codes for URLs, WiFi, contacts and more"
 
@@ -2110,28 +2160,28 @@ msgstr "GIFs are generated quickly, even from large video files up to 30 MB."
 msgid "GPS & Location Removal"
 msgstr "GPS & Location Removal"
 
-#: src/react-pages/YamlJsonPage.tsx:729
+#: src/react-pages/YamlJsonPage.tsx:718
 msgid "Handles YAML files with multiple documents separated by --- and merges them into a JSON array."
 msgstr "Handles YAML files with multiple documents separated by --- and merges them into a JSON array."
 
-#: src/react-pages/HashGeneratorPage.tsx:543
+#: src/react-pages/HashGeneratorPage.tsx:396
 msgid "Hash any file regardless of type or size, or hash plain text directly."
 msgstr "Hash any file regardless of type or size, or hash plain text directly."
 
 #: src/config/navigation.tsx:189
-#: src/react-pages/Base64Page.tsx:369
-#: src/react-pages/HashGeneratorPage.tsx:304
-#: src/react-pages/HashGeneratorPage.tsx:314
+#: src/react-pages/Base64Page.tsx:374
+#: src/react-pages/HashGeneratorPage.tsx:157
+#: src/react-pages/HashGeneratorPage.tsx:167
 #: src/react-pages/WordCounterPage.tsx:154
-#: src/react-pages/YamlJsonPage.tsx:741
+#: src/react-pages/YamlJsonPage.tsx:730
 msgid "Hash Generator"
 msgstr "Hash Generator"
 
-#: src/react-pages/CsvExcelPage.tsx:216
+#: src/react-pages/CsvExcelPage.tsx:214
 msgid "Header Preservation"
 msgstr "Header Preservation"
 
-#: src/react-pages/JsonCsvPage.tsx:453
+#: src/react-pages/JsonCsvPage.tsx:459
 msgid "Header-based Mapping"
 msgstr "Header-based Mapping"
 
@@ -2151,23 +2201,23 @@ msgstr "HEIC conversion may slightly alter color profiles or metadata. Always ke
 #: src/react-pages/HeicConvertPage.tsx:40
 #: src/react-pages/HeicConvertPage.tsx:40
 #: src/react-pages/HeicConvertPage.tsx:41
-#: src/react-pages/HomePage.tsx:67
+#: src/react-pages/HomePage.tsx:68
 #: src/react-pages/ImageCompressPage.tsx:182
-#: src/react-pages/ImageConvertPage.tsx:893
+#: src/react-pages/ImageConvertPage.tsx:894
 #: src/react-pages/ImageToPdfPage.tsx:112
 #: src/react-pages/MetadataRemovePage.tsx:392
 msgid "HEIC Convert"
 msgstr "HEIC Convert"
 
-#: src/react-pages/ImageConvertPage.tsx:280
+#: src/react-pages/ImageConvertPage.tsx:281
 msgid "HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, plus PDF and ICO export"
 msgstr "HEIC, PNG, JPG, WebP, TIFF, BMP, SVG, plus PDF and ICO export"
 
-#: src/react-pages/ImageConvertPage.tsx:606
+#: src/react-pages/ImageConvertPage.tsx:607
 msgid "Height (px)"
 msgstr "Height (px)"
 
-#: src/react-pages/ImageConvertPage.tsx:540
+#: src/react-pages/ImageConvertPage.tsx:541
 msgid "Height scales proportionally. Max 4096px."
 msgstr "Height scales proportionally. Max 4096px."
 
@@ -2207,7 +2257,7 @@ msgstr "Honest disclaimer"
 msgid "How accurate is the text extraction?"
 msgstr "How accurate is the text extraction?"
 
-#: src/react-pages/JsonCsvPage.tsx:460
+#: src/react-pages/JsonCsvPage.tsx:466
 msgid "How are nested JSON objects handled?"
 msgstr "How are nested JSON objects handled?"
 
@@ -2219,7 +2269,7 @@ msgstr "How are sentences counted?"
 msgid "How can I reduce the GIF file size?"
 msgstr "How can I reduce the GIF file size?"
 
-#: src/react-pages/HashGeneratorPage.tsx:553
+#: src/react-pages/HashGeneratorPage.tsx:406
 msgid "How do I verify a downloaded file?"
 msgstr "How do I verify a downloaded file?"
 
@@ -2235,7 +2285,7 @@ msgstr "How does the width setting work?"
 msgid "How is reading time calculated?"
 msgstr "How is reading time calculated?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:534
+#: src/react-pages/PasswordGeneratorPage.tsx:537
 msgid "How long should my password be?"
 msgstr "How long should my password be?"
 
@@ -2271,7 +2321,7 @@ msgstr "How to compress a video online"
 msgid "How to compress images online"
 msgstr "How to compress images online"
 
-#: src/react-pages/HashGeneratorPage.tsx:532
+#: src/react-pages/HashGeneratorPage.tsx:385
 msgid "How to compute file checksums"
 msgstr "How to compute file checksums"
 
@@ -2299,15 +2349,15 @@ msgstr "How to convert an image to ASCII art"
 msgid "How to convert audio files online"
 msgstr "How to convert audio files online"
 
-#: src/react-pages/CsvExcelPage.tsx:206
+#: src/react-pages/CsvExcelPage.tsx:204
 msgid "How to convert between CSV and Excel"
 msgstr "How to convert between CSV and Excel"
 
-#: src/react-pages/JsonCsvPage.tsx:441
+#: src/react-pages/JsonCsvPage.tsx:447
 msgid "How to convert between JSON and CSV"
 msgstr "How to convert between JSON and CSV"
 
-#: src/react-pages/YamlJsonPage.tsx:715
+#: src/react-pages/YamlJsonPage.tsx:704
 msgid "How to convert between YAML and JSON"
 msgstr "How to convert between YAML and JSON"
 
@@ -2315,7 +2365,7 @@ msgstr "How to convert between YAML and JSON"
 msgid "How to convert HEIC images online"
 msgstr "How to convert HEIC images online"
 
-#: src/react-pages/ImageConvertPage.tsx:869
+#: src/react-pages/ImageConvertPage.tsx:870
 msgid "How to convert images online"
 msgstr "How to convert images online"
 
@@ -2339,11 +2389,11 @@ msgstr "How to count words and characters in your text"
 msgid "How to create a compressed archive online"
 msgstr "How to create a compressed archive online"
 
-#: src/react-pages/PdfEditorPage.tsx:854
+#: src/react-pages/PdfEditorPage.tsx:873
 msgid "How to edit a PDF online"
 msgstr "How to edit a PDF online"
 
-#: src/react-pages/Base64Page.tsx:344
+#: src/react-pages/Base64Page.tsx:349
 msgid "How to encode or decode Base64"
 msgstr "How to encode or decode Base64"
 
@@ -2367,7 +2417,7 @@ msgstr "How to extract text from images online"
 msgid "How to generate a QR code online"
 msgstr "How to generate a QR code online"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:514
+#: src/react-pages/PasswordGeneratorPage.tsx:517
 msgid "How to generate a secure password"
 msgstr "How to generate a secure password"
 
@@ -2387,7 +2437,7 @@ msgstr "How to remove metadata from files online"
 msgid "How to repair a corrupted PDF"
 msgstr "How to repair a corrupted PDF"
 
-#: src/react-pages/ImageConvertPage.tsx:555
+#: src/react-pages/ImageConvertPage.tsx:556
 msgid "ICO (favicon)"
 msgstr "ICO (favicon)"
 
@@ -2434,11 +2484,11 @@ msgstr "Image"
 #: src/config/navigation.tsx:161
 #: src/react-pages/AsciiPage.tsx:420
 #: src/react-pages/HeicConvertPage.tsx:113
-#: src/react-pages/HomePage.tsx:66
+#: src/react-pages/HomePage.tsx:67
 #: src/react-pages/ImageCompressPage.tsx:71
 #: src/react-pages/ImageCompressPage.tsx:74
 #: src/react-pages/ImageCompressPage.tsx:76
-#: src/react-pages/ImageConvertPage.tsx:894
+#: src/react-pages/ImageConvertPage.tsx:895
 #: src/react-pages/ImageToPdfPage.tsx:111
 #: src/react-pages/MetadataRemovePage.tsx:391
 #: src/react-pages/OcrPage.tsx:358
@@ -2449,11 +2499,11 @@ msgstr "Image Compress"
 msgid "Image Compress supports JPG/JPEG and PNG files. For other formats, use the Image Convert tool first to convert to JPG or PNG."
 msgstr "Image Compress supports JPG/JPEG and PNG files. For other formats, use the Image Convert tool first to convert to JPG or PNG."
 
-#: src/react-pages/HomePage.tsx:94
+#: src/react-pages/HomePage.tsx:95
 msgid "Image compression, resizing and cropping"
 msgstr "Image compression, resizing and cropping"
 
-#: src/react-pages/ImageConvertPage.tsx:878
+#: src/react-pages/ImageConvertPage.tsx:879
 msgid "Image Conversion"
 msgstr "Image Conversion"
 
@@ -2476,7 +2526,7 @@ msgstr "Image Converter"
 msgid "Image DPI and quality will be adjusted automatically to meet the target."
 msgstr "Image DPI and quality will be adjusted automatically to meet the target."
 
-#: src/react-pages/HomePage.tsx:93
+#: src/react-pages/HomePage.tsx:94
 msgid "Image format conversion (HEIC, SVG, PNG, JPG, WebP, BMP, TIFF)"
 msgstr "Image format conversion (HEIC, SVG, PNG, JPG, WebP, BMP, TIFF)"
 
@@ -2485,10 +2535,10 @@ msgid "Image resolution and aspect ratio may be adjusted to fit PDF pages. Alway
 msgstr "Image resolution and aspect ratio may be adjusted to fit PDF pages. Always keep copies of your original images."
 
 #: src/config/navigation.tsx:159
-#: src/react-pages/HomePage.tsx:64
-#: src/react-pages/ImageConvertPage.tsx:274
-#: src/react-pages/ImageConvertPage.tsx:277
-#: src/react-pages/ImageConvertPage.tsx:279
+#: src/react-pages/HomePage.tsx:65
+#: src/react-pages/ImageConvertPage.tsx:275
+#: src/react-pages/ImageConvertPage.tsx:278
+#: src/react-pages/ImageConvertPage.tsx:280
 msgid "Image Tools"
 msgstr "Image Tools"
 
@@ -2510,7 +2560,7 @@ msgstr "Images are extracted in their original embedded format — typically JPE
 
 #: src/config/navigation.tsx:164
 #: src/react-pages/HeicConvertPage.tsx:114
-#: src/react-pages/ImageConvertPage.tsx:896
+#: src/react-pages/ImageConvertPage.tsx:897
 #: src/react-pages/ImageToPdfPage.tsx:42
 #: src/react-pages/ImageToPdfPage.tsx:42
 #: src/react-pages/ImageToPdfPage.tsx:43
@@ -2541,7 +2591,7 @@ msgstr "Input formats include EPUB, MOBI, AZW3, AZW, PDF, FB2, TXT, DOCX, HTML, 
 msgid "Input password (for P12/PFX)"
 msgstr "Input password (for P12/PFX)"
 
-#: src/react-pages/PdfEditorPage.tsx:866
+#: src/react-pages/PdfEditorPage.tsx:885
 msgid "Insert page numbers with configurable format, position, font size, and starting number."
 msgstr "Insert page numbers with configurable format, position, font size, and starting number."
 
@@ -2563,23 +2613,23 @@ msgstr "Inspect or strip EXIF, GPS, and other metadata from images and PDFs for 
 msgid "Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats."
 msgstr "Inspect SSL/TLS certificates. View subject, issuer, validity, SANs, key usage, and trust status. Supports PEM, DER, P12, P7B formats."
 
-#: src/react-pages/Base64Page.tsx:357
+#: src/react-pages/Base64Page.tsx:362
 #: src/react-pages/CertConvertPage.tsx:171
-#: src/react-pages/JsonCsvPage.tsx:455
+#: src/react-pages/JsonCsvPage.tsx:461
 #: src/react-pages/MarkdownPdfPage.tsx:149
 msgid "Instant Conversion"
 msgstr "Instant Conversion"
 
-#: src/react-pages/HashGeneratorPage.tsx:544
+#: src/react-pages/HashGeneratorPage.tsx:397
 msgid "Instant Copy"
 msgstr "Instant Copy"
 
-#: src/react-pages/CsvExcelPage.tsx:219
+#: src/react-pages/CsvExcelPage.tsx:217
 #: src/react-pages/PdfPasswordPage.tsx:155
 msgid "Instant Processing"
 msgstr "Instant Processing"
 
-#: src/react-pages/YamlJsonPage.tsx:727
+#: src/react-pages/YamlJsonPage.tsx:716
 msgid "Interactive Tree View"
 msgstr "Interactive Tree View"
 
@@ -2591,7 +2641,7 @@ msgstr "Intermediate and root certificates in the source file are carried over t
 msgid "Is my certificate stored on the server?"
 msgstr "Is my certificate stored on the server?"
 
-#: src/react-pages/PdfEditorPage.tsx:873
+#: src/react-pages/PdfEditorPage.tsx:892
 msgid "Is redacted content truly removed?"
 msgstr "Is redacted content truly removed?"
 
@@ -2600,10 +2650,10 @@ msgid "Is the certificate chain included in the output?"
 msgstr "Is the certificate chain included in the output?"
 
 #: src/react-pages/AsciiPage.tsx:417
-#: src/react-pages/CsvExcelPage.tsx:224
+#: src/react-pages/CsvExcelPage.tsx:222
 #: src/react-pages/HeicConvertPage.tsx:108
 #: src/react-pages/ImageCompressPage.tsx:177
-#: src/react-pages/ImageConvertPage.tsx:887
+#: src/react-pages/ImageConvertPage.tsx:888
 #: src/react-pages/MovToMp4Page.tsx:95
 #: src/react-pages/PdfCompressPage.tsx:308
 #: src/react-pages/PdfPasswordPage.tsx:162
@@ -2616,12 +2666,12 @@ msgstr "Is there a file size limit?"
 msgid "Is there a limit on the number of images?"
 msgstr "Is there a limit on the number of images?"
 
-#: src/react-pages/JsonCsvPage.tsx:462
+#: src/react-pages/JsonCsvPage.tsx:468
 msgid "Is there a row or file size limit?"
 msgstr "Is there a row or file size limit?"
 
-#: src/react-pages/Base64Page.tsx:366
-#: src/react-pages/YamlJsonPage.tsx:735
+#: src/react-pages/Base64Page.tsx:371
+#: src/react-pages/YamlJsonPage.tsx:724
 msgid "Is there a size limit?"
 msgstr "Is there a size limit?"
 
@@ -2629,7 +2679,7 @@ msgstr "Is there a size limit?"
 msgid "Is there a text length limit?"
 msgstr "Is there a text length limit?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:530
+#: src/react-pages/PasswordGeneratorPage.tsx:533
 msgid "Is this password generator secure?"
 msgstr "Is this password generator secure?"
 
@@ -2645,7 +2695,7 @@ msgstr "It depends on the source. Videos with high bitrates can often be reduced
 msgid "It displays the chain and indicates whether each certificate is expired, a CA, or self-signed. Full trust-chain validation against system roots is also shown when available."
 msgstr "It displays the chain and indicates whether each certificate is expired, a CA, or self-signed. Full trust-chain validation against system roots is also shown when available."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:533
+#: src/react-pages/PasswordGeneratorPage.tsx:536
 msgid "It excludes characters that are in different positions on QWERTY and AZERTY keyboards (a, q, z, w, m, and digits) as well as symbols that move between layouts. This prevents typos when switching between keyboard types."
 msgstr "It excludes characters that are in different positions on QWERTY and AZERTY keyboards (a, q, z, w, m, and digits) as well as symbols that move between layouts. This prevents typos when switching between keyboard types."
 
@@ -2654,10 +2704,10 @@ msgid "JPEG, PNG, WebP, BMP, GIF, and SVG are all supported. You can also paste 
 msgstr "JPEG, PNG, WebP, BMP, GIF, and SVG are all supported. You can also paste images directly from your clipboard."
 
 #: src/react-pages/HeicConvertPage.tsx:53
-#: src/react-pages/ImageConvertPage.tsx:550
-#: src/react-pages/ImageConvertPage.tsx:570
-#: src/react-pages/ImageConvertPage.tsx:632
-#: src/react-pages/ImageConvertPage.tsx:712
+#: src/react-pages/ImageConvertPage.tsx:551
+#: src/react-pages/ImageConvertPage.tsx:571
+#: src/react-pages/ImageConvertPage.tsx:633
+#: src/react-pages/ImageConvertPage.tsx:713
 msgid "JPG"
 msgstr "JPG"
 
@@ -2669,15 +2719,15 @@ msgstr "JPG & PNG Support"
 msgid "JSON / CSV"
 msgstr "JSON / CSV"
 
-#: src/react-pages/Base64Page.tsx:372
-#: src/react-pages/CsvExcelPage.tsx:230
-#: src/react-pages/JsonCsvPage.tsx:310
+#: src/react-pages/Base64Page.tsx:377
+#: src/react-pages/CsvExcelPage.tsx:228
+#: src/react-pages/JsonCsvPage.tsx:316
 #: src/react-pages/WordCounterPage.tsx:156
-#: src/react-pages/YamlJsonPage.tsx:739
+#: src/react-pages/YamlJsonPage.tsx:728
 msgid "JSON / CSV Converter"
 msgstr "JSON / CSV Converter"
 
-#: src/react-pages/JsonCsvPage.tsx:320
+#: src/react-pages/JsonCsvPage.tsx:326
 msgid "JSON ↔ CSV"
 msgstr "JSON ↔ CSV"
 
@@ -2685,7 +2735,7 @@ msgstr "JSON ↔ CSV"
 msgid "Just pick your format and upload — no complicated settings to configure."
 msgstr "Just pick your format and upload — no complicated settings to configure."
 
-#: src/react-pages/ImageConvertPage.tsx:622
+#: src/react-pages/ImageConvertPage.tsx:623
 msgid "Keep proportions"
 msgstr "Keep proportions"
 
@@ -2693,11 +2743,12 @@ msgstr "Keep proportions"
 msgid "KeePassXC"
 msgstr "KeePassXC"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:496
+#: src/react-pages/PasswordGeneratorPage.tsx:498
+#: src/react-pages/PasswordGeneratorPage.tsx:502
 msgid "Keyboard-safe"
 msgstr "Keyboard-safe"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:525
+#: src/react-pages/PasswordGeneratorPage.tsx:528
 msgid "Keyboard-Safe Mode"
 msgstr "Keyboard-Safe Mode"
 
@@ -2705,7 +2756,7 @@ msgstr "Keyboard-Safe Mode"
 msgid "Language"
 msgstr "Language"
 
-#: src/react-pages/HashGeneratorPage.tsx:545
+#: src/react-pages/HashGeneratorPage.tsx:398
 msgid "Large File Support"
 msgstr "Large File Support"
 
@@ -2717,11 +2768,13 @@ msgstr "Layout Preserved"
 msgid "Leave empty if not encrypted"
 msgstr "Leave empty if not encrypted"
 
-#: src/react-pages/HomePage.tsx:325
+#: src/react-pages/HomePage.tsx:326
 msgid "Legal"
 msgstr "Legal"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:440
+#: src/react-pages/PasswordGeneratorPage.tsx:441
+#: src/react-pages/PasswordGeneratorPage.tsx:450
+#: src/react-pages/PasswordGeneratorPage.tsx:455
 msgid "Length"
 msgstr "Length"
 
@@ -2761,12 +2814,12 @@ msgstr "Low (best quality)"
 msgid "Lower the width (e.g., 240px instead of 480px), reduce the FPS (e.g., 8 instead of 15), or shorten the clip duration. All three factors directly impact file size."
 msgstr "Lower the width (e.g., 240px instead of 480px), reduce the FPS (e.g., 8 instead of 15), or shorten the clip duration. All three factors directly impact file size."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:474
+#: src/react-pages/PasswordGeneratorPage.tsx:476
 msgid "Lowercase (a-z)"
 msgstr "Lowercase (a-z)"
 
 #. placeholder {0}: pageNumbers.margin
-#: src/react-pages/PdfEditorPage.tsx:780
+#: src/react-pages/PdfEditorPage.tsx:796
 msgid "Margin ({0})"
 msgstr "Margin ({0})"
 
@@ -2781,7 +2834,7 @@ msgstr "Markdown files are converted to PDF in seconds, even for long documents.
 msgid "Markdown to PDF"
 msgstr "Markdown to PDF"
 
-#: src/react-pages/HomePage.tsx:105
+#: src/react-pages/HomePage.tsx:106
 msgid "Markdown to PDF conversion"
 msgstr "Markdown to PDF conversion"
 
@@ -2799,7 +2852,7 @@ msgstr "Max {0}MB per file, up to {maxFiles} files"
 msgid "Maximum {maxFiles} files allowed."
 msgstr "Maximum {maxFiles} files allowed."
 
-#: src/react-pages/HashGeneratorPage.tsx:541
+#: src/react-pages/HashGeneratorPage.tsx:394
 msgid "MD5, SHA-1, SHA-256, SHA-384, and SHA-512 computed simultaneously in one pass."
 msgstr "MD5, SHA-1, SHA-256, SHA-384, and SHA-512 computed simultaneously in one pass."
 
@@ -2812,7 +2865,7 @@ msgid "Medium (15%)"
 msgstr "Medium (15%)"
 
 #: src/config/navigation.tsx:167
-#: src/react-pages/HomePage.tsx:65
+#: src/react-pages/HomePage.tsx:66
 #: src/react-pages/PdfMergePage.tsx:42
 #: src/react-pages/PdfMergePage.tsx:42
 #: src/react-pages/PdfMergePage.tsx:43
@@ -2841,7 +2894,7 @@ msgstr "Metadata Inspector"
 msgid "Metadata Inspector & Remover"
 msgstr "Metadata Inspector & Remover"
 
-#: src/react-pages/HomePage.tsx:103
+#: src/react-pages/HomePage.tsx:104
 msgid "Metadata removal for privacy (EXIF, GPS)"
 msgstr "Metadata removal for privacy (EXIF, GPS)"
 
@@ -2851,10 +2904,14 @@ msgstr "Metadata removal is permanent on the output file and cannot be undone. A
 
 #: src/react-pages/HeicConvertPage.tsx:115
 #: src/react-pages/ImageCompressPage.tsx:184
-#: src/react-pages/ImageConvertPage.tsx:897
+#: src/react-pages/ImageConvertPage.tsx:898
 #: src/react-pages/OcrPage.tsx:359
 msgid "Metadata Remove"
 msgstr "Metadata Remove"
+
+#: src/react-pages/YamlJsonPage.tsx:507
+msgid "Minify"
+msgstr "Minify"
 
 #: src/react-pages/PdfMergePage.tsx:98
 msgid "Mixed File Support"
@@ -2912,6 +2969,16 @@ msgstr "Move {0} down"
 msgid "Move {0} up"
 msgstr "Move {0} up"
 
+#. placeholder {0}: page.pageNum
+#: src/react-pages/PdfEditorPage.tsx:616
+msgid "Move page {0} earlier"
+msgstr "Move page {0} earlier"
+
+#. placeholder {0}: page.pageNum
+#: src/react-pages/PdfEditorPage.tsx:617
+msgid "Move page {0} later"
+msgstr "Move page {0} later"
+
 #: src/react-pages/AudioConvertPage.tsx:51
 #: src/react-pages/AudioExtractPage.tsx:51
 msgid "MP3"
@@ -2933,7 +3000,7 @@ msgstr "MP4 is supported on virtually every device, browser, and platform."
 msgid "MP4, MKV, AVI, MOV, and WebM are all supported. Most common video formats will work."
 msgstr "MP4, MKV, AVI, MOV, and WebM are all supported. Most common video formats will work."
 
-#: src/react-pages/YamlJsonPage.tsx:729
+#: src/react-pages/YamlJsonPage.tsx:718
 msgid "Multi-document Support"
 msgstr "Multi-document Support"
 
@@ -2972,7 +3039,7 @@ msgstr "My PDF opens but looks wrong — can this help?"
 msgid "N/A"
 msgstr "N/A"
 
-#: src/react-pages/JsonCsvPage.tsx:460
+#: src/react-pages/JsonCsvPage.tsx:466
 msgid "Nested objects and arrays are serialized as JSON strings within the CSV cell. For deeply nested data, consider flattening your JSON first."
 msgstr "Nested objects and arrays are serialized as JSON strings within the CSV cell. For deeply nested data, consider flattening your JSON first."
 
@@ -2981,10 +3048,11 @@ msgid "Network name (SSID)"
 msgstr "Network name (SSID)"
 
 #: src/components/ConversionProgress.tsx:176
+#: src/components/MultiFileResult.tsx:223
 msgid "New"
 msgstr "New"
 
-#: src/react-pages/PdfEditorPage.tsx:899
+#: src/react-pages/PdfEditorPage.tsx:918
 msgid "Next page"
 msgstr "Next page"
 
@@ -2999,20 +3067,20 @@ msgstr "No account or workspace is created for your files. Files are handled in 
 
 #: src/react-pages/HeicConvertPage.tsx:109
 #: src/react-pages/ImageCompressPage.tsx:178
-#: src/react-pages/ImageConvertPage.tsx:889
+#: src/react-pages/ImageConvertPage.tsx:890
 #: src/react-pages/ImageToPdfPage.tsx:107
 msgid "No account or workspace is created for your images. Files are handled in an isolated worker and expire after processing."
 msgstr "No account or workspace is created for your images. Files are handled in an isolated worker and expire after processing."
 
-#: src/react-pages/Base64Page.tsx:359
+#: src/react-pages/Base64Page.tsx:364
 msgid "No data is sent to any server. All encoding and decoding happens locally in your browser."
 msgstr "No data is sent to any server. All encoding and decoding happens locally in your browser."
 
-#: src/react-pages/JsonCsvPage.tsx:456
+#: src/react-pages/JsonCsvPage.tsx:462
 msgid "No data is sent to any server. All processing happens locally in your browser."
 msgstr "No data is sent to any server. All processing happens locally in your browser."
 
-#: src/react-pages/YamlJsonPage.tsx:730
+#: src/react-pages/YamlJsonPage.tsx:719
 msgid "No data is sent to any server. Everything is processed locally in your browser."
 msgstr "No data is sent to any server. Everything is processed locally in your browser."
 
@@ -3020,7 +3088,7 @@ msgstr "No data is sent to any server. Everything is processed locally in your b
 msgid "No data is sent to any server. Your text stays entirely in your browser."
 msgstr "No data is sent to any server. Your text stays entirely in your browser."
 
-#: src/react-pages/CsvExcelPage.tsx:220
+#: src/react-pages/CsvExcelPage.tsx:218
 msgid "No file uploads, no server processing, no data collection. Your spreadsheets stay on your machine."
 msgstr "No file uploads, no server processing, no data collection. Your spreadsheets stay on your machine."
 
@@ -3038,7 +3106,7 @@ msgstr "No settings to configure — just upload your MOV file and get an MP4 ba
 
 #: src/react-pages/HeicConvertPage.tsx:102
 #: src/react-pages/ImageCompressPage.tsx:171
-#: src/react-pages/ImageConvertPage.tsx:883
+#: src/react-pages/ImageConvertPage.tsx:884
 #: src/react-pages/ImageToPdfPage.tsx:100
 #: src/react-pages/MetadataRemovePage.tsx:380
 #: src/react-pages/OcrPage.tsx:347
@@ -3058,19 +3126,19 @@ msgstr "No Software Needed"
 msgid "No spaces"
 msgstr "No spaces"
 
-#: src/react-pages/HashGeneratorPage.tsx:551
+#: src/react-pages/HashGeneratorPage.tsx:404
 msgid "No. All computation runs entirely in your browser using the Web Crypto API for SHA algorithms and a JavaScript implementation for MD5. Your files never leave your device."
 msgstr "No. All computation runs entirely in your browser using the Web Crypto API for SHA algorithms and a JavaScript implementation for MD5. Your files never leave your device."
 
-#: src/react-pages/Base64Page.tsx:363
+#: src/react-pages/Base64Page.tsx:368
 msgid "No. Base64 is an encoding, not encryption. Anyone can decode a Base64 string back to its original content. Do not use Base64 to protect sensitive information."
 msgstr "No. Base64 is an encoding, not encryption. Anyone can decode a Base64 string back to its original content. Do not use Base64 to protect sensitive information."
 
-#: src/react-pages/CsvExcelPage.tsx:225
+#: src/react-pages/CsvExcelPage.tsx:223
 msgid "No. CSV is a plain text format, so only the computed cell values are exported. Formulas, styling, and charts are not included in the CSV output."
 msgstr "No. CSV is a plain text format, so only the computed cell values are exported. Formulas, styling, and charts are not included in the CSV output."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:531
+#: src/react-pages/PasswordGeneratorPage.tsx:534
 msgid "No. Everything runs entirely in your browser. No data is sent to any server — if you close the tab without copying, the password is gone forever."
 msgstr "No. Everything runs entirely in your browser. No data is sent to any server — if you close the tab without copying, the password is gone forever."
 
@@ -3082,7 +3150,7 @@ msgstr "No. Images are embedded in the PDF at their original resolution and qual
 msgid "No. Metadata removal only strips the non-visual data embedded in the file. The actual image pixels remain completely untouched and the visual quality is identical."
 msgstr "No. Metadata removal only strips the non-visual data embedded in the file. The actual image pixels remain completely untouched and the visual quality is identical."
 
-#: src/react-pages/PdfEditorPage.tsx:875
+#: src/react-pages/PdfEditorPage.tsx:894
 msgid "No. Pages are not re-rendered. Text, fonts, and vector graphics remain identical to the original."
 msgstr "No. Pages are not re-rendered. Text, fonts, and vector graphics remain identical to the original."
 
@@ -3130,20 +3198,24 @@ msgstr "Not After"
 msgid "Not Before"
 msgstr "Not Before"
 
-#: src/react-pages/HashGeneratorPage.tsx:542
+#: src/react-pages/HashGeneratorPage.tsx:395
 msgid "Nothing is uploaded. All computation happens locally using the Web Crypto API."
 msgstr "Nothing is uploaded. All computation happens locally using the Web Crypto API."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:527
+#: src/react-pages/PasswordGeneratorPage.tsx:530
 msgid "Nothing leaves your browser. No passwords are sent, stored, or logged anywhere."
 msgstr "Nothing leaves your browser. No passwords are sent, stored, or logged anywhere."
+
+#: src/react-pages/PdfEditorPage.tsx:134
+msgid "Numbers"
+msgstr "Numbers"
 
 #: src/react-pages/PdfRepairPage.tsx:82
 msgid "Object Recovery"
 msgstr "Object Recovery"
 
 #: src/config/navigation.tsx:162
-#: src/react-pages/ImageConvertPage.tsx:895
+#: src/react-pages/ImageConvertPage.tsx:896
 #: src/react-pages/ImageToPdfPage.tsx:114
 #: src/react-pages/MetadataRemovePage.tsx:393
 msgid "OCR"
@@ -3159,7 +3231,7 @@ msgstr "OCR - Text Extraction"
 msgid "OCR accuracy depends on image quality, language, and font. Always verify the extracted text. This tool does not guarantee 100% accuracy."
 msgstr "OCR accuracy depends on image quality, language, and font. Always verify the extracted text. This tool does not guarantee 100% accuracy."
 
-#: src/react-pages/HomePage.tsx:97
+#: src/react-pages/HomePage.tsx:98
 msgid "OCR text extraction from images and scanned documents"
 msgstr "OCR text extraction from images and scanned documents"
 
@@ -3175,20 +3247,20 @@ msgstr "One Image per Page"
 msgid "One-Click Conversion"
 msgstr "One-Click Conversion"
 
-#: src/react-pages/YamlJsonPage.tsx:728
+#: src/react-pages/YamlJsonPage.tsx:717
 msgid "One-click formatting, minification, and alphabetical key sorting across both editors."
 msgstr "One-click formatting, minification, and alphabetical key sorting across both editors."
 
 #. placeholder {0}: watermark.opacity
-#: src/react-pages/PdfEditorPage.tsx:705
+#: src/react-pages/PdfEditorPage.tsx:721
 msgid "Opacity ({0})"
 msgstr "Opacity ({0})"
 
-#: src/react-pages/ImageConvertPage.tsx:693
+#: src/react-pages/ImageConvertPage.tsx:694
 msgid "Opacity (%)"
 msgstr "Opacity (%)"
 
-#: src/react-pages/HomePage.tsx:241
+#: src/react-pages/HomePage.tsx:242
 msgid "Open source"
 msgstr "Open source"
 
@@ -3220,7 +3292,7 @@ msgstr "Optionally set a separate owner password to control editing and printing
 msgid "or paste from clipboard"
 msgstr "or paste from clipboard"
 
-#: src/react-pages/PdfEditorPage.tsx:524
+#: src/react-pages/PdfEditorPage.tsx:538
 msgid "Organize"
 msgstr "Organize"
 
@@ -3231,10 +3303,10 @@ msgstr "Original Quality"
 #: src/react-pages/AudioConvertPage.tsx:45
 #: src/react-pages/AudioExtractPage.tsx:45
 #: src/react-pages/HeicConvertPage.tsx:47
-#: src/react-pages/ImageConvertPage.tsx:545
-#: src/react-pages/ImageConvertPage.tsx:564
-#: src/react-pages/ImageConvertPage.tsx:626
-#: src/react-pages/ImageConvertPage.tsx:705
+#: src/react-pages/ImageConvertPage.tsx:546
+#: src/react-pages/ImageConvertPage.tsx:565
+#: src/react-pages/ImageConvertPage.tsx:627
+#: src/react-pages/ImageConvertPage.tsx:706
 msgid "Output format"
 msgstr "Output format"
 
@@ -3242,7 +3314,7 @@ msgstr "Output format"
 msgid "Output password"
 msgstr "Output password"
 
-#: src/react-pages/ImageConvertPage.tsx:531
+#: src/react-pages/ImageConvertPage.tsx:532
 msgid "Output width (px)"
 msgstr "Output width (px)"
 
@@ -3254,7 +3326,7 @@ msgstr "Owner Password"
 msgid "Owner password (optional)"
 msgstr "Owner password (optional)"
 
-#: src/react-pages/PdfEditorPage.tsx:866
+#: src/react-pages/PdfEditorPage.tsx:885
 msgid "Page Numbers"
 msgstr "Page Numbers"
 
@@ -3266,6 +3338,10 @@ msgstr "Page operations may not preserve some interactive elements such as annot
 msgid "Page operations may not preserve some interactive elements such as annotations, form fields, or JavaScript actions. Always keep a copy of your original PDF."
 msgstr "Page operations may not preserve some interactive elements such as annotations, form fields, or JavaScript actions. Always keep a copy of your original PDF."
 
+#: src/react-pages/PdfEditorPage.tsx:132
+msgid "Pages"
+msgstr "Pages"
+
 #: src/react-pages/WordCounterPage.tsx:118
 msgid "Paragraphs"
 msgstr "Paragraphs"
@@ -3274,7 +3350,7 @@ msgstr "Paragraphs"
 msgid "Passphrase"
 msgstr "Passphrase"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:523
+#: src/react-pages/PasswordGeneratorPage.tsx:526
 msgid "Passphrase Mode"
 msgstr "Passphrase Mode"
 
@@ -3297,7 +3373,7 @@ msgstr "Password for output file"
 #: src/react-pages/CertConvertPage.tsx:181
 #: src/react-pages/CertInspectPage.tsx:803
 #: src/react-pages/DecompressPage.tsx:106
-#: src/react-pages/HashGeneratorPage.tsx:556
+#: src/react-pages/HashGeneratorPage.tsx:409
 #: src/react-pages/PasswordGeneratorPage.tsx:307
 #: src/react-pages/PasswordGeneratorPage.tsx:310
 #: src/react-pages/PasswordGeneratorPage.tsx:312
@@ -3305,7 +3381,7 @@ msgstr "Password for output file"
 msgid "Password Generator"
 msgstr "Password Generator"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:524
+#: src/react-pages/PasswordGeneratorPage.tsx:527
 msgid "Password mode: 4-128 characters with configurable character sets. Passphrase mode: 3-8 words."
 msgstr "Password mode: 4-128 characters with configurable character sets. Passphrase mode: 3-8 words."
 
@@ -3333,7 +3409,7 @@ msgstr "Password to unlock the PDF"
 msgid "Password-Protected Input"
 msgstr "Password-Protected Input"
 
-#: src/react-pages/Base64Page.tsx:254
+#: src/react-pages/Base64Page.tsx:259
 msgid "Paste Base64 string..."
 msgstr "Paste Base64 string..."
 
@@ -3341,7 +3417,7 @@ msgstr "Paste Base64 string..."
 msgid "Paste markdown"
 msgstr "Paste markdown"
 
-#: src/react-pages/JsonCsvPage.tsx:444
+#: src/react-pages/JsonCsvPage.tsx:450
 msgid "Paste or type your JSON array in the left editor, or CSV data in the right editor."
 msgstr "Paste or type your JSON array in the left editor, or CSV data in the right editor."
 
@@ -3349,7 +3425,7 @@ msgstr "Paste or type your JSON array in the left editor, or CSV data in the rig
 msgid "Paste or type your markdown here..."
 msgstr "Paste or type your markdown here..."
 
-#: src/react-pages/YamlJsonPage.tsx:717
+#: src/react-pages/YamlJsonPage.tsx:706
 msgid "Paste or type your YAML in the left editor, or JSON in the right editor."
 msgstr "Paste or type your YAML in the left editor, or JSON in the right editor."
 
@@ -3358,7 +3434,7 @@ msgid "Paste or Upload"
 msgstr "Paste or Upload"
 
 #: src/config/navigation.tsx:193
-#: src/react-pages/ImageConvertPage.tsx:554
+#: src/react-pages/ImageConvertPage.tsx:555
 msgid "PDF"
 msgstr "PDF"
 
@@ -3367,19 +3443,19 @@ msgstr "PDF"
 #: src/react-pages/AsciiPage.tsx:422
 #: src/react-pages/CertConvertPage.tsx:182
 #: src/react-pages/CertInspectPage.tsx:804
-#: src/react-pages/CsvExcelPage.tsx:232
+#: src/react-pages/CsvExcelPage.tsx:230
 #: src/react-pages/DecompressPage.tsx:105
 #: src/react-pages/EbookConvertPage.tsx:126
 #: src/react-pages/FontConvertPage.tsx:119
-#: src/react-pages/HomePage.tsx:62
+#: src/react-pages/HomePage.tsx:63
 #: src/react-pages/ImageCompressPage.tsx:183
 #: src/react-pages/ImageToPdfPage.tsx:113
 #: src/react-pages/MarkdownPdfPage.tsx:159
-#: src/react-pages/PasswordGeneratorPage.tsx:541
+#: src/react-pages/PasswordGeneratorPage.tsx:544
 #: src/react-pages/PdfCompressPage.tsx:98
 #: src/react-pages/PdfCompressPage.tsx:98
 #: src/react-pages/PdfCompressPage.tsx:99
-#: src/react-pages/PdfEditorPage.tsx:878
+#: src/react-pages/PdfEditorPage.tsx:897
 #: src/react-pages/PdfExtractImagesPage.tsx:129
 #: src/react-pages/PdfMergePage.tsx:110
 #: src/react-pages/PdfPasswordPage.tsx:166
@@ -3388,18 +3464,18 @@ msgstr "PDF"
 msgid "PDF Compress"
 msgstr "PDF Compress"
 
-#: src/react-pages/HomePage.tsx:92
+#: src/react-pages/HomePage.tsx:93
 msgid "PDF compression, merging, splitting, page rotation and reordering"
 msgstr "PDF compression, merging, splitting, page rotation and reordering"
 
 #: src/config/navigation.tsx:166
 #: src/react-pages/EbookConvertPage.tsx:127
-#: src/react-pages/HomePage.tsx:63
+#: src/react-pages/HomePage.tsx:64
 #: src/react-pages/MarkdownPdfPage.tsx:160
 #: src/react-pages/PdfCompressPage.tsx:313
-#: src/react-pages/PdfEditorPage.tsx:451
-#: src/react-pages/PdfEditorPage.tsx:454
-#: src/react-pages/PdfEditorPage.tsx:456
+#: src/react-pages/PdfEditorPage.tsx:465
+#: src/react-pages/PdfEditorPage.tsx:468
+#: src/react-pages/PdfEditorPage.tsx:470
 #: src/react-pages/PdfExtractImagesPage.tsx:128
 #: src/react-pages/PdfMergePage.tsx:111
 #: src/react-pages/PdfPasswordPage.tsx:167
@@ -3409,7 +3485,7 @@ msgstr "PDF Editor"
 
 #: src/react-pages/MarkdownPdfPage.tsx:161
 #: src/react-pages/PdfCompressPage.tsx:312
-#: src/react-pages/PdfEditorPage.tsx:879
+#: src/react-pages/PdfEditorPage.tsx:898
 #: src/react-pages/PdfExtractImagesPage.tsx:131
 #: src/react-pages/PdfPasswordPage.tsx:168
 #: src/react-pages/PdfRepairPage.tsx:99
@@ -3419,7 +3495,7 @@ msgstr "PDF Merge"
 #: src/config/navigation.tsx:169
 #: src/react-pages/MarkdownPdfPage.tsx:162
 #: src/react-pages/PdfCompressPage.tsx:314
-#: src/react-pages/PdfEditorPage.tsx:880
+#: src/react-pages/PdfEditorPage.tsx:899
 #: src/react-pages/PdfMergePage.tsx:113
 #: src/react-pages/PdfPasswordPage.tsx:47
 #: src/react-pages/PdfPasswordPage.tsx:47
@@ -3428,7 +3504,7 @@ msgstr "PDF Merge"
 msgid "PDF Password"
 msgstr "PDF Password"
 
-#: src/react-pages/HomePage.tsx:101
+#: src/react-pages/HomePage.tsx:102
 msgid "PDF password protection and removal"
 msgstr "PDF password protection and removal"
 
@@ -3438,7 +3514,7 @@ msgstr "PDF rendering may differ from your Markdown editor. Complex layouts, cus
 
 #: src/config/navigation.tsx:171
 #: src/react-pages/PdfCompressPage.tsx:315
-#: src/react-pages/PdfEditorPage.tsx:882
+#: src/react-pages/PdfEditorPage.tsx:901
 #: src/react-pages/PdfPasswordPage.tsx:169
 #: src/react-pages/PdfRepairPage.tsx:35
 #: src/react-pages/PdfRepairPage.tsx:38
@@ -3462,7 +3538,7 @@ msgstr "PDFs are protected with AES encryption, the same standard used by govern
 msgid "PEM (.pem, .crt, .cer), DER (.der), PKCS#12 (.p12, .pfx), PKCS#7 (.p7b, .p7c), and Certificate Signing Requests (.csr)."
 msgstr "PEM (.pem, .crt, .cer), DER (.der), PKCS#12 (.p12, .pfx), PKCS#7 (.p7b, .p7c), and Certificate Signing Requests (.csr)."
 
-#: src/react-pages/PdfEditorPage.tsx:867
+#: src/react-pages/PdfEditorPage.tsx:886
 msgid "Permanently remove sensitive content by drawing redaction rectangles over any area on any page."
 msgstr "Permanently remove sensitive content by drawing redaction rectangles over any area on any page."
 
@@ -3475,10 +3551,10 @@ msgid "Pick the format that fits your use case — maximum compatibility (ZIP) o
 msgstr "Pick the format that fits your use case — maximum compatibility (ZIP) or best compression (7z, zst)."
 
 #: src/react-pages/HeicConvertPage.tsx:54
-#: src/react-pages/ImageConvertPage.tsx:551
-#: src/react-pages/ImageConvertPage.tsx:571
-#: src/react-pages/ImageConvertPage.tsx:633
-#: src/react-pages/ImageConvertPage.tsx:711
+#: src/react-pages/ImageConvertPage.tsx:552
+#: src/react-pages/ImageConvertPage.tsx:572
+#: src/react-pages/ImageConvertPage.tsx:634
+#: src/react-pages/ImageConvertPage.tsx:712
 msgid "PNG"
 msgstr "PNG"
 
@@ -3486,9 +3562,9 @@ msgstr "PNG"
 msgid "Popular Formats"
 msgstr "Popular Formats"
 
-#: src/react-pages/ImageConvertPage.tsx:655
-#: src/react-pages/PdfEditorPage.tsx:685
-#: src/react-pages/PdfEditorPage.tsx:756
+#: src/react-pages/ImageConvertPage.tsx:656
+#: src/react-pages/PdfEditorPage.tsx:701
+#: src/react-pages/PdfEditorPage.tsx:772
 msgid "Position"
 msgstr "Position"
 
@@ -3520,11 +3596,11 @@ msgstr "Preview & Lightbox"
 msgid "Preview extracted images with the built-in lightbox viewer."
 msgstr "Preview extracted images with the built-in lightbox viewer."
 
-#: src/react-pages/PdfEditorPage.tsx:892
+#: src/react-pages/PdfEditorPage.tsx:911
 msgid "Previous page"
 msgstr "Previous page"
 
-#: src/react-pages/HomePage.tsx:321
+#: src/react-pages/HomePage.tsx:322
 msgid "Privacy"
 msgstr "Privacy"
 
@@ -3532,14 +3608,14 @@ msgstr "Privacy"
 #: src/react-pages/AudioConvertPage.tsx:100
 #: src/react-pages/AudioExtractPage.tsx:100
 #: src/react-pages/CertInspectPage.tsx:792
-#: src/react-pages/CsvExcelPage.tsx:220
+#: src/react-pages/CsvExcelPage.tsx:218
 #: src/react-pages/DecompressPage.tsx:94
 #: src/react-pages/EbookConvertPage.tsx:115
 #: src/react-pages/FontConvertPage.tsx:108
 #: src/react-pages/MarkdownPdfPage.tsx:150
 #: src/react-pages/MovToMp4Page.tsx:90
 #: src/react-pages/PdfCompressPage.tsx:302
-#: src/react-pages/PdfEditorPage.tsx:868
+#: src/react-pages/PdfEditorPage.tsx:887
 #: src/react-pages/PdfExtractImagesPage.tsx:119
 #: src/react-pages/PdfMergePage.tsx:100
 #: src/react-pages/PdfPasswordPage.tsx:156
@@ -3552,7 +3628,7 @@ msgstr "Privacy First"
 
 #: src/react-pages/HeicConvertPage.tsx:101
 #: src/react-pages/ImageCompressPage.tsx:170
-#: src/react-pages/ImageConvertPage.tsx:882
+#: src/react-pages/ImageConvertPage.tsx:883
 #: src/react-pages/ImageToPdfPage.tsx:99
 #: src/react-pages/MetadataRemovePage.tsx:379
 #: src/react-pages/OcrPage.tsx:346
@@ -3560,14 +3636,16 @@ msgid "Private & Secure"
 msgstr "Private & Secure"
 
 #: src/components/ConversionProgress.tsx:187
+#: src/components/MultiFileResult.tsx:232
 msgid "Processing failed"
 msgstr "Processing failed"
 
 #: src/components/ConversionProgress.tsx:83
+#: src/components/MultiFileResult.tsx:72
 msgid "Processing..."
 msgstr "Processing..."
 
-#: src/react-pages/Base64Page.tsx:355
+#: src/react-pages/Base64Page.tsx:360
 msgid "Properly handles Unicode and multi-byte characters using TextEncoder/TextDecoder for accurate results."
 msgstr "Properly handles Unicode and multi-byte characters using TextEncoder/TextDecoder for accurate results."
 
@@ -3588,18 +3666,18 @@ msgid "Protect ZIP and 7z archives with strong AES-256 password encryption."
 msgstr "Protect ZIP and 7z archives with strong AES-256 password encryption."
 
 #: src/config/navigation.tsx:182
-#: src/react-pages/HomePage.tsx:70
+#: src/react-pages/HomePage.tsx:71
 msgid "QR Code"
 msgstr "QR Code"
 
-#: src/react-pages/HomePage.tsx:98
+#: src/react-pages/HomePage.tsx:99
 msgid "QR code generation for URLs, WiFi, contacts, email and more"
 msgstr "QR code generation for URLs, WiFi, contacts, email and more"
 
 #: src/react-pages/CertConvertPage.tsx:183
 #: src/react-pages/CertInspectPage.tsx:805
 #: src/react-pages/FontConvertPage.tsx:120
-#: src/react-pages/PasswordGeneratorPage.tsx:538
+#: src/react-pages/PasswordGeneratorPage.tsx:541
 #: src/react-pages/QrCodePage.tsx:101
 #: src/react-pages/QrCodePage.tsx:104
 #: src/react-pages/QrCodePage.tsx:106
@@ -3643,6 +3721,7 @@ msgid "Quartile (25%)"
 msgstr "Quartile (25%)"
 
 #: src/components/ConversionProgress.tsx:82
+#: src/components/MultiFileResult.tsx:71
 msgid "Queue position: {position}"
 msgstr "Queue position: {position}"
 
@@ -3650,7 +3729,7 @@ msgstr "Queue position: {position}"
 msgid "Quick presets for common sizes: 100 KB, 250 KB, 500 KB, 1 MB, and 2 MB."
 msgstr "Quick presets for common sizes: 100 KB, 250 KB, 500 KB, 1 MB, and 2 MB."
 
-#: src/react-pages/ImageConvertPage.tsx:881
+#: src/react-pages/ImageConvertPage.tsx:882
 msgid "Rasterize vector SVG files to PNG with configurable output width."
 msgstr "Rasterize vector SVG files to PNG with configurable output width."
 
@@ -3666,6 +3745,10 @@ msgstr "Reading Time Estimate"
 msgid "Reading time is estimated at 200 words per minute, which is the average adult reading speed for English text. The result is shown in seconds for short texts and minutes for longer ones."
 msgstr "Reading time is estimated at 200 words per minute, which is the average adult reading speed for English text. The result is shown in seconds for short texts and minutes for longer ones."
 
+#: src/react-pages/CsvExcelPage.tsx:215
+msgid "Reads .xlsx files and preserves CSV values as text, including identifiers and large numbers."
+msgstr "Reads .xlsx files and preserves CSV values as text, including identifiers and large numbers."
+
 #: src/components/ConversionProgress.tsx:92
 msgid "Ready"
 msgstr "Ready"
@@ -3674,7 +3757,7 @@ msgstr "Ready"
 msgid "Real-time Preview"
 msgstr "Real-time Preview"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:526
+#: src/react-pages/PasswordGeneratorPage.tsx:529
 msgid "Real-time strength meter shows bits of entropy so you know exactly how strong your password is."
 msgstr "Real-time strength meter shows bits of entropy so you know exactly how strong your password is."
 
@@ -3706,19 +3789,32 @@ msgstr "Recovers and rebuilds invalid or damaged PDF objects and streams."
 msgid "Recovers as much content as possible — text, images, and annotations — from damaged files."
 msgstr "Recovers as much content as possible — text, images, and annotations — from damaged files."
 
-#: src/react-pages/PdfEditorPage.tsx:867
+#: src/react-pages/PdfEditorPage.tsx:135
+msgid "Redact"
+msgstr "Redact"
+
+#: src/react-pages/PdfEditorPage.tsx:886
 msgid "Redact Content"
 msgstr "Redact Content"
 
-#: src/react-pages/PdfEditorPage.tsx:794
+#. placeholder {0}: page.pageNum
+#: src/react-pages/PdfEditorPage.tsx:825
+msgid "Redact page {0}"
+msgstr "Redact page {0}"
+
+#: src/react-pages/PdfEditorPage.tsx:810
 msgid "Redacted content is permanently removed from the PDF and cannot be recovered."
 msgstr "Redacted content is permanently removed from the PDF and cannot be recovered."
 
-#: src/react-pages/PdfEditorPage.tsx:886
+#: src/react-pages/PdfEditorPage.tsx:905
 msgid "Redaction editor"
 msgstr "Redaction editor"
 
-#: src/react-pages/HomePage.tsx:66
+#: src/components/RedactionCanvas.tsx:214
+msgid "Redactions: {pageRectCount}"
+msgstr "Redactions: {pageRectCount}"
+
+#: src/react-pages/HomePage.tsx:67
 msgid "Reduce image size with crop, resize and quality control"
 msgstr "Reduce image size with crop, resize and quality control"
 
@@ -3731,7 +3827,7 @@ msgstr "Reduce PDF file size with adjustable quality"
 msgid "Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, short-lived processing."
 msgstr "Reduce PDF file size with adjustable quality, lossy compression, or target file size. Free, no signup, short-lived processing."
 
-#: src/react-pages/HomePage.tsx:68
+#: src/react-pages/HomePage.tsx:69
 msgid "Reduce video file size by quality or target size"
 msgstr "Reduce video file size by quality or target size"
 
@@ -3756,7 +3852,7 @@ msgstr "Remove {0}"
 msgid "Remove all metadata including camera info, timestamps, software details, and author data."
 msgstr "Remove all metadata including camera info, timestamps, software details, and author data."
 
-#: src/react-pages/PdfEditorPage.tsx:730
+#: src/react-pages/PdfEditorPage.tsx:746
 msgid "Remove page numbers"
 msgstr "Remove page numbers"
 
@@ -3768,7 +3864,7 @@ msgstr "Remove password"
 msgid "Remove Password"
 msgstr "Remove Password"
 
-#: src/react-pages/PdfEditorPage.tsx:658
+#: src/react-pages/PdfEditorPage.tsx:674
 msgid "Remove watermark"
 msgstr "Remove watermark"
 
@@ -3796,23 +3892,27 @@ msgstr "Repair corrupted or broken PDF files. Fix cross-reference errors, invali
 msgid "Required for P12 output"
 msgstr "Required for P12 output"
 
-#: src/react-pages/HashGeneratorPage.tsx:527
+#: src/react-pages/HashGeneratorPage.tsx:380
 msgid "Reset"
 msgstr "Reset"
+
+#: src/react-pages/ImageConvertPage.tsx:58
+msgid "Resize"
+msgstr "Resize"
 
 #: src/components/ConversionProgress.tsx:100
 msgid "Result preview"
 msgstr "Result preview"
 
-#: src/react-pages/Base64Page.tsx:330
+#: src/react-pages/Base64Page.tsx:335
 msgid "Result will appear here..."
 msgstr "Result will appear here..."
 
-#: src/react-pages/JsonCsvPage.tsx:455
+#: src/react-pages/JsonCsvPage.tsx:461
 msgid "Results update in real time as you type with smart debouncing for smooth performance."
 msgstr "Results update in real time as you type with smart debouncing for smooth performance."
 
-#: src/react-pages/Base64Page.tsx:357
+#: src/react-pages/Base64Page.tsx:362
 msgid "Results update in real time as you type. No need to click a convert button."
 msgstr "Results update in real time as you type. No need to click a convert button."
 
@@ -3828,34 +3928,34 @@ msgstr "Review the metadata found in your file."
 msgid "Rich Formatting"
 msgstr "Rich Formatting"
 
-#: src/react-pages/PdfEditorPage.tsx:863
+#: src/react-pages/PdfEditorPage.tsx:882
 msgid "Rotate & Reorder"
 msgstr "Rotate & Reorder"
 
 #. placeholder {0}: page.pageNum
-#: src/react-pages/PdfEditorPage.tsx:602
+#: src/react-pages/PdfEditorPage.tsx:618
 msgid "Rotate page {0} left"
 msgstr "Rotate page {0} left"
 
 #. placeholder {0}: page.pageNum
-#: src/react-pages/PdfEditorPage.tsx:603
+#: src/react-pages/PdfEditorPage.tsx:619
 msgid "Rotate page {0} right"
 msgstr "Rotate page {0} right"
 
-#: src/react-pages/PdfEditorPage.tsx:863
+#: src/react-pages/PdfEditorPage.tsx:882
 msgid "Rotate pages individually or in bulk, and drag-and-drop to reorder them."
 msgstr "Rotate pages individually or in bulk, and drag-and-drop to reorder them."
 
-#: src/react-pages/HomePage.tsx:63
+#: src/react-pages/HomePage.tsx:64
 msgid "Rotate, reorder, delete, split, watermark and redact pages"
 msgstr "Rotate, reorder, delete, split, watermark and redact pages"
 
-#: src/react-pages/PdfEditorPage.tsx:457
+#: src/react-pages/PdfEditorPage.tsx:471
 msgid "Rotate, reorder, watermark, number pages, and redact — all in one tool"
 msgstr "Rotate, reorder, watermark, number pages, and redact — all in one tool"
 
 #. placeholder {0}: watermark.rotation
-#: src/react-pages/PdfEditorPage.tsx:711
+#: src/react-pages/PdfEditorPage.tsx:727
 msgid "Rotation ({0}°)"
 msgstr "Rotation ({0}°)"
 
@@ -3863,11 +3963,11 @@ msgstr "Rotation ({0}°)"
 msgid "Rounded"
 msgstr "Rounded"
 
-#: src/react-pages/Base64Page.tsx:359
-#: src/react-pages/HashGeneratorPage.tsx:542
-#: src/react-pages/JsonCsvPage.tsx:456
+#: src/react-pages/Base64Page.tsx:364
+#: src/react-pages/HashGeneratorPage.tsx:395
+#: src/react-pages/JsonCsvPage.tsx:462
 #: src/react-pages/WordCounterPage.tsx:144
-#: src/react-pages/YamlJsonPage.tsx:730
+#: src/react-pages/YamlJsonPage.tsx:719
 msgid "Runs in Your Browser"
 msgstr "Runs in Your Browser"
 
@@ -3875,7 +3975,7 @@ msgstr "Runs in Your Browser"
 msgid "SAN Inspection"
 msgstr "SAN Inspection"
 
-#: src/react-pages/HomePage.tsx:104
+#: src/react-pages/HomePage.tsx:105
 msgid "Secure password generation"
 msgstr "Secure password generation"
 
@@ -3883,7 +3983,7 @@ msgstr "Secure password generation"
 msgid "Security"
 msgstr "Security"
 
-#: src/react-pages/HomePage.tsx:210
+#: src/react-pages/HomePage.tsx:211
 msgid "See how we protect your files"
 msgstr "See how we protect your files"
 
@@ -3895,11 +3995,11 @@ msgstr "See the ASCII art update instantly as you adjust settings. No waiting, n
 msgid "See the full certificate chain with status badges for CA, expired, and self-signed certificates."
 msgstr "See the full certificate chain with status badges for CA, expired, and self-signed certificates."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:510
+#: src/react-pages/PasswordGeneratorPage.tsx:513
 msgid "Select at least one character set"
 msgstr "Select at least one character set"
 
-#: src/react-pages/Base64Page.tsx:346
+#: src/react-pages/Base64Page.tsx:351
 msgid "Select Encode to convert text to Base64, or Decode to convert Base64 back to text."
 msgstr "Select Encode to convert text to Base64, or Decode to convert Base64 back to text."
 
@@ -3911,11 +4011,11 @@ msgstr "Select exactly which part of the video to convert with a visual range sl
 msgid "Select Low (7%), Medium (15%), Quartile (25%), or High (30%) error correction to balance density and resilience."
 msgstr "Select Low (7%), Medium (15%), Quartile (25%), or High (30%) error correction to balance density and resilience."
 
-#: src/react-pages/PdfEditorPage.tsx:864
+#: src/react-pages/PdfEditorPage.tsx:883
 msgid "Select specific pages to extract into a new PDF, or remove unwanted pages."
 msgstr "Select specific pages to extract into a new PDF, or remove unwanted pages."
 
-#: src/react-pages/CsvExcelPage.tsx:208
+#: src/react-pages/CsvExcelPage.tsx:206
 msgid "Select the conversion direction: CSV to Excel or Excel to CSV."
 msgstr "Select the conversion direction: CSV to Excel or Excel to CSV."
 
@@ -3943,7 +4043,7 @@ msgstr "Select the target format (PEM, DER, P12, or P7B)."
 msgid "Select your desired output format — JPG, PNG, WebP, or TIFF."
 msgstr "Select your desired output format — JPG, PNG, WebP, or TIFF."
 
-#: src/react-pages/ImageConvertPage.tsx:873
+#: src/react-pages/ImageConvertPage.tsx:874
 msgid "Select your output format and adjust any settings like crop area or target dimensions."
 msgstr "Select your output format and adjust any settings like crop area or target dimensions."
 
@@ -3995,11 +4095,11 @@ msgstr "Set foreground and background colors, choose dot shapes (square, circle,
 msgid "Seven Output Formats"
 msgstr "Seven Output Formats"
 
-#: src/react-pages/HomePage.tsx:78
+#: src/react-pages/HomePage.tsx:79
 msgid "Short-lived processing, no account"
 msgstr "Short-lived processing, no account"
 
-#: src/react-pages/HomePage.tsx:62
+#: src/react-pages/HomePage.tsx:63
 msgid "Shrink PDF file size without losing readability"
 msgstr "Shrink PDF file size without losing readability"
 
@@ -4007,7 +4107,7 @@ msgstr "Shrink PDF file size without losing readability"
 msgid "Simple Controls"
 msgstr "Simple Controls"
 
-#: src/react-pages/ImageConvertPage.tsx:669
+#: src/react-pages/ImageConvertPage.tsx:670
 #: src/react-pages/QrCodePage.tsx:306
 msgid "Size (px)"
 msgstr "Size (px)"
@@ -4020,9 +4120,13 @@ msgstr "Smart Encoding"
 msgid "Smart Presets"
 msgstr "Smart Presets"
 
-#: src/react-pages/JsonCsvPage.tsx:452
+#: src/react-pages/JsonCsvPage.tsx:458
 msgid "Smart Type Parsing"
 msgstr "Smart Type Parsing"
+
+#: src/react-pages/YamlJsonPage.tsx:510
+msgid "Sort keys"
+msgstr "Sort keys"
 
 #: src/react-pages/VideoGifPage.tsx:358
 msgid "Speed Control"
@@ -4041,7 +4145,7 @@ msgstr "Splitting may not preserve some interactive elements such as hyperlinks 
 msgid "Square"
 msgstr "Square"
 
-#: src/react-pages/HomePage.tsx:102
+#: src/react-pages/HomePage.tsx:103
 msgid "SSL/TLS certificate inspection and format conversion"
 msgstr "SSL/TLS certificate inspection and format conversion"
 
@@ -4058,7 +4162,7 @@ msgid "Start compressing immediately. No account, no email, no ads."
 msgstr "Start compressing immediately. No account, no email, no ads."
 
 #: src/react-pages/HeicConvertPage.tsx:102
-#: src/react-pages/ImageConvertPage.tsx:883
+#: src/react-pages/ImageConvertPage.tsx:884
 msgid "Start converting immediately. No account, no email, no ads."
 msgstr "Start converting immediately. No account, no email, no ads."
 
@@ -4070,7 +4174,7 @@ msgstr "Start creating PDFs immediately. No account, no email, no ads."
 msgid "Start extracting text immediately. No account, no email, no ads."
 msgstr "Start extracting text immediately. No account, no email, no ads."
 
-#: src/react-pages/PdfEditorPage.tsx:776
+#: src/react-pages/PdfEditorPage.tsx:792
 msgid "Start From"
 msgstr "Start From"
 
@@ -4107,8 +4211,8 @@ msgid "Style"
 msgstr "Style"
 
 #: src/react-pages/CsvExcelPage.tsx:217
-msgid "Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting."
-msgstr "Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting."
+#~ msgid "Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting."
+#~ msgstr "Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting."
 
 #: src/react-pages/CertConvertPage.tsx:168
 msgid "Supports encrypted P12/PFX files — just provide the password before uploading."
@@ -4138,23 +4242,23 @@ msgstr "Supports MP4, MOV, MKV, AVI, and WebM video files."
 msgid "Supports PEM, CRT, DER, P12/PFX (with password), P7B, and CSR files."
 msgstr "Supports PEM, CRT, DER, P12/PFX (with password), P7B, and CSR files."
 
-#: src/react-pages/ImageConvertPage.tsx:529
+#: src/react-pages/ImageConvertPage.tsx:530
 msgid "SVG → PNG"
 msgstr "SVG → PNG"
 
-#: src/react-pages/ImageConvertPage.tsx:328
+#: src/react-pages/ImageConvertPage.tsx:329
 msgid "SVG files need to be converted to PNG first."
 msgstr "SVG files need to be converted to PNG first."
 
-#: src/react-pages/ImageConvertPage.tsx:881
+#: src/react-pages/ImageConvertPage.tsx:882
 msgid "SVG to PNG"
 msgstr "SVG to PNG"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:487
+#: src/react-pages/PasswordGeneratorPage.tsx:489
 msgid "Symbols (!@#...)"
 msgstr "Symbols (!@#...)"
 
-#: src/react-pages/YamlJsonPage.tsx:726
+#: src/react-pages/YamlJsonPage.tsx:715
 msgid "Syntax Highlighting"
 msgstr "Syntax Highlighting"
 
@@ -4162,7 +4266,7 @@ msgstr "Syntax Highlighting"
 msgid "Syntax-highlighted code blocks and inline code are preserved with monospace formatting."
 msgstr "Syntax-highlighted code blocks and inline code are preserved with monospace formatting."
 
-#: src/react-pages/JsonCsvPage.tsx:454
+#: src/react-pages/JsonCsvPage.tsx:460
 msgid "Syntax-highlighted Editors"
 msgstr "Syntax-highlighted Editors"
 
@@ -4197,20 +4301,20 @@ msgstr "Target Size"
 msgid "Target Size Control"
 msgstr "Target Size Control"
 
-#: src/react-pages/HomePage.tsx:323
+#: src/react-pages/HomePage.tsx:324
 msgid "Terms"
 msgstr "Terms"
 
-#: src/react-pages/ImageConvertPage.tsx:644
-#: src/react-pages/PdfEditorPage.tsx:679
+#: src/react-pages/ImageConvertPage.tsx:645
+#: src/react-pages/PdfEditorPage.tsx:695
 msgid "Text"
 msgstr "Text"
 
-#: src/react-pages/Base64Page.tsx:186
+#: src/react-pages/Base64Page.tsx:191
 msgid "Text → Base64"
 msgstr "Text → Base64"
 
-#: src/react-pages/Base64Page.tsx:366
+#: src/react-pages/Base64Page.tsx:371
 msgid "Text input has no hard limit. File encoding supports files up to 5 MB. Since everything runs in your browser, very large inputs may briefly slow down the page."
 msgstr "Text input has no hard limit. File encoding supports files up to 5 MB. Since everything runs in your browser, very large inputs may briefly slow down the page."
 
@@ -4218,7 +4322,7 @@ msgstr "Text input has no hard limit. File encoding supports files up to 5 MB. S
 msgid "Text, fonts, bookmarks, and hyperlinks remain intact after compression."
 msgstr "Text, fonts, bookmarks, and hyperlinks remain intact after compression."
 
-#: src/react-pages/HomePage.tsx:162
+#: src/react-pages/HomePage.tsx:163
 msgid "thanks"
 msgstr "thanks"
 
@@ -4238,7 +4342,7 @@ msgstr "The compression starts automatically and adjusts quality to meet your ta
 msgid "The compressor automatically adjusts image quality and, for PNG files, resolution to bring the output as close to your target size as possible without going over."
 msgstr "The compressor automatically adjusts image quality and, for PNG files, resolution to bring the output as close to your target size as possible without going over."
 
-#: src/react-pages/CsvExcelPage.tsx:210
+#: src/react-pages/CsvExcelPage.tsx:208
 msgid "The conversion runs instantly in your browser."
 msgstr "The conversion runs instantly in your browser."
 
@@ -4250,7 +4354,7 @@ msgstr "The conversion starts automatically once the file is uploaded."
 msgid "The conversion to MP4 starts automatically."
 msgstr "The conversion to MP4 starts automatically."
 
-#: src/react-pages/JsonCsvPage.tsx:445
+#: src/react-pages/JsonCsvPage.tsx:451
 msgid "The converted output appears automatically in the other panel."
 msgstr "The converted output appears automatically in the other panel."
 
@@ -4258,7 +4362,7 @@ msgstr "The converted output appears automatically in the other panel."
 msgid "The entire audio stream is extracted — no clipping or trimming applied."
 msgstr "The entire audio stream is extracted — no clipping or trimming applied."
 
-#: src/react-pages/JsonCsvPage.tsx:459
+#: src/react-pages/JsonCsvPage.tsx:465
 msgid "The JSON input must be an array of objects (e.g. [{\"name\": \"Alice\", \"age\": 30}]). Each object becomes a row, and the keys become column headers."
 msgstr "The JSON input must be an array of objects (e.g. [{\"name\": \"Alice\", \"age\": 30}]). Each object becomes a row, and the keys become column headers."
 
@@ -4266,7 +4370,7 @@ msgstr "The JSON input must be an array of objects (e.g. [{\"name\": \"Alice\", 
 msgid "The maximum file size is 20 MB per image, which covers virtually all photos taken on iPhones and iPads."
 msgstr "The maximum file size is 20 MB per image, which covers virtually all photos taken on iPhones and iPads."
 
-#: src/react-pages/ImageConvertPage.tsx:887
+#: src/react-pages/ImageConvertPage.tsx:888
 msgid "The maximum file size is 20 MB per image. This covers virtually all standard photos and graphics."
 msgstr "The maximum file size is 20 MB per image. This covers virtually all standard photos and graphics."
 
@@ -4282,7 +4386,7 @@ msgstr "The maximum upload size is 1 MB, which is more than enough for certifica
 msgid "The maximum upload size is 10 MB, which covers virtually all font files including large CJK fonts."
 msgstr "The maximum upload size is 10 MB, which covers virtually all font files including large CJK fonts."
 
-#: src/react-pages/CsvExcelPage.tsx:224
+#: src/react-pages/CsvExcelPage.tsx:222
 msgid "The maximum upload size is 10 MB. Since everything runs in your browser, very large files may take a moment to process."
 msgstr "The maximum upload size is 10 MB. Since everything runs in your browser, very large files may take a moment to process."
 
@@ -4335,7 +4439,7 @@ msgstr "The maximum upload size is 50 MB. This is enough for most audio files �
 msgid "The OCR engine supports 13 languages: English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese (Simplified and Traditional), Japanese, and Korean. Select the correct language before uploading for best results."
 msgstr "The OCR engine supports 13 languages: English, French, German, Spanish, Italian, Portuguese, Dutch, Russian, Arabic, Chinese (Simplified and Traditional), Japanese, and Korean. Select the correct language before uploading for best results."
 
-#: src/react-pages/YamlJsonPage.tsx:718
+#: src/react-pages/YamlJsonPage.tsx:707
 msgid "The opposite format updates automatically in real time."
 msgstr "The opposite format updates automatically in real time."
 
@@ -4347,7 +4451,7 @@ msgstr "The output is always MP4 with H.264 video and AAC audio for maximum comp
 msgid "The repair tool works on unprotected PDFs. If your file is password-protected, use the PDF Password tool to remove the password first."
 msgstr "The repair tool works on unprotected PDFs. If your file is password-protected, use the PDF Password tool to remove the password first."
 
-#: src/react-pages/Base64Page.tsx:348
+#: src/react-pages/Base64Page.tsx:353
 msgid "The result appears instantly in the output panel below."
 msgstr "The result appears instantly in the output panel below."
 
@@ -4379,11 +4483,11 @@ msgstr "The width controls how many characters wide the output will be (20 to 20
 msgid "There is minimal quality loss. The video is re-encoded with H.264 at high quality settings to preserve as much detail as possible."
 msgstr "There is minimal quality loss. The video is re-encoded with H.264 at high quality settings to preserve as much detail as possible."
 
-#: src/react-pages/YamlJsonPage.tsx:735
+#: src/react-pages/YamlJsonPage.tsx:724
 msgid "There is no hard limit since everything runs in your browser, but very large files (over a few MB) may slow down the live conversion. For those cases, consider using a CLI tool."
 msgstr "There is no hard limit since everything runs in your browser, but very large files (over a few MB) may slow down the live conversion. For those cases, consider using a CLI tool."
 
-#: src/react-pages/JsonCsvPage.tsx:462
+#: src/react-pages/JsonCsvPage.tsx:468
 msgid "There is no hard limit since everything runs in your browser. However, very large datasets (tens of thousands of rows) may slow down the real-time preview."
 msgstr "There is no hard limit since everything runs in your browser. However, very large datasets (tens of thousands of rows) may slow down the real-time preview."
 
@@ -4395,7 +4499,7 @@ msgstr "There is no hard limit. Since everything runs in your browser, performan
 msgid "This file type isn't supported"
 msgstr "This file type isn't supported"
 
-#: src/react-pages/Base64Page.tsx:365
+#: src/react-pages/Base64Page.tsx:370
 msgid "This tool decodes Base64 to text. For Base64-encoded images, the decoded output will be binary data that appears as garbled text. Use a data URI (data:image/png;base64,...) in an img tag instead."
 msgstr "This tool decodes Base64 to text. For Base64-encoded images, the decoded output will be binary data that appears as garbled text. Use a data URI (data:image/png;base64,...) in an img tag instead."
 
@@ -4420,13 +4524,13 @@ msgid "This tool is specifically for MOV to MP4. For other formats, use the Vide
 msgstr "This tool is specifically for MOV to MP4. For other formats, use the Video Compress tool which accepts MP4, MKV, AVI, MOV, and WebM."
 
 #: src/react-pages/HeicConvertPage.tsx:56
-#: src/react-pages/ImageConvertPage.tsx:553
-#: src/react-pages/ImageConvertPage.tsx:635
-#: src/react-pages/ImageConvertPage.tsx:714
+#: src/react-pages/ImageConvertPage.tsx:554
+#: src/react-pages/ImageConvertPage.tsx:636
+#: src/react-pages/ImageConvertPage.tsx:715
 msgid "TIFF"
 msgstr "TIFF"
 
-#: src/react-pages/Base64Page.tsx:349
+#: src/react-pages/Base64Page.tsx:354
 msgid "To encode a file, click the File button and select any file up to 5 MB."
 msgstr "To encode a file, click the File button and select any file up to 5 MB."
 
@@ -4434,19 +4538,23 @@ msgstr "To encode a file, click the File button and select any file up to 5 MB."
 msgid "Toggle color mode to preserve the original image colors in the ASCII output."
 msgstr "Toggle color mode to preserve the original image colors in the ASCII output."
 
-#: src/react-pages/YamlJsonPage.tsx:720
+#: src/react-pages/YamlJsonPage.tsx:709
 msgid "Toggle the tree view to visually explore your data structure and copy JSON paths."
 msgstr "Toggle the tree view to visually explore your data structure and copy JSON paths."
 
-#: src/react-pages/ImageConvertPage.tsx:664
+#: src/react-pages/ImageConvertPage.tsx:665
 msgid "Top left"
 msgstr "Top left"
 
-#: src/react-pages/ImageConvertPage.tsx:663
+#: src/react-pages/ImageConvertPage.tsx:664
 msgid "Top right"
 msgstr "Top right"
 
-#: src/react-pages/YamlJsonPage.tsx:691
+#: src/react-pages/YamlJsonPage.tsx:521
+msgid "Tree view"
+msgstr "Tree view"
+
+#: src/react-pages/YamlJsonPage.tsx:680
 msgid "Tree View"
 msgstr "Tree View"
 
@@ -4459,10 +4567,11 @@ msgid "Trusted"
 msgstr "Trusted"
 
 #: src/components/ConversionProgress.tsx:210
+#: src/components/MultiFileResult.tsx:255
 msgid "Try again"
 msgstr "Try again"
 
-#: src/react-pages/YamlJsonPage.tsx:661
+#: src/react-pages/YamlJsonPage.tsx:650
 msgid "Type coercion detected"
 msgstr "Type coercion detected"
 
@@ -4470,11 +4579,11 @@ msgstr "Type coercion detected"
 msgid "Type or paste markdown directly in the browser, or upload an existing .md file."
 msgstr "Type or paste markdown directly in the browser, or upload an existing .md file."
 
-#: src/react-pages/HashGeneratorPage.tsx:392
+#: src/react-pages/HashGeneratorPage.tsx:245
 msgid "Type or paste text to hash..."
 msgstr "Type or paste text to hash..."
 
-#: src/react-pages/Base64Page.tsx:347
+#: src/react-pages/Base64Page.tsx:352
 msgid "Type or paste your input in the text area."
 msgstr "Type or paste your input in the text area."
 
@@ -4498,7 +4607,7 @@ msgstr "Unlock a password-protected PDF by providing the current password."
 msgid "Upload an image by dragging it onto the drop zone, clicking to browse, or pasting from your clipboard."
 msgstr "Upload an image by dragging it onto the drop zone, clicking to browse, or pasting from your clipboard."
 
-#: src/react-pages/HashGeneratorPage.tsx:535
+#: src/react-pages/HashGeneratorPage.tsx:388
 msgid "Upload any file by dragging it or clicking to browse, or type your text directly."
 msgstr "Upload any file by dragging it or clicking to browse, or type your text directly."
 
@@ -4538,7 +4647,7 @@ msgstr "Upload your ebook file (up to 50 MB)."
 msgid "Upload your file (up to 5 MB). You can also paste an image from your clipboard."
 msgstr "Upload your file (up to 5 MB). You can also paste an image from your clipboard."
 
-#: src/react-pages/CsvExcelPage.tsx:209
+#: src/react-pages/CsvExcelPage.tsx:207
 msgid "Upload your file by dragging it onto the drop zone or clicking to browse."
 msgstr "Upload your file by dragging it onto the drop zone or clicking to browse."
 
@@ -4554,7 +4663,7 @@ msgstr "Upload your HEIC or HEIF file (up to 20 MB)."
 msgid "Upload your image or PDF (up to 15 MB)."
 msgstr "Upload your image or PDF (up to 15 MB)."
 
-#: src/react-pages/ImageConvertPage.tsx:872
+#: src/react-pages/ImageConvertPage.tsx:873
 msgid "Upload your image. Supported formats include HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG."
 msgstr "Upload your image. Supported formats include HEIC, PNG, JPG, WebP, TIFF, BMP, and SVG."
 
@@ -4570,7 +4679,7 @@ msgstr "Upload your Markdown file (up to 5 MB) or paste your content into the ed
 msgid "Upload your MOV file (up to 100 MB)."
 msgstr "Upload your MOV file (up to 100 MB)."
 
-#: src/react-pages/PdfEditorPage.tsx:856
+#: src/react-pages/PdfEditorPage.tsx:875
 msgid "Upload your PDF file (up to 100 MB)."
 msgstr "Upload your PDF file (up to 100 MB)."
 
@@ -4597,10 +4706,11 @@ msgid "Uploaded Markdown files can be up to 5 MB. There is no character limit wh
 msgstr "Uploaded Markdown files can be up to 5 MB. There is no character limit when pasting markdown directly."
 
 #: src/components/ConversionProgress.tsx:81
+#: src/components/MultiFileResult.tsx:70
 msgid "Uploading..."
 msgstr "Uploading..."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:468
+#: src/react-pages/PasswordGeneratorPage.tsx:470
 msgid "Uppercase (A-Z)"
 msgstr "Uppercase (A-Z)"
 
@@ -4608,7 +4718,7 @@ msgstr "Uppercase (A-Z)"
 msgid "URL, Text & WiFi"
 msgstr "URL, Text & WiFi"
 
-#: src/react-pages/PdfEditorPage.tsx:751
+#: src/react-pages/PdfEditorPage.tsx:767
 msgid "Use {n} for page number, {total} for total pages"
 msgstr "Use {n} for page number, {total} for total pages"
 
@@ -4616,7 +4726,7 @@ msgstr "Use {n} for page number, {total} for total pages"
 msgid "Use the character count (with and without spaces) for platforms with length limits."
 msgstr "Use the character count (with and without spaces) for platforms with length limits."
 
-#: src/react-pages/JsonCsvPage.tsx:447
+#: src/react-pages/JsonCsvPage.tsx:453
 msgid "Use the Clear button to start over with new data."
 msgstr "Use the Clear button to start over with new data."
 
@@ -4624,7 +4734,7 @@ msgstr "Use the Clear button to start over with new data."
 msgid "Use the clip slider to select the segment you want (up to 15 seconds)."
 msgstr "Use the clip slider to select the segment you want (up to 15 seconds)."
 
-#: src/react-pages/PdfEditorPage.tsx:857
+#: src/react-pages/PdfEditorPage.tsx:876
 msgid "Use the Pages tab to rotate, reorder, delete, or extract pages."
 msgstr "Use the Pages tab to rotate, reorder, delete, or extract pages."
 
@@ -4632,7 +4742,7 @@ msgstr "Use the Pages tab to rotate, reorder, delete, or extract pages."
 msgid "Use the tool instantly — no account, no watermarks, completely free."
 msgstr "Use the tool instantly — no account, no watermarks, completely free."
 
-#: src/react-pages/YamlJsonPage.tsx:719
+#: src/react-pages/YamlJsonPage.tsx:708
 msgid "Use the toolbar to format, minify, or sort keys in both formats at once."
 msgstr "Use the toolbar to format, minify, or sort keys in both formats at once."
 
@@ -4644,15 +4754,15 @@ msgstr "User password (required)"
 msgid "Uses H.264 encoding with optimized settings to maximize quality at the target size."
 msgstr "Uses H.264 encoding with optimized settings to maximize quality at the target size."
 
-#: src/react-pages/Base64Page.tsx:358
+#: src/react-pages/Base64Page.tsx:363
 msgid "Uses native browser APIs for encoding and decoding, delivering results in microseconds."
 msgstr "Uses native browser APIs for encoding and decoding, delivering results in microseconds."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:522
+#: src/react-pages/PasswordGeneratorPage.tsx:525
 msgid "Uses the Web Crypto API (crypto.getRandomValues) for truly random password generation in your browser."
 msgstr "Uses the Web Crypto API (crypto.getRandomValues) for truly random password generation in your browser."
 
-#: src/react-pages/Base64Page.tsx:355
+#: src/react-pages/Base64Page.tsx:360
 msgid "UTF-8 Safe"
 msgstr "UTF-8 Safe"
 
@@ -4667,7 +4777,7 @@ msgstr "Valid"
 #: src/config/navigation.tsx:174
 #: src/react-pages/AudioConvertPage.tsx:110
 #: src/react-pages/AudioExtractPage.tsx:111
-#: src/react-pages/HomePage.tsx:68
+#: src/react-pages/HomePage.tsx:69
 #: src/react-pages/MovToMp4Page.tsx:99
 #: src/react-pages/VideoCompressPage.tsx:75
 #: src/react-pages/VideoCompressPage.tsx:75
@@ -4680,7 +4790,7 @@ msgstr "Video Compress"
 msgid "Video compression is lossy and will permanently reduce visual quality. Results may vary depending on the source video. Always keep a copy of your original file."
 msgstr "Video compression is lossy and will permanently reduce visual quality. Results may vary depending on the source video. Always keep a copy of your original file."
 
-#: src/react-pages/HomePage.tsx:95
+#: src/react-pages/HomePage.tsx:96
 msgid "Video compression, MOV to MP4, video to GIF"
 msgstr "Video compression, MOV to MP4, video to GIF"
 
@@ -4719,7 +4829,7 @@ msgstr "View metadata without modifying"
 msgid "View subject, issuer, validity period, signature algorithm, key size, and serial number at a glance."
 msgstr "View subject, issuer, validity period, signature algorithm, key size, and serial number at a glance."
 
-#: src/react-pages/YamlJsonPage.tsx:727
+#: src/react-pages/YamlJsonPage.tsx:716
 msgid "Visualize your data as a collapsible tree. Click any value to copy its JSON path."
 msgstr "Visualize your data as a collapsible tree. Click any value to copy its JSON path."
 
@@ -4735,7 +4845,9 @@ msgstr "Wait a moment while the video is re-encoded."
 msgid "Wait for the OCR engine to extract the text."
 msgstr "Wait for the OCR engine to extract the text."
 
-#: src/react-pages/PdfEditorPage.tsx:865
+#: src/react-pages/ImageConvertPage.tsx:59
+#: src/react-pages/PdfEditorPage.tsx:133
+#: src/react-pages/PdfEditorPage.tsx:884
 msgid "Watermark"
 msgstr "Watermark"
 
@@ -4749,10 +4861,10 @@ msgid "Web-Ready Output"
 msgstr "Web-Ready Output"
 
 #: src/react-pages/HeicConvertPage.tsx:55
-#: src/react-pages/ImageConvertPage.tsx:552
-#: src/react-pages/ImageConvertPage.tsx:572
-#: src/react-pages/ImageConvertPage.tsx:634
-#: src/react-pages/ImageConvertPage.tsx:713
+#: src/react-pages/ImageConvertPage.tsx:553
+#: src/react-pages/ImageConvertPage.tsx:573
+#: src/react-pages/ImageConvertPage.tsx:635
+#: src/react-pages/ImageConvertPage.tsx:714
 msgid "WebP"
 msgstr "WebP"
 
@@ -4768,7 +4880,7 @@ msgstr "What archive formats are available?"
 msgid "What archive formats are supported?"
 msgstr "What archive formats are supported?"
 
-#: src/react-pages/YamlJsonPage.tsx:734
+#: src/react-pages/YamlJsonPage.tsx:723
 msgid "What are the type coercion warnings?"
 msgstr "What are the type coercion warnings?"
 
@@ -4788,7 +4900,7 @@ msgstr "What certificate formats can I convert between?"
 msgid "What does error correction do?"
 msgstr "What does error correction do?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:533
+#: src/react-pages/PasswordGeneratorPage.tsx:536
 msgid "What does keyboard-safe mode do?"
 msgstr "What does keyboard-safe mode do?"
 
@@ -4800,7 +4912,7 @@ msgstr "What ebook formats can I convert?"
 msgid "What encryption standard is used?"
 msgstr "What encryption standard is used?"
 
-#: src/react-pages/CsvExcelPage.tsx:223
+#: src/react-pages/CsvExcelPage.tsx:221
 msgid "What Excel formats are supported?"
 msgstr "What Excel formats are supported?"
 
@@ -4826,24 +4938,24 @@ msgstr "What image formats are extracted?"
 
 #: src/react-pages/AsciiPage.tsx:413
 #: src/react-pages/ImageCompressPage.tsx:176
-#: src/react-pages/ImageConvertPage.tsx:886
+#: src/react-pages/ImageConvertPage.tsx:887
 #: src/react-pages/ImageToPdfPage.tsx:104
 msgid "What image formats are supported?"
 msgstr "What image formats are supported?"
 
-#: src/react-pages/HashGeneratorPage.tsx:549
+#: src/react-pages/HashGeneratorPage.tsx:402
 msgid "What is a hash or checksum?"
 msgstr "What is a hash or checksum?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:532
+#: src/react-pages/PasswordGeneratorPage.tsx:535
 msgid "What is a passphrase?"
 msgstr "What is a passphrase?"
 
-#: src/react-pages/Base64Page.tsx:362
+#: src/react-pages/Base64Page.tsx:367
 msgid "What is Base64 encoding?"
 msgstr "What is Base64 encoding?"
 
-#: src/react-pages/PasswordGeneratorPage.tsx:535
+#: src/react-pages/PasswordGeneratorPage.tsx:538
 msgid "What is entropy?"
 msgstr "What is entropy?"
 
@@ -4888,12 +5000,12 @@ msgstr "What is the maximum clip length?"
 #: src/react-pages/AudioConvertPage.tsx:105
 #: src/react-pages/AudioExtractPage.tsx:105
 #: src/react-pages/MarkdownPdfPage.tsx:155
-#: src/react-pages/PdfEditorPage.tsx:871
+#: src/react-pages/PdfEditorPage.tsx:890
 #: src/react-pages/PdfRepairPage.tsx:92
 msgid "What is the maximum file size?"
 msgstr "What is the maximum file size?"
 
-#: src/react-pages/JsonCsvPage.tsx:459
+#: src/react-pages/JsonCsvPage.tsx:465
 msgid "What JSON structure is required for CSV conversion?"
 msgstr "What JSON structure is required for CSV conversion?"
 
@@ -4917,7 +5029,7 @@ msgstr "What output format will I get?"
 msgid "What types of PDF corruption can be repaired?"
 msgstr "What types of PDF corruption can be repaired?"
 
-#: src/react-pages/CsvExcelPage.tsx:226
+#: src/react-pages/CsvExcelPage.tsx:224
 msgid "When converting Excel to CSV, only the first sheet is exported. For multi-sheet workbooks, you may need to convert each sheet separately."
 msgstr "When converting Excel to CSV, only the first sheet is exported. For multi-sheet workbooks, you may need to convert each sheet separately."
 
@@ -4945,7 +5057,7 @@ msgstr "Which format should I use for Kindle?"
 msgid "Which formats support encryption?"
 msgstr "Which formats support encryption?"
 
-#: src/react-pages/HashGeneratorPage.tsx:550
+#: src/react-pages/HashGeneratorPage.tsx:403
 msgid "Which hash algorithm should I use?"
 msgstr "Which hash algorithm should I use?"
 
@@ -4957,7 +5069,7 @@ msgstr "Which output format should I choose?"
 msgid "Which video formats are supported?"
 msgstr "Which video formats are supported?"
 
-#: src/react-pages/ImageConvertPage.tsx:688
+#: src/react-pages/ImageConvertPage.tsx:689
 msgid "White"
 msgstr "White"
 
@@ -4969,7 +5081,7 @@ msgstr "Why can't I open HEIC files on my computer?"
 msgid "Why convert MOV to MP4?"
 msgstr "Why convert MOV to MP4?"
 
-#: src/react-pages/Base64Page.tsx:364
+#: src/react-pages/Base64Page.tsx:369
 msgid "Why is the Base64 output larger than the input?"
 msgstr "Why is the Base64 output larger than the input?"
 
@@ -4989,7 +5101,7 @@ msgstr "Wide Input Support"
 msgid "Width"
 msgstr "Width"
 
-#: src/react-pages/ImageConvertPage.tsx:595
+#: src/react-pages/ImageConvertPage.tsx:596
 msgid "Width (px)"
 msgstr "Width (px)"
 
@@ -5013,7 +5125,7 @@ msgstr "Will converting audio reduce quality?"
 msgid "Will converting lose quality?"
 msgstr "Will converting lose quality?"
 
-#: src/react-pages/ImageConvertPage.tsx:722
+#: src/react-pages/ImageConvertPage.tsx:723
 msgid "Will generate:"
 msgstr "Will generate:"
 
@@ -5042,13 +5154,13 @@ msgid "Word Count"
 msgstr "Word Count"
 
 #: src/config/navigation.tsx:184
-#: src/react-pages/Base64Page.tsx:370
-#: src/react-pages/CsvExcelPage.tsx:233
-#: src/react-pages/JsonCsvPage.tsx:468
+#: src/react-pages/Base64Page.tsx:375
+#: src/react-pages/CsvExcelPage.tsx:231
+#: src/react-pages/JsonCsvPage.tsx:474
 #: src/react-pages/WordCounterPage.tsx:58
 #: src/react-pages/WordCounterPage.tsx:61
 #: src/react-pages/WordCounterPage.tsx:63
-#: src/react-pages/YamlJsonPage.tsx:742
+#: src/react-pages/YamlJsonPage.tsx:731
 msgid "Word Counter"
 msgstr "Word Counter"
 
@@ -5057,11 +5169,12 @@ msgid "Word, character, sentence, and paragraph counts update instantly as you t
 msgstr "Word, character, sentence, and paragraph counts update instantly as you type."
 
 #: src/react-pages/PasswordGeneratorPage.tsx:423
+#: src/react-pages/PasswordGeneratorPage.tsx:427
 #: src/react-pages/WordCounterPage.tsx:94
 msgid "Words"
 msgstr "Words"
 
-#: src/react-pages/HashGeneratorPage.tsx:546
+#: src/react-pages/HashGeneratorPage.tsx:399
 msgid "Works offline once loaded. No server connection required for computation."
 msgstr "Works offline once loaded. No server connection required for computation."
 
@@ -5077,23 +5190,23 @@ msgstr "WPA / WPA2 / WPA3"
 msgid "YAML / JSON"
 msgstr "YAML / JSON"
 
-#: src/react-pages/Base64Page.tsx:371
-#: src/react-pages/CsvExcelPage.tsx:231
-#: src/react-pages/JsonCsvPage.tsx:466
+#: src/react-pages/Base64Page.tsx:376
+#: src/react-pages/CsvExcelPage.tsx:229
+#: src/react-pages/JsonCsvPage.tsx:472
 #: src/react-pages/WordCounterPage.tsx:155
-#: src/react-pages/YamlJsonPage.tsx:498
+#: src/react-pages/YamlJsonPage.tsx:487
 msgid "YAML / JSON Converter"
 msgstr "YAML / JSON Converter"
 
-#: src/react-pages/YamlJsonPage.tsx:508
+#: src/react-pages/YamlJsonPage.tsx:497
 msgid "YAML ↔ JSON"
 msgstr "YAML ↔ JSON"
 
-#: src/react-pages/YamlJsonPage.tsx:734
+#: src/react-pages/YamlJsonPage.tsx:723
 msgid "YAML 1.1 silently converts values like \"yes\", \"no\", \"on\", \"off\", and date-like strings into booleans or Date objects. The converter detects these and warns you so you can quote them to keep them as strings."
 msgstr "YAML 1.1 silently converts values like \"yes\", \"no\", \"on\", \"off\", and date-like strings into booleans or Date objects. The converter detects these and warns you so you can quote them to keep them as strings."
 
-#: src/react-pages/HomePage.tsx:106
+#: src/react-pages/HomePage.tsx:107
 msgid "YAML/JSON and CSV/Excel conversion tools"
 msgstr "YAML/JSON and CSV/Excel conversion tools"
 
@@ -5117,7 +5230,7 @@ msgstr "Yes. After uploading your images, you can drag and drop them to rearrang
 msgid "Yes. After uploading, a video player lets you preview your file. The clip range slider shows exactly which segment will be converted."
 msgstr "Yes. After uploading, a video player lets you preview your file. The clip range slider shows exactly which segment will be converted."
 
-#: src/react-pages/PdfEditorPage.tsx:874
+#: src/react-pages/PdfEditorPage.tsx:893
 msgid "Yes. All editing features can be combined in a single operation — rotate, reorder, watermark, page numbers, and redactions are applied together."
 msgstr "Yes. All editing features can be combined in a single operation — rotate, reorder, watermark, page numbers, and redactions are applied together."
 
@@ -5125,11 +5238,11 @@ msgstr "Yes. All editing features can be combined in a single operation — rota
 msgid "Yes. All intermediate and root certificates present in the source file are included in the converted output."
 msgstr "Yes. All intermediate and root certificates present in the source file are included in the converted output."
 
-#: src/react-pages/YamlJsonPage.tsx:736
+#: src/react-pages/YamlJsonPage.tsx:725
 msgid "Yes. Click the \"Sort keys\" button in the toolbar to recursively sort all object keys in alphabetical order in both the YAML and JSON output."
 msgstr "Yes. Click the \"Sort keys\" button in the toolbar to recursively sort all object keys in alphabetical order in both the YAML and JSON output."
 
-#: src/react-pages/JsonCsvPage.tsx:461
+#: src/react-pages/JsonCsvPage.tsx:467
 msgid "Yes. Dynamic typing is enabled by default, so numeric strings become numbers, \"true\"/\"false\" become booleans, and empty cells become null."
 msgstr "Yes. Dynamic typing is enabled by default, so numeric strings become numbers, \"true\"/\"false\" become booleans, and empty cells become null."
 
@@ -5137,15 +5250,15 @@ msgstr "Yes. Dynamic typing is enabled by default, so numeric strings become num
 msgid "Yes. Enter the password in the optional password field before uploading the file."
 msgstr "Yes. Enter the password in the optional password field before uploading the file."
 
-#: src/react-pages/HashGeneratorPage.tsx:552
+#: src/react-pages/HashGeneratorPage.tsx:405
 msgid "Yes. Files are read in 2 MB chunks, so memory usage stays low regardless of file size. However, very large files (several GB) will take longer to process."
 msgstr "Yes. Files are read in 2 MB chunks, so memory usage stays low regardless of file size. However, very large files (several GB) will take longer to process."
 
-#: src/react-pages/YamlJsonPage.tsx:733
+#: src/react-pages/YamlJsonPage.tsx:722
 msgid "Yes. If your YAML contains multiple documents separated by ---, they are parsed individually and merged into a JSON array."
 msgstr "Yes. If your YAML contains multiple documents separated by ---, they are parsed individually and merged into a JSON array."
 
-#: src/react-pages/PasswordGeneratorPage.tsx:530
+#: src/react-pages/PasswordGeneratorPage.tsx:533
 msgid "Yes. It uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically secure random numbers. However, for long-term credential management, a dedicated password manager is always recommended."
 msgstr "Yes. It uses the Web Crypto API (crypto.getRandomValues) which provides cryptographically secure random numbers. However, for long-term credential management, a dedicated password manager is always recommended."
 
@@ -5161,7 +5274,7 @@ msgstr "Yes. Pages appear in the merged PDF in the same order you arrange them. 
 msgid "Yes. PDF to EPUB conversion works best with text-based PDFs. Scanned/image-only PDFs may produce limited results since there is no OCR step."
 msgstr "Yes. PDF to EPUB conversion works best with text-based PDFs. Scanned/image-only PDFs may produce limited results since there is no OCR step."
 
-#: src/react-pages/PdfEditorPage.tsx:873
+#: src/react-pages/PdfEditorPage.tsx:892
 msgid "Yes. Redacted areas are permanently removed from the PDF at the server level. The content cannot be recovered or revealed."
 msgstr "Yes. Redacted areas are permanently removed from the PDF at the server level. The content cannot be recovered or revealed."
 
@@ -5169,7 +5282,7 @@ msgstr "Yes. Redacted areas are permanently removed from the PDF at the server l
 msgid "Yes. Scanned PDFs typically contain one large image per page, and each page image will be extracted."
 msgstr "Yes. Scanned PDFs typically contain one large image per page, and each page image will be extracted."
 
-#: src/react-pages/ImageConvertPage.tsx:890
+#: src/react-pages/ImageConvertPage.tsx:891
 msgid "Yes. SVG vector files are rasterized to PNG. You can optionally specify an output width — height scales proportionally to maintain the aspect ratio."
 msgstr "Yes. SVG vector files are rasterized to PNG. You can optionally specify an output width — height scales proportionally to maintain the aspect ratio."
 
@@ -5193,7 +5306,7 @@ msgstr "Yes. The word counter works with any language that uses whitespace to se
 msgid "Yes. Upload the PDF and the OCR engine will analyze the scanned pages and extract any readable text."
 msgstr "Yes. Upload the PDF and the OCR engine will analyze the scanned pages and extract any readable text."
 
-#: src/react-pages/PdfEditorPage.tsx:872
+#: src/react-pages/PdfEditorPage.tsx:891
 msgid "Yes. Use the Reset button on the Pages tab to restore the original page order and rotations. You can also start over at any time."
 msgstr "Yes. Use the Reset button on the Pages tab to restore the original page order and rotations. You can also start over at any time."
 
@@ -5237,7 +5350,7 @@ msgstr "You can merge up to 10 files in a single operation. Each file can be up 
 msgid "You can select a clip up to 15 seconds long. Shorter clips produce smaller, more shareable GIFs."
 msgstr "You can select a clip up to 15 seconds long. Shorter clips produce smaller, more shareable GIFs."
 
-#: src/react-pages/PdfEditorPage.tsx:871
+#: src/react-pages/PdfEditorPage.tsx:890
 msgid "You can upload PDF files up to 100 MB. The editor renders page thumbnails locally in your browser for fast interaction."
 msgstr "You can upload PDF files up to 100 MB. The editor renders page thumbnails locally in your browser for fast interaction."
 
@@ -5249,7 +5362,7 @@ msgstr "You can upload PDF files up to 20 MB for repair."
 msgid "Your image never leaves your browser. All conversion happens locally using the Canvas API."
 msgstr "Your image never leaves your browser. All conversion happens locally using the Canvas API."
 
-#: src/react-pages/ImageConvertPage.tsx:646
+#: src/react-pages/ImageConvertPage.tsx:647
 msgid "Your watermark text"
 msgstr "Your watermark text"
 

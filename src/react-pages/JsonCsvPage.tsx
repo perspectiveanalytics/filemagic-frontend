@@ -13,7 +13,7 @@ import { EditorView, keymap } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
 import { basicSetup } from 'codemirror';
 import { json as jsonLang } from '@codemirror/lang-json';
-import { oneDark } from '@codemirror/theme-one-dark';
+import { codeTheme } from '../styles/codeTheme';
 import { indentWithTab } from '@codemirror/commands';
 import Papa from 'papaparse';
 import ToolDisclaimer from '../components/ToolDisclaimer';
@@ -46,7 +46,8 @@ const cmTheme = EditorView.theme({
   '.cm-scroller': {
     fontFamily: '"SF Mono", "Fira Code", "Fira Mono", "Consolas", monospace',
   },
-  '.cm-gutters': { border: 'none' },
+  '.cm-gutters': { border: 'none', color: '#abb2bf' },
+  '.cm-activeLineGutter': { color: '#e5e7eb' },
 }, { dark: true });
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -61,9 +62,10 @@ function setEditorContent(view: EditorView | null, content: string) {
 // ── Sub-components ───────────────────────────────────────────────────────────
 
 function CopyBtn({ getText }: { getText: () => string }) {
+  const { t } = useLingui();
   const [copied, setCopied] = useState(false);
   return (
-    <Tooltip title={copied ? 'Copied!' : 'Copy'} size="sm">
+    <Tooltip title={copied ? t`Copied!` : t`Copy`} size="sm">
       <IconButton
         size="sm"
         variant="plain"
@@ -211,7 +213,7 @@ export default function JsonCsvPage() {
     const commonExtensions = [
       basicSetup,
       keymap.of([indentWithTab]),
-      oneDark,
+      codeTheme,
       cmTheme,
       EditorView.lineWrapping,
     ];
@@ -222,6 +224,7 @@ export default function JsonCsvPage() {
         extensions: [
           ...commonExtensions,
           jsonLang(),
+          EditorView.contentAttributes.of({ 'aria-label': 'JSON' }),
           EditorView.updateListener.of((update) => {
             if (update.docChanged && !isConvertingRef.current) {
               handleJsonChange(update.state.doc.toString());
@@ -237,6 +240,7 @@ export default function JsonCsvPage() {
         doc: '',
         extensions: [
           ...commonExtensions,
+          EditorView.contentAttributes.of({ 'aria-label': 'CSV' }),
           EditorView.updateListener.of((update) => {
             if (update.docChanged && !isConvertingRef.current) {
               handleCsvChange(update.state.doc.toString());
@@ -247,6 +251,8 @@ export default function JsonCsvPage() {
       parent: csvContainerRef.current,
     });
 
+    jv.scrollDOM.tabIndex = 0;
+    cv.scrollDOM.tabIndex = 0;
     jsonViewRef.current = jv;
     csvViewRef.current = cv;
 
@@ -347,7 +353,7 @@ export default function JsonCsvPage() {
         </Box>
         <Box sx={{ flex: 1 }} />
         <Box component="button" onClick={handleClear} sx={{ ...toolBtn, color: 'text.tertiary' }}>
-          Clear
+          <Trans>Clear</Trans>
         </Box>
       </Box>
 

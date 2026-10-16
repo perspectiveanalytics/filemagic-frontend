@@ -65,8 +65,6 @@ export default function CsvExcelPage() {
           headers.map(h => {
             const v = row[h];
             if (v == null || v === '') return { value: null };
-            const n = Number(v);
-            if (!isNaN(n) && String(v).trim() !== '') return { value: n };
             return { value: String(v) };
           })
         );
@@ -88,7 +86,7 @@ export default function CsvExcelPage() {
           row.map(cell => {
             if (cell == null) return '';
             const s = String(cell);
-            if (s.includes(',') || s.includes('"') || s.includes('\n')) {
+            if (s.includes(',') || s.includes('"') || s.includes('\n') || s.includes('\r')) {
               return `"${s.replace(/"/g, '""')}"`;
             }
             return s;
@@ -131,7 +129,7 @@ export default function CsvExcelPage() {
 
   const accept = mode === 'csv-to-excel'
     ? '.csv,text/csv'
-    : '.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel';
+    : '.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   return (
     <Box sx={{ maxWidth: 520, mx: 'auto', width: '100%', py: { xs: 3, md: 4 } }}>
@@ -214,13 +212,13 @@ export default function CsvExcelPage() {
         features={[
           { icon: <SyncAltOutlinedIcon />, title: t`Bi-directional Conversion`, description: t`Convert CSV files to Excel (.xlsx) or Excel spreadsheets back to CSV with a single click.` },
           { icon: <TableChartOutlinedIcon />, title: t`Header Preservation`, description: t`Column headers and data types are preserved accurately during conversion in both directions.` },
-          { icon: <GridOnOutlinedIcon />, title: t`Full Excel Support`, description: t`Supports both .xlsx and .xls Excel formats with proper sheet structure and cell formatting.` },
+          { icon: <GridOnOutlinedIcon />, title: t`Full Excel Support`, description: t`Reads .xlsx files and preserves CSV values as text, including identifiers and large numbers.` },
           { icon: <CloudOffOutlinedIcon />, title: t`100% Client-side`, description: t`Files never leave your device. All processing happens locally in your browser using WebAssembly.` },
           { icon: <BoltOutlinedIcon />, title: t`Instant Processing`, description: t`Conversion happens in milliseconds, even for large spreadsheets with thousands of rows.` },
           { icon: <LockOutlinedIcon />, title: t`Privacy First`, description: t`No file uploads, no server processing, no data collection. Your spreadsheets stay on your machine.` },
         ]}
         faq={[
-          { question: t`What Excel formats are supported?`, answer: t`Both modern .xlsx (Excel 2007+) and legacy .xls formats are supported for input. Output is always in the modern .xlsx format.` },
+          { question: t`What Excel formats are supported?`, answer: t`Excel input and output use .xlsx (Excel 2007+). Save legacy .xls files as .xlsx before uploading them.` },
           { question: t`Is there a file size limit?`, answer: t`The maximum upload size is 10 MB. Since everything runs in your browser, very large files may take a moment to process.` },
           { question: t`Are formulas preserved when converting Excel to CSV?`, answer: t`No. CSV is a plain text format, so only the computed cell values are exported. Formulas, styling, and charts are not included in the CSV output.` },
           { question: t`Does it handle multiple sheets?`, answer: t`When converting Excel to CSV, only the first sheet is exported. For multi-sheet workbooks, you may need to convert each sheet separately.` },

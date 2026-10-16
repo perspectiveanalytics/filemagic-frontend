@@ -1,3 +1,4 @@
+import { i18n } from '../i18n';
 import type { SubmitResponse, JobStatusResponse, ApiError, ConversionOptions, CertificateInfo } from '../types/api';
 import { getTurnstileToken } from '../turnstile';
 
@@ -30,8 +31,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -63,8 +63,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -92,8 +91,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -125,8 +123,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -153,8 +150,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -192,8 +188,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -229,8 +224,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -251,8 +245,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     const data: { email: string } = await response.json();
@@ -265,8 +258,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -333,8 +325,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      const error: ApiError = await response.json();
-      throw new Error(this.getErrorMessage(error));
+      throw await this.responseError(response);
     }
 
     return response.json();
@@ -355,22 +346,36 @@ class ApiClient {
     return response;
   }
 
+  private async responseError(response: Response): Promise<Error> {
+    const fr = i18n.locale === 'fr';
+    if (response.status === 403) return new Error(fr
+      ? 'La vérification de sécurité a échoué. Rechargez la page puis réessayez.'
+      : 'Security verification failed. Reload the page and try again.');
+    if (response.status === 429) return new Error(fr
+      ? 'Trop de demandes. Patientez un moment avant de réessayer.'
+      : 'Too many requests. Please wait a moment before trying again.');
+    let error: ApiError | undefined;
+    try { error = await response.json(); } catch { /* Proxies may return HTML. */ }
+    return new Error(this.getErrorMessage(error ?? { code: 'INTERNAL_ERROR', error: '' }));
+  }
+
   private getErrorMessage(error: ApiError): string {
+    const fr = i18n.locale === 'fr';
     switch (error.code) {
       case 'QUEUE_FULL':
-        return 'Server is busy. Please try again in a moment.';
+        return fr ? 'Le serveur est occupé. Réessayez dans un moment.' : 'Server is busy. Please try again in a moment.';
       case 'FILE_TOO_LARGE':
-        return error.error || 'File is too large.';
+        return fr ? 'Le fichier dépasse la taille autorisée. Choisissez un fichier plus petit.' : 'File exceeds the size limit. Choose a smaller file.';
       case 'VALIDATION_ERROR':
-        return error.error || 'Invalid file or options.';
+        return fr ? 'Vérifiez le format du fichier et les options, puis réessayez.' : 'Check the file format and options, then try again.';
       case 'RATE_LIMITED':
-        return 'Too many requests. Please wait a moment.';
+        return fr ? 'Trop de demandes. Patientez un moment.' : 'Too many requests. Please wait a moment.';
       case 'CONVERSION_FAILED':
-        return 'Processing failed. Please try a different file.';
+        return fr ? 'Le traitement a échoué. Essayez avec un autre fichier.' : 'Processing failed. Please try a different file.';
       case 'NOT_FOUND':
-        return 'Job not found or expired.';
+        return fr ? 'Le résultat a expiré. Relancez le traitement.' : 'Result expired. Please process the file again.';
       default:
-        return 'An unexpected error occurred. Please try again.';
+        return fr ? 'Le service est indisponible. Réessayez dans un moment.' : 'Service unavailable. Please try again in a moment.';
     }
   }
 }

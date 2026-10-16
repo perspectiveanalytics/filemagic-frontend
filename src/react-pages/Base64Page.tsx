@@ -22,6 +22,7 @@ export default function Base64Page() {
   const [mode, setMode] = useState<Mode>('encode');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [decodedBytes, setDecodedBytes] = useState<Uint8Array<ArrayBuffer> | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [ext, setExt] = useState('txt');
@@ -29,7 +30,8 @@ export default function Base64Page() {
 
   const convert = useCallback(
     (text: string, dir: Mode) => {
-      if (!text.trim()) {
+      setDecodedBytes(null);
+      if (text.length === 0) {
         setOutput('');
         setError(null);
         return;
@@ -50,6 +52,7 @@ export default function Base64Page() {
           for (let i = 0; i < binary.length; i++) {
             bytes[i] = binary.charCodeAt(i);
           }
+          setDecodedBytes(bytes);
           setOutput(new TextDecoder().decode(bytes));
         }
         setError(null);
@@ -72,6 +75,7 @@ export default function Base64Page() {
   const handleModeChange = useCallback(
     (newMode: Mode) => {
       setMode(newMode);
+      setDecodedBytes(null);
       setInput('');
       setOutput('');
       setError(null);
@@ -100,7 +104,7 @@ export default function Base64Page() {
   const handleDownload = useCallback(() => {
     if (!output) return;
     const sanitized = ext.replace(/[^a-zA-Z0-9]/g, '') || 'txt';
-    const blob = new Blob([output], { type: 'application/octet-stream' });
+    const blob = new Blob([decodedBytes ?? output], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -109,7 +113,7 @@ export default function Base64Page() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, [output, ext]);
+  }, [output, ext, decodedBytes]);
 
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +129,7 @@ export default function Base64Page() {
         const base64 = result.split(',')[1] || '';
         setInput(`[File: ${file.name}]`);
         setOutput(base64);
+        setDecodedBytes(null);
         setError(null);
         setMode('encode');
       };

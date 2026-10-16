@@ -424,6 +424,7 @@ export default function PasswordGeneratorPage() {
               <Typography level="body-sm" sx={{ fontFamily: 'monospace', color: 'text.secondary' }}>{wordCount}</Typography>
             </Box>
             <Slider
+              aria-label={t`Words`}
               value={wordCount}
               onChange={(_, v) => setWordCount(v as number)}
               min={3}
@@ -446,11 +447,12 @@ export default function PasswordGeneratorPage() {
                     const v = parseInt(e.target.value, 10);
                     if (!isNaN(v) && v >= 4 && v <= 128) setLength(v);
                   }}
-                  slotProps={{ input: { min: 4, max: 128, style: { width: 56, textAlign: 'center' } } }}
+                  slotProps={{ input: { 'aria-label': t`Length`, min: 4, max: 128, style: { width: 56, textAlign: 'center' } } }}
                   sx={{ width: 72 }}
                 />
               </Box>
               <Slider
+                aria-label={t`Length`}
                 value={length}
                 onChange={(_, v) => setLength(v as number)}
                 min={4}
@@ -497,6 +499,7 @@ export default function PasswordGeneratorPage() {
                 <Typography level="body-xs" sx={{ color: 'text.tertiary' }}><Trans>Avoid QWERTY / AZERTY confusion (a↔q, z↔w, m, digits)</Trans></Typography>
               </Box>
               <Switch
+                slotProps={{ input: { 'aria-label': t`Keyboard-safe` } }}
                 size="sm"
                 checked={keyboardSafe}
                 onChange={(e) => setKeyboardSafe(e.target.checked)}

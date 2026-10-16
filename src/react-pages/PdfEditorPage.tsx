@@ -63,12 +63,7 @@ type PageMode = 'organize' | 'extract';
 
 // ── Constants ──
 
-const TABS: { id: TabId; label: string }[] = [
-  { id: 'pages', label: 'Pages' },
-  { id: 'watermark', label: 'Watermark' },
-  { id: 'numbers', label: 'Numbers' },
-  { id: 'redact', label: 'Redact' },
-];
+
 
 const WATERMARK_POSITIONS = [
   { value: 'center', label: 'Center' },
@@ -133,6 +128,12 @@ function watermarkPreviewSx(position: string): Record<string, unknown> {
 
 export default function PdfEditorPage() {
   const { t } = useLingui();
+  const TABS: { id: TabId; label: string }[] = [
+    { id: 'pages', label: t`Pages` },
+    { id: 'watermark', label: t`Watermark` },
+    { id: 'numbers', label: t`Numbers` },
+    { id: 'redact', label: t`Redact` },
+  ];
   // State: file & loading
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pages, setPages] = useState<PageState[]>([]);
@@ -200,6 +201,8 @@ export default function PdfEditorPage() {
 
   const handleFileSelect = useCallback((file: File) => {
     setSelectedFile(file);
+    setRedactions([]);
+    setRedactModalPage(null);
     loadPdf(file);
   }, [loadPdf]);
 
@@ -226,6 +229,16 @@ export default function PdfEditorPage() {
         setPageNumbers(null);
         setRedactions([]);
       }
+      return next;
+    });
+  }, []);
+
+  const movePage = useCallback((index: number, offset: number) => {
+    setPages(previous => {
+      const destination = index + offset;
+      if (destination < 0 || destination >= previous.length) return previous;
+      const next = [...previous];
+      [next[index], next[destination]] = [next[destination], next[index]];
       return next;
     });
   }, []);
@@ -400,6 +413,7 @@ export default function PdfEditorPage() {
 
     // Redactions
     if (redactions.length > 0) {
+      options.redactionSpace = 'source';
       options.redactions = redactions.map(r => ({
         page: r.page,
         rect: [r.x, r.y, r.w, r.h],
@@ -598,7 +612,9 @@ export default function PdfEditorPage() {
                     <Box component="img" src={page.dataUrl} alt={`Page ${page.pageNum}`}
                       sx={{ maxWidth: '100%', maxHeight: 180, objectFit: 'contain', transition: 'transform 0.3s ease', transform: `rotate(${page.rotation}deg)`, pointerEvents: 'none' }}
                     />
-                    <Box sx={{ display: 'flex', gap: 0.25, alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', gap: 0.25, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                      <Box component="button" aria-label={t`Move page ${page.pageNum} earlier`} disabled={index === 0} onClick={() => movePage(index, -1)} sx={{ ...iconBtnSx, minWidth: 32, minHeight: 32, '&:disabled': { opacity: 0.4 } }}><ChevronLeftRoundedIcon /></Box>
+                      <Box component="button" aria-label={t`Move page ${page.pageNum} later`} disabled={index === pages.length - 1} onClick={() => movePage(index, 1)} sx={{ ...iconBtnSx, minWidth: 32, minHeight: 32, '&:disabled': { opacity: 0.4 } }}><ChevronRightRoundedIcon /></Box>
                       <Box component="button" aria-label={t`Rotate page ${page.pageNum} left`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); rotatePage(index, -90); }} sx={iconBtnSx}><RotateLeftRoundedIcon sx={{ fontSize: 16 }} /></Box>
                       <Box component="button" aria-label={t`Rotate page ${page.pageNum} right`} onClick={(e: React.MouseEvent) => { e.stopPropagation(); rotatePage(index, 90); }} sx={iconBtnSx}><RotateRightRoundedIcon sx={{ fontSize: 16 }} /></Box>
                       <Dropdown>
@@ -800,10 +816,13 @@ export default function PdfEditorPage() {
                 gap: 1.5, mb: 3,
               }}>
                 {pages.map((page, index) => {
-                  const count = redactions.filter(r => r.page === index).length;
+                  const count = redactions.filter(r => r.page === page.pageNum - 1).length;
                   return (
                     <Box
                       key={page.pageNum}
+                      component="button"
+                      type="button"
+                      aria-label={t`Redact page ${page.pageNum}`}
                       onClick={() => setRedactModalPage(index)}
                       sx={{
                         position: 'relative', bgcolor: 'background.level1', borderRadius: 'md',
@@ -911,7 +930,7 @@ export default function PdfEditorPage() {
             <Box sx={{ maxWidth: 800, width: '100%' }}>
               <RedactionCanvas
                 file={selectedFile}
-                pageIndex={redactModalPage}
+                pageIndex={pages[redactModalPage].pageNum - 1}
                 rects={redactions}
                 onRectsChange={setRedactions}
               />
