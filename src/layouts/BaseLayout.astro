@@ -477,6 +477,13 @@ const schema = isIndexable
             if (backdrop) backdrop.addEventListener('click', close);
             if (closeButton) closeButton.addEventListener('click', close);
             if (drawer) {
+              drawer.addEventListener('transitionend', (event) => {
+                if (event.target !== drawer || event.propertyName !== 'transform') return;
+                // Firefox can ignore focus while the drawer becomes visible. Retry
+                // after it opens, unless the user has already focused another control.
+                const active = document.activeElement;
+                if (active === summary || active === document.body) focusSearch();
+              });
               drawer.querySelectorAll('a[href]').forEach((link) => {
                 link.addEventListener('click', close);
               });
