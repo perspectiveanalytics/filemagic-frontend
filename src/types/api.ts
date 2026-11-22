@@ -2,6 +2,7 @@ export interface SubmitResponse {
   jobId: string;
   position: number;
   estimatedWait: number;
+  timeoutSeconds?: number;
 }
 
 export interface JobStatusResponse {

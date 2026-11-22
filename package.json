@@ -11,7 +11,9 @@
     "preview": "astro preview",
     "lint": "astro check",
     "test:e2e": "playwright test",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs"
+    "test": "npm run test:hash && npm run test:unit",
+    "test:hash": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@codemirror/commands": "^6.10.2",
@@ -25,9 +27,9 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@fontsource/inter": "^5.0.18",
-    "@lingui/core": "^5.9.5",
-    "@lingui/detect-locale": "^5.9.5",
-    "@lingui/react": "^5.9.5",
+    "@lingui/core": "^6.12.0",
+    "@lingui/detect-locale": "^6.12.0",
+    "@lingui/react": "^6.12.0",
     "@mui/icons-material": "^6.1.0",
     "@mui/joy": "^5.0.0-beta.48",
     "@noble/hashes": "^2.4.0",
@@ -42,20 +44,28 @@
     "react-dom": "^18.3.1",
     "react-image-crop": "^11.0.10",
     "read-excel-file": "^6.0.3",
-    "write-excel-file": "^2.3.10"
+    "write-excel-file": "^4.1.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "@astrojs/react": "^5.0.7",
-    "@astrojs/sitemap": "^3.7.3",
-    "@lingui/babel-plugin-lingui-macro": "^5.9.5",
-    "@lingui/cli": "^5.9.5",
-    "@lingui/vite-plugin": "^5.9.5",
-    "@playwright/test": "1.58.2",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/sitemap": "^3.7.6",
+    "@babel/core": "^7.29.13",
+    "@lingui/babel-plugin-lingui-macro": "^6.12.0",
+    "@lingui/cli": "^6.12.0",
+    "@lingui/vite-plugin": "^6.12.0",
+    "@playwright/test": "1.65.1",
+    "@rolldown/plugin-babel": "^0.3.1",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "astro": "^6.4.6",
+    "astro": "^7.4.13",
+    "jsdom": "^31.0.1",
     "typescript": "^5.5.3",
-    "vite": "^7.3.7"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

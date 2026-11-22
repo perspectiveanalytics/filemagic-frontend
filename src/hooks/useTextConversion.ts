@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { apiClient } from '../api/client';
+import { jobPollingTimeout } from '../lib/polling';
 import type { ConversionStatus, JobStatusResponse } from '../types/api';
 
 interface TextConversionState {
@@ -32,9 +33,11 @@ export function useTextConversion(endpoint: string) {
 
   const pollIntervalRef = useRef<number | null>(null);
   const pollStartRef = useRef<number>(0);
+  const pollTimeoutRef = useRef(POLL_TIMEOUT);
   const pollDelayRef = useRef<number>(POLL_INTERVAL);
   const blobRef = useRef<{ blob: Blob; name: string } | null>(null);
   const runIdRef = useRef(0);
+  const requestRef = useRef<AbortController | null>(null);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -45,17 +48,16 @@ export function useTextConversion(endpoint: string) {
 
   const reset = useCallback(() => {
     runIdRef.current += 1;
+    requestRef.current?.abort();
+    requestRef.current = new AbortController();
     stopPolling();
-    if (state.previewUrl) {
-      URL.revokeObjectURL(state.previewUrl);
-    }
     blobRef.current = null;
     setState(initialState);
-  }, [stopPolling, state.previewUrl]);
+  }, [stopPolling]);
 
   const fetchResult = useCallback(async (url: string, runId: number) => {
     try {
-      const resp = await fetch(url);
+      const resp = await fetch(url, { signal: requestRef.current?.signal });
       if (!resp.ok) return false;
 
       const contentDisposition = resp.headers.get('Content-Disposition');
@@ -92,7 +94,7 @@ export function useTextConversion(endpoint: string) {
   const pollStatus = useCallback(async (jobId: string, runId: number) => {
     if (runIdRef.current !== runId) return;
 
-    if (Date.now() - pollStartRef.current > POLL_TIMEOUT) {
+    if (Date.now() - pollStartRef.current > pollTimeoutRef.current) {
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -103,7 +105,7 @@ export function useTextConversion(endpoint: string) {
     }
 
     try {
-      const response: JobStatusResponse = await apiClient.pollJobStatus(jobId);
+      const response: JobStatusResponse = await apiClient.pollJobStatus(jobId, requestRef.current?.signal);
       if (runIdRef.current !== runId) return;
 
       if (response.status === 'done') {
@@ -159,7 +161,7 @@ export function useTextConversion(endpoint: string) {
     setState(prev => ({ ...prev, status: 'processing' }));
 
     try {
-      const response = await apiClient.submitText(endpoint, text, options);
+      const response = await apiClient.submitText(endpoint, text, options, requestRef.current?.signal);
       if (runIdRef.current !== runId) return;
 
       setState(prev => ({
@@ -170,6 +172,7 @@ export function useTextConversion(endpoint: string) {
       }));
 
       pollStartRef.current = Date.now();
+      pollTimeoutRef.current = jobPollingTimeout(response.timeoutSeconds, POLL_TIMEOUT);
       pollDelayRef.current = POLL_INTERVAL;
       pollStatus(response.jobId, runId);
     } catch (err) {
@@ -196,8 +199,16 @@ export function useTextConversion(endpoint: string) {
   }, []);
 
   useEffect(() => {
+    const previewUrl = state.previewUrl;
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [state.previewUrl]);
+
+  useEffect(() => {
     return () => {
       runIdRef.current += 1;
+      requestRef.current?.abort();
       stopPolling();
     };
   }, [stopPolling]);

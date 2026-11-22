@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CloudOffOutlinedIcon from '@mui/icons-material/CloudOffOutlined';
 import { actionBtnBase } from '../styles/buttons';
 import { Trans, useLingui } from '@lingui/react/macro';
+import type { Row } from 'write-excel-file/universal';
 
 type ConvertMode = 'csv-to-excel' | 'excel-to-csv';
 type PageStatus = 'idle' | 'processing' | 'done' | 'error';
@@ -51,7 +52,7 @@ export default function CsvExcelPage() {
       if (mode === 'csv-to-excel') {
         const [Papa, { default: writeXlsxFile }] = await Promise.all([
           import('papaparse').catch(() => reloadOnStaleChunk()),
-          import('write-excel-file').catch(() => reloadOnStaleChunk()),
+          import('write-excel-file/universal').catch(() => reloadOnStaleChunk()),
         ]);
 
         const text = await file.text();
@@ -59,19 +60,18 @@ export default function CsvExcelPage() {
         const rows = parsed.data as Record<string, unknown>[];
         const headers = parsed.meta.fields || Object.keys(rows[0] || {});
 
-        type XlsxCell = { value: string | number | null; fontWeight?: 'bold' };
-        const headerRow: XlsxCell[] = headers.map(h => ({ value: h, fontWeight: 'bold' as const }));
-        const dataRows: XlsxCell[][] = rows.map(row =>
+        const headerRow: Row = headers.map(h => ({ value: h, fontWeight: 'bold' as const }));
+        const dataRows: Row[] = rows.map(row =>
           headers.map(h => {
             const v = row[h];
-            if (v == null || v === '') return { value: null };
+            if (v == null || v === '') return null;
             return { value: String(v) };
           })
         );
 
-        const blob: Blob = await writeXlsxFile([headerRow, ...dataRows] as any, {
+        const blob = await writeXlsxFile([headerRow, ...dataRows], {
           sheet: 'Sheet1',
-        });
+        }).toBlob();
 
         const baseName = file.name.replace(/\.[^.]+$/, '');
         blobRef.current = blob;

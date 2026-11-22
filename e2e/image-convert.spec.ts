@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const fixtures = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
 
-test.describe('Image Conversion', () => {
+test.describe('Image Conversion', { tag: '@backend' }, () => {
   test('convert JPG to PNG', async ({ page }) => {
     await page.goto('/convert/image');
 

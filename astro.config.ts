@@ -1,3 +1,4 @@
+import babel from '@rolldown/plugin-babel';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -24,11 +25,7 @@ export default defineConfig({
     '/fr/tools/hash-generator': '/fr/tools/hash/',
   },
   integrations: [
-    react({
-      babel: {
-        plugins: ['@lingui/babel-plugin-lingui-macro'],
-      },
-    }),
+    react(),
     sitemap({
       i18n: {
         defaultLocale: 'en',
@@ -40,7 +37,10 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [lingui()],
+    plugins: [
+      babel({ plugins: ['@lingui/babel-plugin-lingui-macro'] }),
+      lingui(),
+    ],
     envPrefix: ['PUBLIC_', 'VITE_'],
     optimizeDeps: {
       entries: ['src/**/*.{astro,ts,tsx}'],

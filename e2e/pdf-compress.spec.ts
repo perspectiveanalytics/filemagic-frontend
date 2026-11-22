@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const fixtures = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
 
-test.describe('PDF Compression', () => {
+test.describe('PDF Compression', { tag: '@backend' }, () => {
   test('compress PDF file', async ({ page }) => {
     await page.goto('/compress/pdf');
 

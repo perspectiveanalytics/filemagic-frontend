@@ -8,6 +8,7 @@ import { test as base } from '@playwright/test';
  * 1. Monkey-patch fetch() to rewrite API URLs to relative /api paths
  *    (handled by Nginx proxy in the frontend Docker container)
  * 2. Block the Turnstile script to avoid widget timeouts
+ * 3. Supply stable public counters without depending on the stats store
  */
 export const test = base.extend({
   page: async ({ page }, use) => {
@@ -19,7 +20,6 @@ export const test = base.extend({
       window.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
         if (typeof input === 'string' && input.startsWith('https://api.filemagic.app')) {
           const newUrl = input.replace('https://api.filemagic.app', '');
-          console.log(`[API REWRITE] ${input} -> ${newUrl}`);
           input = newUrl;
         }
         return originalFetch.call(this, input, init);
@@ -28,6 +28,11 @@ export const test = base.extend({
 
     // Block Turnstile script to prevent widget timeouts
     await page.route('**/challenges.cloudflare.com/**', (route) => route.abort());
+
+    // Counters are unrelated to conversion scenarios and need no live backend.
+    await page.route('**/api/stats', (route) => route.fulfill({
+      json: { filesProcessed: 0, thanks: 0 },
+    }));
 
     await use(page);
   },

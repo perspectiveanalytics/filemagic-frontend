@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { apiClient } from '../api/client';
+import { jobPollingTimeout } from '../lib/polling';
 import type { ConversionStatus, JobStatusResponse, FileManifestEntry } from '../types/api';
 
 interface MultiFileState {
@@ -30,7 +31,10 @@ export function useMultiFileConversion(endpoint: string) {
 
   const pollIntervalRef = useRef<number | null>(null);
   const pollStartRef = useRef<number>(0);
+  const pollTimeoutRef = useRef(POLL_TIMEOUT);
   const pollDelayRef = useRef<number>(POLL_INTERVAL);
+  const runIdRef = useRef(0);
+  const requestRef = useRef<AbortController | null>(null);
 
   const stopPolling = useCallback(() => {
     if (pollIntervalRef.current !== null) {
@@ -40,12 +44,17 @@ export function useMultiFileConversion(endpoint: string) {
   }, []);
 
   const reset = useCallback(() => {
+    runIdRef.current += 1;
+    requestRef.current?.abort();
+    requestRef.current = new AbortController();
     stopPolling();
     setState(initialState);
   }, [stopPolling]);
 
-  const pollStatus = useCallback(async (jobId: string) => {
-    if (Date.now() - pollStartRef.current > POLL_TIMEOUT) {
+  const pollStatus = useCallback(async (jobId: string, runId: number) => {
+    if (runIdRef.current !== runId) return;
+
+    if (Date.now() - pollStartRef.current > pollTimeoutRef.current) {
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -56,7 +65,8 @@ export function useMultiFileConversion(endpoint: string) {
     }
 
     try {
-      const response: JobStatusResponse = await apiClient.pollJobStatus(jobId);
+      const response: JobStatusResponse = await apiClient.pollJobStatus(jobId, requestRef.current?.signal);
+      if (runIdRef.current !== runId) return;
 
       if (response.status === 'done') {
         stopPolling();
@@ -80,10 +90,11 @@ export function useMultiFileConversion(endpoint: string) {
           status: response.status === 'processing' ? 'processing' : 'queued',
           position: response.position,
         }));
-        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId), pollDelayRef.current);
+        pollIntervalRef.current = window.setTimeout(() => pollStatus(jobId, runId), pollDelayRef.current);
         pollDelayRef.current = Math.min(pollDelayRef.current * POLL_BACKOFF, POLL_INTERVAL_MAX);
       }
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       stopPolling();
       setState(prev => ({
         ...prev,
@@ -95,10 +106,12 @@ export function useMultiFileConversion(endpoint: string) {
 
   const startConversion = useCallback(async (file: File, password?: string) => {
     reset();
+    const runId = runIdRef.current;
     setState(prev => ({ ...prev, status: 'uploading' }));
 
     try {
-      const response = await apiClient.submitDecompress(endpoint, file, password);
+      const response = await apiClient.submitDecompress(endpoint, file, password, requestRef.current?.signal);
+      if (runIdRef.current !== runId) return;
 
       setState(prev => ({
         ...prev,
@@ -108,9 +121,11 @@ export function useMultiFileConversion(endpoint: string) {
       }));
 
       pollStartRef.current = Date.now();
+      pollTimeoutRef.current = jobPollingTimeout(response.timeoutSeconds, POLL_TIMEOUT);
       pollDelayRef.current = POLL_INTERVAL;
-      pollStatus(response.jobId);
+      pollStatus(response.jobId, runId);
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -121,10 +136,12 @@ export function useMultiFileConversion(endpoint: string) {
 
   const startConversionWithOptions = useCallback(async (file: File, options: Record<string, unknown>) => {
     reset();
+    const runId = runIdRef.current;
     setState(prev => ({ ...prev, status: 'uploading' }));
 
     try {
-      const response = await apiClient.submitConversion(endpoint, file, options as never);
+      const response = await apiClient.submitConversion(endpoint, file, options as never, requestRef.current?.signal);
+      if (runIdRef.current !== runId) return;
 
       setState(prev => ({
         ...prev,
@@ -134,9 +151,11 @@ export function useMultiFileConversion(endpoint: string) {
       }));
 
       pollStartRef.current = Date.now();
+      pollTimeoutRef.current = jobPollingTimeout(response.timeoutSeconds, POLL_TIMEOUT);
       pollDelayRef.current = POLL_INTERVAL;
-      pollStatus(response.jobId);
+      pollStatus(response.jobId, runId);
     } catch (err) {
+      if (runIdRef.current !== runId) return;
       setState(prev => ({
         ...prev,
         status: 'error',
@@ -152,6 +171,8 @@ export function useMultiFileConversion(endpoint: string) {
 
   useEffect(() => {
     return () => {
+      runIdRef.current += 1;
+      requestRef.current?.abort();
       stopPolling();
     };
   }, [stopPolling]);

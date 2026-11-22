@@ -10,15 +10,18 @@ class ApiClient {
   async submitConversion(
     endpoint: string,
     file: File,
-    options: ConversionOptions
+    options: ConversionOptions,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('options', JSON.stringify(options));
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -28,6 +31,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -40,7 +44,8 @@ class ApiClient {
   async submitMerge(
     endpoint: string,
     files: File[],
-    options: ConversionOptions
+    options: ConversionOptions,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
     const formData = new FormData();
     for (const file of files) {
@@ -48,9 +53,11 @@ class ApiClient {
     }
     formData.append('options', JSON.stringify(options));
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -60,6 +67,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -72,13 +80,16 @@ class ApiClient {
   async submitText(
     endpoint: string,
     text: string,
-    options?: Record<string, unknown>
+    options?: Record<string, unknown>,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -88,6 +99,7 @@ class ApiClient {
       body: JSON.stringify({ text, options: options || {} }),
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -100,7 +112,8 @@ class ApiClient {
   async submitInspection(
     endpoint: string,
     file: File,
-    password?: string
+    password?: string,
+    signal?: AbortSignal
   ): Promise<CertificateInfo> {
     const formData = new FormData();
     formData.append('file', file);
@@ -108,9 +121,11 @@ class ApiClient {
       formData.append('password', password);
     }
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -120,6 +135,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -131,13 +147,16 @@ class ApiClient {
 
   async submitInspectionText(
     endpoint: string,
-    pem: string
+    pem: string,
+    signal?: AbortSignal
   ): Promise<CertificateInfo> {
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -147,6 +166,7 @@ class ApiClient {
       body: JSON.stringify({ pem }),
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -161,7 +181,8 @@ class ApiClient {
     file: File,
     targetFormat: string,
     password?: string,
-    outputPassword?: string
+    outputPassword?: string,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
     const formData = new FormData();
     formData.append('file', file);
@@ -173,9 +194,11 @@ class ApiClient {
       formData.append('outputPassword', outputPassword);
     }
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -185,6 +208,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -198,7 +222,8 @@ class ApiClient {
     endpoint: string,
     files: File[],
     format: string,
-    password?: string
+    password?: string,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
     const formData = new FormData();
     for (const file of files) {
@@ -209,9 +234,11 @@ class ApiClient {
       formData.append('password', password);
     }
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -221,6 +248,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -252,9 +280,10 @@ class ApiClient {
     return data.email;
   }
 
-  async pollJobStatus(jobId: string): Promise<JobStatusResponse> {
+  async pollJobStatus(jobId: string, signal?: AbortSignal): Promise<JobStatusResponse> {
     const response = await this.fetchWithChallenge(`${this.baseUrl}/queue/position/${jobId}`, {
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -302,7 +331,8 @@ class ApiClient {
   async submitDecompress(
     endpoint: string,
     file: File,
-    password?: string
+    password?: string,
+    signal?: AbortSignal
   ): Promise<SubmitResponse> {
     const formData = new FormData();
     formData.append('file', file);
@@ -310,9 +340,11 @@ class ApiClient {
       formData.append('password', password);
     }
 
+    signal?.throwIfAborted();
     const headers: Record<string, string> = {};
 
     const token = await getTurnstileToken();
+    signal?.throwIfAborted();
     if (token) {
       headers['X-Turnstile-Token'] = token;
     }
@@ -322,6 +354,7 @@ class ApiClient {
       body: formData,
       headers,
       credentials: 'include',
+      signal,
     });
 
     if (!response.ok) {
@@ -337,6 +370,7 @@ class ApiClient {
     if (response.headers.get('Cf-Mitigated') === 'challenge') {
       const token = await getTurnstileToken();
       if (token && init) {
+        init.signal?.throwIfAborted();
         const retryHeaders = new Headers(init.headers);
         retryHeaders.set('X-Turnstile-Token', token);
         return fetch(url, { ...init, headers: retryHeaders });
